@@ -1,0 +1,47 @@
+{
+  "name": "Sample Coding Dataset",
+  "description": "10 high-quality coding examples demonstrating various programming concepts",
+  "format": "alpaca",
+  "examples": [
+    {
+      "instruction": "How do I reverse a string in Python?",
+      "input": "",
+      "output": "You can reverse a string in Python using slicing:\n\n```python\noriginal = 'Hello World'\nreversed_str = original[::-1]\nprint(reversed_str)  # Output: dlroW olleH\n```\n\nAlternatively, you can use the `reversed()` function:\n\n```python\noriginal = 'Hello World'\nreversed_str = ''.join(reversed(original))\nprint(reversed_str)  # Output: dlroW olleH\n```\n\nThe slicing method `[::-1]` is more Pythonic and efficient.",
+      "category": "coding",
+      "difficulty": "beginner",
+      "source": "sample"
+    },
+    {
+      "instruction": "Explain the difference between 'let', 'const', and 'var' in JavaScript with examples.",
+      "input": "",
+      "output": "In JavaScript, there are three ways to declare variables: var, let, and const. Here's the breakdown:\n\n**1. var (Old way - avoid using)**\n- Function-scoped\n- Can be redeclared\n- Hoisted to the top of its scope\n\n```javascript\nfunction example() {\n  console.log(x);  // undefined (hoisted)\n  var x = 5;\n  var x = 10;    // No error, redeclared\n}\n```\n\n**2. let (Block-scoped, reassignable)**\n- Block-scoped (only exists within {})\n- Cannot be redeclared in same scope\n- Can be reassigned\n\n```javascript\nlet count = 0;\ncount = 1;      // ✓ OK\nlet count = 2;  // ✗ Error: already declared\n\nif (true) {\n  let count = 100;  // ✓ Different scope\n}\n```\n\n**3. const (Block-scoped, constant)**\n- Block-scoped\n- Cannot be reassigned\n- Must be initialized when declared\n\n```javascript\nconst PI = 3.14159;\nPI = 3.14;  // ✗ Error: assignment to constant\n\n// But objects/arrays can be modified:\nconst user = { name: 'Alice' };\nuser.name = 'Bob';  // ✓ OK\n```\n\n**Best Practice:** Use `const` by default, `let` when you need to reassign, and avoid `var`.",
+      "category": "coding",
+      "difficulty": "intermediate",
+      "source": "sample"
+    },
+    {
+      "instruction": "What's wrong with this code and how do I fix it?",
+      "input": "```javascript\nfunction fetchUserData() {\n  fetch('/api/user')\n    .then(response => response.json())\n    .then(data => {\n      return data;\n    });\n}\n\nconst user = fetchUserData();\nconsole.log(user.name);\n```",
+      "output": "The issue is that `fetch` is asynchronous, but you're treating it synchronously. The `fetchUserData()` function returns a Promise, not the actual data. By the time you try to access `user.name`, the fetch hasn't completed yet.\n\n**Problems:**\n1. `fetchUserData()` returns undefined (not the data)\n2. `user` is a Promise, not the user object\n3. You're trying to access `.name` before the data arrives\n\n**Solution 1: Using async/await (Recommended)**\n```javascript\nasync function fetchUserData() {\n  const response = await fetch('/api/user');\n  const data = await response.json();\n  return data;\n}\n\n// Usage\nasync function main() {\n  const user = await fetchUserData();\n  console.log(user.name);\n}\n\nmain();\n```\n\n**Solution 2: Using Promise chaining**\n```javascript\nfunction fetchUserData() {\n  return fetch('/api/user')\n    .then(response => response.json())\n    .then(data => {\n      return data;\n    });\n}\n\n// Usage\nfetchUserData().then(user => {\n  console.log(user.name);\n});\n```\n\n**Key Takeaway:** Always handle asynchronous operations properly with either async/await or Promise .then() chains.",
+      "category": "coding",
+      "difficulty": "intermediate",
+      "source": "sample"
+    },
+    {
+      "instruction": "How do I create a React component that fetches data from an API and displays it?",
+      "input": "",
+      "output": "Here's a complete example of a React component that fetches data from an API:\n\n```jsx\nimport React, { useState, useEffect } from 'react';\n\nfunction UserList() {\n  const [users, setUsers] = useState([]);\n  const [loading, setLoading] = useState(true);\n  const [error, setError] = useState(null);\n\n  useEffect(() => {\n    async function fetchUsers() {\n      try {\n        setLoading(true);\n        const response = await fetch('https://api.example.com/users');\n        \n        if (!response.ok) {\n          throw new Error('Failed to fetch users');\n        }\n        \n        const data = await response.json();\n        setUsers(data);\n      } catch (err) {\n        setError(err.message);\n      } finally {\n        setLoading(false);\n      }\n    }\n\n    fetchUsers();\n  }, []);  // Empty dependency array = run once on mount\n\n  if (loading) {\n    return <div>Loading users...</div>;\n  }\n\n  if (error) {\n    return <div>Error: {error}</div>;\n  }\n\n  return (\n    <div>\n      <h2>User List</h2>\n      <ul>\n        {users.map(user => (\n          <li key={user.id}>\n            {user.name} - {user.email}\n          </li>\n        ))}\n      </ul>\n    </div>\n  );\n}\n\nexport default UserList;\n```\n\n**Key Concepts:**\n1. **useState**: Manages component state (users, loading, error)\n2. **useEffect**: Handles side effects (API calls) when component mounts\n3. **Loading state**: Shows feedback while fetching\n4. **Error handling**: Catches and displays errors gracefully\n5. **Cleanup**: The empty dependency array `[]` means this runs once when component mounts\n\n**Best Practice:** Always handle all three states: loading, error, and success.",
+      "category": "coding",
+      "difficulty": "intermediate",
+      "source": "sample"
+    },
+    {
+      "instruction": "Explain SQL injection and how to prevent it with parameterized queries.",
+      "input": "",
+      "output": "SQL injection is one of the most common and dangerous web security vulnerabilities. It occurs when attackers can insert malicious SQL code through user input fields.\n\n**Example of Vulnerable Code (DON'T DO THIS):**\n```javascript\n// DANGEROUS - Never concatenate user input directly into SQL!\nconst query = `SELECT * FROM users WHERE username = '${username}'`;\n// If username = \"' OR '1'='1\", this becomes:\n// SELECT * FROM users WHERE username = '' OR '1'='1'\n// Which returns ALL users!\n```\n\n**Solution: Parameterized Queries**\n\nUsing Node.js with mysql2:\n```javascript\nconst mysql = require('mysql2/promise');\n\nasync function getUser(username) {\n  const connection = await mysql.createConnection({\n    host: 'localhost',\n    user: 'root',\n    database: 'test'\n  });\n  \n  // SAFE: Parameters are separated from the query\n  const [rows] = await connection.execute(\n    'SELECT * FROM users WHERE username = ? AND active = ?',\n    [username, true]  // Values are automatically sanitized\n  );\n  \n  return rows[0];\n}\n```\n\nUsing Python with psycopg2:\n```python\nimport psycopg2\n\ndef get_user(username):\n    conn = psycopg2.connect(\"dbname=test user=postgres\")\n    cur = conn.cursor()\n    \n    # SAFE: Using %s placeholders\n    cur.execute(\n        \"SELECT * FROM users WHERE username = %s AND active = %s\",\n        (username, True)  # Tuple of parameters\n    )\n    \n    return cur.fetchone()\n```\n\n**How It Works:**\n1. The SQL query structure is defined separately from the data\n2. Database driver sanitizes and escapes special characters\n3. Even if user inputs `' OR '1'='1`, it's treated as a literal string value, not SQL code\n\n**Key Benefits:**\n- Prevents SQL injection attacks\n- Often improves performance (query can be cached)\n- Makes code cleaner and more maintainable\n\n**Rule of Thumb:** Never concatenate user input into SQL strings. Always use parameterized queries or an ORM.",
+      "category": "coding",
+      "difficulty": "advanced",
+      "source": "sample"
+    }
+  ]
+}

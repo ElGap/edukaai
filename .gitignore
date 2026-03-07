@@ -1,0 +1,90 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Build outputs
+.output/
+.nuxt/
+dist/
+build/
+*.tsbuildinfo
+
+# Local environment files
+.env
+.env.local
+.env.*.local
+.env.production
+.env.development
+
+# Database files (local SQLite)
+*.db
+*.db-journal
+*.sqlite
+*.sqlite3
+data/
+.edukaai/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# OS files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Desktop.ini
+Thumbs.db
+
+# IDE files
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.vs/
+*.sublime-project
+*.sublime-workspace
+.project
+.classpath
+.settings/
+
+# Testing
+coverage/
+.nyc_output/
+*.lcov
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+*.temp
+cache/
+.cached/
+
+# Package files
+*.tgz
+*.tar.gz
+
+# Misc
+*.pem
+*.cert
+*.key
+.history/
+.vercel
+.netlify
+
+# Drizzle
+server/db/migrations/
+drizzle/
