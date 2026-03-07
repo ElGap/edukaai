@@ -9,6 +9,8 @@
 
 **edukaAI** is the simplest way to create your first AI training dataset. No cloud services, no complex configuration—just run one command and start building.
 
+![Dashboard](dashboard.png)
+
 ## ✨ Features
 
 - **🎯 Zero Setup** - One command, start immediately
