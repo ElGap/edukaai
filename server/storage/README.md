@@ -123,9 +123,7 @@ interface StorageBackend {
   // Examples
   createExample(example: Omit<Example, "id">): Promise<Example>;
   getExample(id: number): Promise<Example | null>;
-  getExamples(
-    filters?: ExampleFilters,
-  ): Promise<{ examples: Example[]; total: number }>;
+  getExamples(filters?: ExampleFilters): Promise<{ examples: Example[]; total: number }>;
   updateExample(id: number, updates: Partial<Example>): Promise<Example | null>;
   deleteExample(id: number): Promise<boolean>;
 
@@ -276,11 +274,7 @@ To migrate data from one backend to another:
 
 ```typescript
 // migration.ts
-import {
-  createStorage,
-  getActiveStorage,
-  setActiveStorage,
-} from "@elgap/edukaai/storage";
+import { createStorage, getActiveStorage, setActiveStorage } from "@elgap/edukaai/storage";
 
 // Connect to source (SQLite)
 const sqlite = createStorage("sqlite", {
@@ -311,9 +305,7 @@ for (const example of examples) {
   await postgres.createExample(example);
 }
 
-console.log(
-  `Migrated ${examples.length} examples and ${datasets.length} datasets`,
-);
+console.log(`Migrated ${examples.length} examples and ${datasets.length} datasets`);
 ```
 
 ## For Developers

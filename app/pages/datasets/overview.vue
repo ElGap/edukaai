@@ -3,9 +3,7 @@
     <!-- Header -->
     <div class="mb-8">
       <h1 class="text-3xl font-bold mb-2">Dataset Dashboard</h1>
-      <p class="text-secondary">
-        Manage your training data collections and track progress
-      </p>
+      <p class="text-secondary">Manage your training data collections and track progress</p>
     </div>
 
     <!-- Stats Overview -->
@@ -33,9 +31,7 @@
               stroke-width="2"
               class="text-blue-700 dark:text-blue-300"
             >
-              <path
-                d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"
-              />
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
               <polyline points="14 2 14 8 20 8" />
             </svg>
           </div>
@@ -183,45 +179,35 @@
               <p class="text-secondary">
                 {{ activeDataset.description || "No description" }}
               </p>
-          <div class="flex items-center gap-4 mt-2 text-sm">
-             <span class="text-secondary">
-              <strong>{{ activeDataset.sampleCount }}</strong> samples
-            </span>
-            <span class="text-green-600 dark:text-green-400">
-              <strong>{{ activeDataset.approvedCount }}</strong> approved
-            </span>
+              <div class="flex items-center gap-4 mt-2 text-sm">
+                <span class="text-secondary">
+                  <strong>{{ activeDataset.sampleCount }}</strong> samples
+                </span>
+                <span class="text-green-600 dark:text-green-400">
+                  <strong>{{ activeDataset.approvedCount }}</strong> approved
+                </span>
                 <span v-if="activeDataset.updatedAt" class="text-tertiary">
                   Last updated: {{ formatDate(activeDataset.updatedAt) }}
                 </span>
-                <span v-else class="text-tertiary">
-                  Never updated
-                </span>
+                <span v-else class="text-tertiary"> Never updated </span>
               </div>
             </div>
           </div>
           <div class="flex gap-2">
-            <NuxtLink
-              :to="`/samples?datasetId=${activeDataset.id}`"
-              class="btn-primary"
-            >
+            <NuxtLink :to="`/samples?datasetId=${activeDataset.id}`" class="btn-primary">
               View Samples
             </NuxtLink>
           </div>
         </div>
       </div>
-      <div v-else class="card text-center py-8 text-tertiary">
-        No active dataset selected
-      </div>
+      <div v-else class="card text-center py-8 text-tertiary">No active dataset selected</div>
     </div>
 
     <!-- All Datasets Grid -->
     <div class="mb-8">
       <div class="flex items-center justify-between mb-4">
         <h2 class="text-xl font-semibold">All Datasets</h2>
-        <button
-          class="btn-primary flex items-center gap-2"
-          @click="showCreateModal = true"
-        >
+        <button class="btn-primary flex items-center gap-2" @click="showCreateModal = true">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="20"
@@ -239,7 +225,7 @@
       </div>
 
       <div v-if="datasets.length === 0" class="card text-center py-12">
-         <div class="text-tertiary mb-4">
+        <div class="text-tertiary mb-4">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="48"
@@ -266,7 +252,9 @@
           :key="dataset.id"
           :class="[
             'card cursor-pointer transition-all hover:shadow-lg',
-            dataset.isActive ? 'border-2 border-blue-500 dark:border-blue-700 bg-blue-50/30 dark:bg-blue-900/20' : '',
+            dataset.isActive
+              ? 'border-2 border-blue-500 dark:border-blue-700 bg-blue-50/30 dark:bg-blue-900/20'
+              : '',
           ]"
           @click="activateDataset(dataset.id)"
         >
@@ -305,16 +293,14 @@
             <span v-if="dataset.updatedAt" class="text-xs text-tertiary"
               >Updated {{ timeAgo(dataset.updatedAt) }}</span
             >
-            <span v-else class="text-xs text-tertiary"
-              >Never updated</span
+            <span v-else class="text-xs text-tertiary">Never updated</span>
+            <NuxtLink
+              :to="`/samples?datasetId=${dataset.id}`"
+              class="text-sm text-blue-600 hover:underline"
+              @click.stop
             >
-          <NuxtLink
-            :to="`/samples?datasetId=${dataset.id}`"
-            class="text-sm text-blue-600 hover:underline"
-            @click.stop
-          >
-            View →
-          </NuxtLink>
+              View →
+            </NuxtLink>
           </div>
         </div>
       </div>
@@ -324,15 +310,13 @@
     <div v-if="recentSamples.length > 0" class="card">
       <div class="flex items-center justify-between mb-4">
         <h2 class="text-xl font-semibold">Recent Samples</h2>
-        <NuxtLink to="/samples" class="text-sm text-blue-600 hover:underline"
-          >View All →</NuxtLink
-        >
+        <NuxtLink to="/samples" class="text-sm text-blue-600 hover:underline">View All →</NuxtLink>
       </div>
       <div class="space-y-3">
         <div
           v-for="sample in recentSamples"
           :key="sample.id"
-           class="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-800 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+          class="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-800 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
         >
           <div class="flex-1 min-w-0">
             <p class="font-medium truncate">{{ sample.instruction }}</p>
@@ -387,18 +371,10 @@
             </div>
           </div>
           <div class="flex gap-3 mt-6">
-            <button
-              type="button"
-              class="flex-1 btn-secondary"
-              @click="showCreateModal = false"
-            >
+            <button type="button" class="flex-1 btn-secondary" @click="showCreateModal = false">
               Cancel
             </button>
-            <button
-              type="submit"
-              :disabled="creating"
-              class="flex-1 btn-primary"
-            >
+            <button type="submit" :disabled="creating" class="flex-1 btn-primary">
               {{ creating ? "Creating..." : "Create" }}
             </button>
           </div>
@@ -409,118 +385,114 @@
 </template>
 
 <script setup>
-const router = useRouter();
+  const datasets = ref([]);
+  const activeDataset = ref(null);
+  const recentSamples = ref([]);
+  const stats = ref({
+    totalSamples: 0,
+    approvedSamples: 0,
+    pendingSamples: 0,
+  });
+  const showCreateModal = ref(false);
+  const creating = ref(false);
+  const createForm = reactive({
+    name: "",
+    description: "",
+  });
 
-const datasets = ref([]);
-const activeDataset = ref(null);
-const recentSamples = ref([]);
-const stats = ref({
-  totalSamples: 0,
-  approvedSamples: 0,
-  pendingSamples: 0,
-});
-const showCreateModal = ref(false);
-const creating = ref(false);
-const createForm = reactive({
-  name: "",
-  description: "",
-});
-
-function statusClass(status) {
-  const classes = {
-    approved: "bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300",
-    draft: "bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-300",
-    review: "bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300",
-    rejected: "bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300",
-  };
-  return classes[status] || "bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-200";
-}
-
-function formatDate(timestamp) {
-  return new Date(timestamp).toLocaleDateString();
-}
-
-function timeAgo(timestamp) {
-  const seconds = Math.floor(
-    (Date.now() - new Date(timestamp).getTime()) / 1000,
-  );
-
-  if (seconds < 60) return "just now";
-  if (seconds < 3600) return `${Math.floor(seconds / 60)}m ago`;
-  if (seconds < 86400) return `${Math.floor(seconds / 3600)}h ago`;
-  return `${Math.floor(seconds / 86400)}d ago`;
-}
-
-async function loadData() {
-  try {
-    // Load datasets
-    const datasetsResponse = await $fetch("/api/datasets");
-    datasets.value = datasetsResponse.datasets || [];
-    activeDataset.value = datasets.value.find((d) => d.isActive === 1) || null;
-
-    // Load stats
-    const statsResponse = await $fetch("/api/stats/overview");
-    stats.value = {
-      totalSamples: statsResponse.total || 0,
-      approvedSamples: statsResponse.approved || 0,
-      pendingSamples: statsResponse.draft || 0,
+  function statusClass(status) {
+    const classes = {
+      approved: "bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300",
+      draft: "bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-300",
+      review: "bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300",
+      rejected: "bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300",
     };
-
-    // Load recent samples
-    const samplesResponse = await $fetch("/api/samples?limit=5&sort=newest");
-    recentSamples.value = samplesResponse.samples || [];
-  } catch (error) {
-    console.error("Failed to load dashboard data:", error);
+    return classes[status] || "bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-200";
   }
-}
 
-async function activateDataset(id) {
-  try {
-    const response = await $fetch(`/api/datasets/${id}/activate`, {
-      method: "POST",
-    });
+  function formatDate(timestamp) {
+    return new Date(timestamp).toLocaleDateString();
+  }
 
-    if (response.success) {
-      await loadData();
+  function timeAgo(timestamp) {
+    const seconds = Math.floor((Date.now() - new Date(timestamp).getTime()) / 1000);
+
+    if (seconds < 60) return "just now";
+    if (seconds < 3600) return `${Math.floor(seconds / 60)}m ago`;
+    if (seconds < 86400) return `${Math.floor(seconds / 3600)}h ago`;
+    return `${Math.floor(seconds / 86400)}d ago`;
+  }
+
+  async function loadData() {
+    try {
+      // Load datasets
+      const datasetsResponse = await $fetch("/api/datasets");
+      datasets.value = datasetsResponse.datasets || [];
+      activeDataset.value = datasets.value.find((d) => d.isActive === 1) || null;
+
+      // Load stats
+      const statsResponse = await $fetch("/api/stats/overview");
+      stats.value = {
+        totalSamples: statsResponse.total || 0,
+        approvedSamples: statsResponse.approved || 0,
+        pendingSamples: statsResponse.draft || 0,
+      };
+
+      // Load recent samples
+      const samplesResponse = await $fetch("/api/samples?limit=5&sort=newest");
+      recentSamples.value = samplesResponse.samples || [];
+    } catch (error) {
+      console.error("Failed to load dashboard data:", error);
     }
-  } catch (error) {
-    console.error("Failed to activate dataset:", error);
   }
-}
 
-async function createDataset() {
-  try {
-    creating.value = true;
-    const response = await $fetch("/api/datasets", {
-      method: "POST",
-      body: {
-        name: createForm.name,
-        description: createForm.description,
-      },
-    });
+  async function activateDataset(id) {
+    try {
+      const response = await $fetch(`/api/datasets/${id}/activate`, {
+        method: "POST",
+      });
 
-    if (response.success) {
-      showCreateModal.value = false;
-      createForm.name = "";
-      createForm.description = "";
-      await loadData();
-
-      // Activate the new dataset
-      await activateDataset(response.dataset.id);
+      if (response.success) {
+        await loadData();
+      }
+    } catch (error) {
+      console.error("Failed to activate dataset:", error);
     }
-  } catch (error) {
-    console.error("Failed to create dataset:", error);
-    alert("Failed to create dataset: " + error.message);
-  } finally {
-    creating.value = false;
   }
-}
 
-onMounted(() => {
-  loadData();
-});
+  async function createDataset() {
+    try {
+      creating.value = true;
+      const response = await $fetch("/api/datasets", {
+        method: "POST",
+        body: {
+          name: createForm.name,
+          description: createForm.description,
+        },
+      });
 
-useHead({
-  title: "Dataset Dashboard - EdukaAI",
-});
+      if (response.success) {
+        showCreateModal.value = false;
+        createForm.name = "";
+        createForm.description = "";
+        await loadData();
+
+        // Activate the new dataset
+        await activateDataset(response.dataset.id);
+      }
+    } catch (error) {
+      console.error("Failed to create dataset:", error);
+      alert("Failed to create dataset: " + error.message);
+    } finally {
+      creating.value = false;
+    }
+  }
+
+  onMounted(() => {
+    loadData();
+  });
+
+  useHead({
+    title: "Dataset Dashboard - EdukaAI",
+  });
 </script>

@@ -295,7 +295,6 @@
 
 <script setup lang="ts">
   import { ref, reactive, onMounted, onUnmounted } from "vue";
-  import { useRouter } from "vue-router";
 
   interface FormData {
     instruction: string;
@@ -316,8 +315,6 @@
     nextId?: number | null;
     loading?: boolean;
   }>();
-
-  const router = useRouter();
 
   const emit = defineEmits<{
     submit: [data: FormData];

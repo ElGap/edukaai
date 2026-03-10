@@ -12,7 +12,7 @@ export const datasets = sqliteTable("datasets", {
   defaultQuality: text("default_quality").default("medium"),
   defaultCategory: text("default_category").default("general"),
   defaultAutoApprove: integer("default_auto_approve").default(0),
-  
+
   // Goal settings
   goalSamples: integer("goal_samples").default(100), // Target sample count for this dataset
 
@@ -22,9 +22,7 @@ export const datasets = sqliteTable("datasets", {
   lastImportAt: integer("last_import_at", { mode: "timestamp" }),
 
   // Timestamps
-  createdAt: integer("created_at", { mode: "timestamp" }).$defaultFn(
-    () => new Date(),
-  ),
+  createdAt: integer("created_at", { mode: "timestamp" }).$defaultFn(() => new Date()),
   updatedAt: integer("updated_at", { mode: "timestamp" }),
 });
 
@@ -81,12 +79,8 @@ export const samples = sqliteTable("samples", {
   status: text("status").default("draft"), // draft, review, approved, rejected
 
   // Timestamps
-  createdAt: integer("created_at", { mode: "timestamp" }).$defaultFn(
-    () => new Date(),
-  ),
-  updatedAt: integer("updated_at", { mode: "timestamp" }).$defaultFn(
-    () => new Date(),
-  ),
+  createdAt: integer("created_at", { mode: "timestamp" }).$defaultFn(() => new Date()),
+  updatedAt: integer("updated_at", { mode: "timestamp" }).$defaultFn(() => new Date()),
 });
 
 // Import Sessions Table
@@ -99,9 +93,7 @@ export const importSessions = sqliteTable("import_sessions", {
   totalEntries: integer("total_entries").default(0),
   importedCount: integer("imported_count").default(0),
   skippedCount: integer("skipped_count").default(0),
-  createdAt: integer("created_at", { mode: "timestamp" }).$defaultFn(
-    () => new Date(),
-  ),
+  createdAt: integer("created_at", { mode: "timestamp" }).$defaultFn(() => new Date()),
 });
 
 // Milestones Table
@@ -111,9 +103,7 @@ export const milestones = sqliteTable("milestones", {
   description: text("description"),
   targetCount: integer("target_count").notNull(),
   achievedAt: integer("achieved_at", { mode: "timestamp" }),
-  createdAt: integer("created_at", { mode: "timestamp" }).$defaultFn(
-    () => new Date(),
-  ),
+  createdAt: integer("created_at", { mode: "timestamp" }).$defaultFn(() => new Date()),
 });
 
 // User Settings Table
@@ -121,18 +111,14 @@ export const settings = sqliteTable("settings", {
   id: integer("id").primaryKey({ autoIncrement: true }),
   key: text("key").unique().notNull(),
   value: text("value"),
-  updatedAt: integer("updated_at", { mode: "timestamp" }).$defaultFn(
-    () => new Date(),
-  ),
+  updatedAt: integer("updated_at", { mode: "timestamp" }).$defaultFn(() => new Date()),
 });
 
 // User Settings Table (for global defaults)
 export const userSettings = sqliteTable("user_settings", {
   id: integer("id").primaryKey({ autoIncrement: true }),
   defaultGoalSamples: integer("default_goal_samples").default(100),
-  updatedAt: integer("updated_at", { mode: "timestamp" }).$defaultFn(
-    () => new Date(),
-  ),
+  updatedAt: integer("updated_at", { mode: "timestamp" }).$defaultFn(() => new Date()),
 });
 
 export type Dataset = typeof datasets.$inferSelect;

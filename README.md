@@ -10,6 +10,7 @@
 ## 🤔 The Problem
 
 You're using ChatGPT, Claude, or other AI assistants every day. You ask them for:
+
 - Help with your specific coding style
 - Writing in your voice
 - Brainstorming ideas in your domain
@@ -17,7 +18,8 @@ You're using ChatGPT, Claude, or other AI assistants every day. You ask them for
 
 **But here's the thing:** Every time you start a new conversation, you have to re-explain who you are, what you know, and how you like things explained.
 
-Even worse? **All those great interactions are just... lost.** You can't save them. You can't teach the AI to remember what works. And if you ever want an AI that *actually* understands you, you'd need to:
+Even worse? **All those great interactions are just... lost.** You can't save them. You can't teach the AI to remember what works. And if you ever want an AI that _actually_ understands you, you'd need to:
+
 - Pay for expensive API fine-tuning
 - Learn complex ML tools
 - Trust cloud companies with your personal data
@@ -32,7 +34,7 @@ Even worse? **All those great interactions are just... lost.** You can't save th
 **EdukaAI** is a local tool that helps you:
 
 1. **Capture** your best AI conversations
-2. **Curate** them into a quality dataset  
+2. **Curate** them into a quality dataset
 3. **Export** for training your own local model
 4. **Keep everything on your machine** — no cloud, no accounts, no tracking
 
@@ -108,6 +110,7 @@ Open http://localhost:3000 and you're ready to go.
 ### Learning By Doing
 
 We include built-in guides:
+
 - How LLMs work (without the PhD)
 - What is fine-tuning? (the practical version)
 - Step-by-step first training walkthrough
@@ -118,12 +121,15 @@ We include built-in guides:
 ## 📸 Screenshots
 
 ### Dashboard
+
 See your dataset grow. Track approved samples, quality metrics, and readiness for training.
 
 ### Sample Management
+
 Card-based interface for reviewing, editing, and approving your training examples. Star ratings, tags, and quick actions.
 
 ### Export Made Simple
+
 Choose your format, set train/validation split, download. No command-line guesswork.
 
 ---
@@ -157,6 +163,7 @@ You chat with AI. Some responses are gold. Most are forgettable.
 ### 2. You Save The Gold
 
 Copy-paste the good stuff into EdukaAI. It automatically structures:
+
 - **Instruction**: What you asked
 - **Input**: Any context you provided
 - **Output**: The great response
@@ -165,6 +172,7 @@ Copy-paste the good stuff into EdukaAI. It automatically structures:
 ### 3. You Curate
 
 Review everything:
+
 - ⭐⭐⭐⭐⭐ (Excellent — teach the model this)
 - ⭐⭐⭐ (Okay — maybe edit first)
 - ❌ (Reject — don't train on this)
@@ -174,6 +182,7 @@ Quality beats quantity. 20 great examples > 200 mediocre ones.
 ### 4. You Export
 
 Download your curated dataset in your preferred format:
+
 - **Alpaca**: Best for instruction tuning
 - **ShareGPT**: Chat-style conversations
 - **JSONL**: Maximum flexibility
@@ -181,6 +190,7 @@ Download your curated dataset in your preferred format:
 ### 5. You Train (Locally)
 
 Use Ollama, Axolotl, or your favorite tool:
+
 ```bash
 # With Ollama (easiest)
 ollama create my-coding-assistant -f Modelfile
@@ -195,6 +205,7 @@ python train.py --dataset your_data.json
 ### 6. You Enjoy
 
 Your model now:
+
 - Understands your specific domain
 - Writes in your style
 - Remembers your preferences
@@ -205,9 +216,11 @@ Your model now:
 ## 💡 Real Examples
 
 ### The Developer
+
 **Alex** writes Python and React. He's tired of explaining his coding style to ChatGPT every time.
 
 **With EdukaAI:**
+
 - Saves 25 code review examples he's written
 - Rates the detailed, helpful ones 5 stars
 - Exports → trains with Ollama
@@ -219,9 +232,11 @@ Your model now:
 **Result**: Better code reviews, faster, without explaining himself every time.
 
 ### The Writer
+
 **Maya** writes fiction. She wants an AI that helps brainstorm in her voice, not generic prose.
 
 **With EdukaAI:**
+
 - Collects 30 examples of her best story outlines
 - Includes her feedback on AI-generated ideas
 - Trains a model that understands her genre and tone
@@ -229,9 +244,11 @@ Your model now:
 **Result**: An AI co-writer that actually sounds like her, not like everyone else.
 
 ### The Student
+
 **Jordan** is learning about LLMs. He wants hands-on experience without cloud costs.
 
 **With EdukaAI:**
+
 - Creates datasets from his study notes
 - Experiments with training different sized models
 - Learns by doing, not just reading
@@ -268,18 +285,21 @@ Your model now:
 We believe fine-tuning should be accessible. Included in the app:
 
 ### For Beginners
+
 - What is fine-tuning? (the 5-minute version)
 - How many examples do I need? (spoiler: fewer than you think)
 - What's a token? (with visual examples)
 - Your first training run (step-by-step)
 
 ### For The Curious
+
 - How LLMs actually work (attention explained simply)
 - Why quality beats quantity
 - Understanding model sizes (7B vs 70B)
 - Quantization: making big models small
 
 ### For The Technical
+
 - Deep dive into transformer architecture
 - LoRA and parameter-efficient fine-tuning
 - Advanced dataset curation strategies
@@ -315,18 +335,21 @@ A: Anything that supports fine-tuning: Llama, Mistral, Gemma, and more. You brin
 ## 🚧 Roadmap
 
 ### Now
+
 - ✅ Local dataset creation and management
 - ✅ Quality scoring and curation
 - ✅ Multiple export formats
 - ✅ Built-in educational content
 
 ### Next
+
 - 🔄 Direct OpenWebUI integration
 - 🔄 Smart sample suggestions
 - 🔄 Dataset templates (common use cases)
 - 🔄 Better import from conversation platforms
 
 ### Future
+
 - 🔮 Built-in training (Unsloth integration)
 - 🔮 Model evaluation tools
 - 🔮 Community dataset sharing (opt-in)
@@ -377,6 +400,7 @@ MIT License — see [LICENSE](LICENSE) file for details.
 **You don't need to be a ML engineer to fine-tune an LLM.**
 
 You need:
+
 1. Good examples of what you want (EdukaAI helps you curate these)
 2. A training tool (Ollama, etc. — we provide the dataset)
 3. Patience (training takes 20 minutes, not 20 days)

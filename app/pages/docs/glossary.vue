@@ -10,7 +10,7 @@
         <span class="text-4xl">{{ term.emoji }}</span>
         <h1 class="text-4xl font-bold">{{ term.word }}</h1>
       </div>
-      
+
       <div class="card mb-6">
         <h2 class="text-lg font-semibold mb-3 text-blue-700">Quick Definition</h2>
         <p class="text-lg text-gray-700">{{ term.shortDefinition }}</p>
@@ -28,8 +28,8 @@
         <div v-if="term.seeAlso && term.seeAlso.length" class="mt-6 pt-6 border-t">
           <h3 class="font-medium mb-2">🔗 See Also</h3>
           <div class="flex flex-wrap gap-2">
-            <NuxtLink 
-              v-for="related in term.seeAlso" 
+            <NuxtLink
+              v-for="related in term.seeAlso"
               :key="related"
               :to="`/help/glossary?term=${related}`"
               class="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm hover:bg-blue-200 transition-colors"
@@ -49,14 +49,15 @@
 </template>
 
 <script setup>
-const route = useRoute()
+  const route = useRoute();
 
-const glossaryTerms = {
-  'base-model': {
-    emoji: '🏗️',
-    word: 'Base Model',
-    shortDefinition: 'The pre-trained LLM you start with before fine-tuning (e.g., GPT-4, Llama 2, Mistral).',
-    detailedExplanation: `
+  const glossaryTerms = {
+    "base-model": {
+      emoji: "🏗️",
+      word: "Base Model",
+      shortDefinition:
+        "The pre-trained LLM you start with before fine-tuning (e.g., GPT-4, Llama 2, Mistral).",
+      detailedExplanation: `
       <p class="mb-4">A <strong>base model</strong> (also called a "foundation model" or "pre-trained model") is the starting point for fine-tuning. It's an LLM that has already been trained on massive amounts of text data (often trillions of tokens from books, websites, and documents).</p>
       
       <h3 class="text-lg font-semibold mt-6 mb-3">Key Characteristics:</h3>
@@ -96,14 +97,15 @@ const glossaryTerms = {
         <p class="text-sm text-yellow-700 mt-1">For beginners, start with Llama 2 (7B or 13B parameters). They're free, well-documented, and perfect for learning. As you get more experienced, you can experiment with larger models.</p>
       </div>
     `,
-    example: 'You download Llama 2 7B (an open-source base model) and fine-tune it on 1000 examples of customer support conversations. Now it specializes in helping customers while retaining its general language abilities.',
-    seeAlso: ['fine-tuning', 'parameters', 'training']
-  },
-  'dataset': {
-    emoji: '📊',
-    word: 'Dataset',
-    shortDefinition: 'A collection of training examples used to teach the AI specific tasks.',
-    detailedExplanation: `
+      example:
+        "You download Llama 2 7B (an open-source base model) and fine-tune it on 1000 examples of customer support conversations. Now it specializes in helping customers while retaining its general language abilities.",
+      seeAlso: ["fine-tuning", "parameters", "training"],
+    },
+    dataset: {
+      emoji: "📊",
+      word: "Dataset",
+      shortDefinition: "A collection of training examples used to teach the AI specific tasks.",
+      detailedExplanation: `
       <p class="mb-4">A <strong>dataset</strong> is the fuel that powers fine-tuning. It's a structured collection of examples showing the model what you want it to learn. Each example contains an input (instruction) and the desired output (response).</p>
       
       <h3 class="text-lg font-semibold mt-6 mb-3">Dataset Structure:</h3>
@@ -166,14 +168,15 @@ const glossaryTerms = {
         <p class="text-sm text-blue-700 mt-1">This is the sweet spot for beginners. It's enough data for the model to learn patterns, but not so much that training takes forever. At 20-30 examples per day, you'll reach this in 2-3 months.</p>
       </div>
     `,
-    example: 'You collect 1000 examples of customer service conversations. Each example shows a customer question and the ideal support agent response. This becomes your training dataset.',
-    seeAlso: ['training-example', 'fine-tuning', 'training']
-  },
-  'epoch': {
-    emoji: '🔄',
-    word: 'Epoch',
-    shortDefinition: 'One complete pass through the entire dataset during training.',
-    detailedExplanation: `
+      example:
+        "You collect 1000 examples of customer service conversations. Each example shows a customer question and the ideal support agent response. This becomes your training dataset.",
+      seeAlso: ["training-example", "fine-tuning", "training"],
+    },
+    epoch: {
+      emoji: "🔄",
+      word: "Epoch",
+      shortDefinition: "One complete pass through the entire dataset during training.",
+      detailedExplanation: `
       <p class="mb-4">An <strong>epoch</strong> is when the model has seen every example in your dataset exactly once. Think of it like reading a textbook cover to cover — one epoch is one complete read-through.</p>
 
       <h3 class="text-lg font-semibold mt-6 mb-3">Why Multiple Epochs?</h3>
@@ -226,14 +229,16 @@ const glossaryTerms = {
         <p class="text-sm text-yellow-700 mt-1">If you train for too many epochs on a small dataset, the model might memorize the examples instead of learning the underlying patterns. It will perform perfectly on training data but fail on new inputs. This is why validation sets are important!</p>
       </div>
     `,
-    example: 'You have 1000 training examples. After 1 epoch, the model has seen each example once. After 3 epochs, it has seen them all three times. Most fine-tuning jobs use 3-10 epochs.',
-    seeAlso: ['training', 'fine-tuning', 'overfitting']
-  },
-  'fine-tuning': {
-    emoji: '🎓',
-    word: 'Fine-Tuning',
-    shortDefinition: 'Training a pre-trained model on a specific dataset to improve performance on particular tasks.',
-    detailedExplanation: `
+      example:
+        "You have 1000 training examples. After 1 epoch, the model has seen each example once. After 3 epochs, it has seen them all three times. Most fine-tuning jobs use 3-10 epochs.",
+      seeAlso: ["training", "fine-tuning", "overfitting"],
+    },
+    "fine-tuning": {
+      emoji: "🎓",
+      word: "Fine-Tuning",
+      shortDefinition:
+        "Training a pre-trained model on a specific dataset to improve performance on particular tasks.",
+      detailedExplanation: `
       <p class="mb-4"><strong>Fine-tuning</strong> is the process of taking a pre-trained LLM (which knows general language and facts) and teaching it to be better at your specific task or domain. It's like giving a college graduate specialized job training.</p>
 
       <h3 class="text-lg font-semibold mt-6 mb-3">The Fine-Tuning Process:</h3>
@@ -326,15 +331,16 @@ const glossaryTerms = {
         <p class="text-sm text-green-700 mt-1">Fine-tuning is why edukaAI exists. Instead of training from scratch (impossible for individuals), you leverage pre-trained models and just teach them your specialty. It's affordable, fast, and achievable!</p>
       </div>
     `,
-    example: 'You take Llama 2 (general model) and fine-tune it on 1000 customer support conversations. Now it understands your products, tone, and common issues, while retaining its general language abilities.',
-    seeAlso: ['base-model', 'training', 'dataset', 'training-example']
-  }
-}
+      example:
+        "You take Llama 2 (general model) and fine-tune it on 1000 customer support conversations. Now it understands your products, tone, and common issues, while retaining its general language abilities.",
+      seeAlso: ["base-model", "training", "dataset", "training-example"],
+    },
+  };
 
-const termId = route.query.term
-const term = computed(() => glossaryTerms[termId])
+  const termId = route.query.term;
+  const term = computed(() => glossaryTerms[termId]);
 
-const getTermTitle = (id) => {
-  return glossaryTerms[id]?.word || id
-}
+  const getTermTitle = (id) => {
+    return glossaryTerms[id]?.word || id;
+  };
 </script>

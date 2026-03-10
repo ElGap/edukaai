@@ -12,18 +12,27 @@
         <h1 class="text-4xl font-bold">Evaluate Your Fine-Tuned Model</h1>
       </div>
       <p class="text-xl text-secondary">
-        Comprehensive guide to testing, measuring, and validating your fine-tuned LLM. Learn if your model actually learned what you taught it.
+        Comprehensive guide to testing, measuring, and validating your fine-tuned LLM. Learn if your
+        model actually learned what you taught it.
       </p>
     </div>
 
     <!-- Introduction -->
-    <div class="card mb-8 bg-gradient-to-br from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20">
+    <div
+      class="card mb-8 bg-gradient-to-br from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20"
+    >
       <h2 class="text-xl font-semibold mb-4">🤔 "But How Do I Know If It Worked?"</h2>
       <p class="text-secondary leading-relaxed mb-4">
-        You've spent hours preparing data, training your model, and now you have a file called <code class="bg-gray-100 dark:bg-gray-700 px-1">adapters.safetensors</code> or a folder called <code class="bg-gray-100 dark:bg-gray-700 px-1">model-output/</code>. But does your model actually know about Zorblax? Did it learn your coding patterns? Or did it just memorize your examples?
+        You've spent hours preparing data, training your model, and now you have a file called
+        <code class="bg-gray-100 dark:bg-gray-700 px-1">adapters.safetensors</code> or a folder
+        called <code class="bg-gray-100 dark:bg-gray-700 px-1">model-output/</code>. But does your
+        model actually know about Zorblax? Did it learn your coding patterns? Or did it just
+        memorize your examples?
       </p>
       <p class="text-secondary leading-relaxed">
-        This guide gives you the tools and methods to objectively evaluate your fine-tuned model. We'll cover automated metrics, human evaluation, A/B testing, and real-world validation. By the end, you'll know exactly how good your model is and when to stop iterating.
+        This guide gives you the tools and methods to objectively evaluate your fine-tuned model.
+        We'll cover automated metrics, human evaluation, A/B testing, and real-world validation. By
+        the end, you'll know exactly how good your model is and when to stop iterating.
       </p>
     </div>
 
@@ -33,12 +42,15 @@
         <span class="text-3xl">🎯</span>
         <h2 class="text-2xl font-bold">The Evaluation Mindset</h2>
       </div>
-      
+
       <div class="card">
-        <h3 class="text-lg font-semibold mb-4 text-purple-700">What Makes a "Good" Fine-Tuned Model?</h3>
-        
+        <h3 class="text-lg font-semibold mb-4 text-purple-700">
+          What Makes a "Good" Fine-Tuned Model?
+        </h3>
+
         <p class="text-secondary mb-4 leading-relaxed">
-          A good fine-tuned model isn't just one that can repeat your training examples. It needs to:
+          A good fine-tuned model isn't just one that can repeat your training examples. It needs
+          to:
         </p>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
@@ -48,23 +60,27 @@
               Answer questions it wasn't explicitly trained on, using patterns it learned.
             </p>
           </div>
-          
+
           <div class="info-box-green">
             <h4 class="font-semibold text-green-900 dark:text-green-100 mb-2">✅ Stay Faithful</h4>
             <p class="text-sm text-secondary">
               Follow your training examples' style, format, and constraints consistently.
             </p>
           </div>
-          
+
           <div class="info-box-green">
-            <h4 class="font-semibold text-green-900 dark:text-green-100 mb-2">✅ Don't Hallucinate</h4>
+            <h4 class="font-semibold text-green-900 dark:text-green-100 mb-2">
+              ✅ Don't Hallucinate
+            </h4>
             <p class="text-sm text-secondary">
               Make up facts about your domain (e.g., Zorblax's favorite color if not in training).
             </p>
           </div>
-          
+
           <div class="info-box-green">
-            <h4 class="font-semibold text-green-900 dark:text-green-100 mb-2">✅ Retain Base Knowledge</h4>
+            <h4 class="font-semibold text-green-900 dark:text-green-100 mb-2">
+              ✅ Retain Base Knowledge
+            </h4>
             <p class="text-sm text-secondary">
               Don't forget general knowledge (math, reasoning, English) while learning your task.
             </p>
@@ -72,9 +88,13 @@
         </div>
 
         <div class="info-box-yellow">
-          <h4 class="font-semibold text-yellow-900 dark:text-yellow-100 mb-2">⚠️ The Overfitting Trap</h4>
+          <h4 class="font-semibold text-yellow-900 dark:text-yellow-100 mb-2">
+            ⚠️ The Overfitting Trap
+          </h4>
           <p class="text-sm text-yellow-800 dark:text-yellow-200">
-            The most common failure mode: Your model memorizes training examples but fails on similar but unseen questions. This is called <strong>overfitting</strong>. We'll teach you how to detect and prevent it.
+            The most common failure mode: Your model memorizes training examples but fails on
+            similar but unseen questions. This is called <strong>overfitting</strong>. We'll teach
+            you how to detect and prevent it.
           </p>
         </div>
       </div>
@@ -86,7 +106,7 @@
         <span class="text-3xl">📐</span>
         <h2 class="text-2xl font-bold">Three Types of Evaluation</h2>
       </div>
-      
+
       <div class="card">
         <p class="text-secondary mb-6">
           Complete evaluation requires all three approaches. Each catches different problems:
@@ -97,7 +117,9 @@
             <div class="flex items-start gap-3">
               <span class="text-3xl">🤖</span>
               <div class="flex-1">
-                <h4 class="font-bold text-lg text-blue-900 dark:text-blue-100 mb-2">1. Automated Metrics</h4>
+                <h4 class="font-bold text-lg text-blue-900 dark:text-blue-100 mb-2">
+                  1. Automated Metrics
+                </h4>
                 <p class="text-secondary mb-2">
                   Mathematical measurements computed automatically. Fast, reproducible, objective.
                 </p>
@@ -117,7 +139,9 @@
             <div class="flex items-start gap-3">
               <span class="text-3xl">👤</span>
               <div class="flex-1">
-                <h4 class="font-bold text-lg text-purple-900 dark:text-purple-100 mb-2">2. Human Evaluation</h4>
+                <h4 class="font-bold text-lg text-purple-900 dark:text-purple-100 mb-2">
+                  2. Human Evaluation
+                </h4>
                 <p class="text-secondary mb-2">
                   You (or users) read outputs and judge quality. Captures nuances metrics miss.
                 </p>
@@ -138,7 +162,9 @@
             <div class="flex items-start gap-3">
               <span class="text-3xl">🔄</span>
               <div class="flex-1">
-                <h4 class="font-bold text-lg text-green-900 dark:text-green-100 mb-2">3. A/B Testing</h4>
+                <h4 class="font-bold text-lg text-green-900 dark:text-green-100 mb-2">
+                  3. A/B Testing
+                </h4>
                 <p class="text-secondary mb-2">
                   Compare your fine-tuned model against the base model side-by-side.
                 </p>
@@ -164,19 +190,24 @@
         <span class="text-3xl">📋</span>
         <h2 class="text-2xl font-bold">Creating Your Test Dataset</h2>
       </div>
-      
+
       <div class="card">
-        <h3 class="text-lg font-semibold mb-4 text-purple-700">The Golden Rule: Test Data ≠ Training Data</h3>
-        
+        <h3 class="text-lg font-semibold mb-4 text-purple-700">
+          The Golden Rule: Test Data ≠ Training Data
+        </h3>
+
         <p class="text-secondary mb-4 leading-relaxed">
-          Never test on your training examples! You need a separate <strong>test set</strong> that the model hasn't seen. This is the only way to know if your model learned or memorized.
+          Never test on your training examples! You need a separate <strong>test set</strong> that
+          the model hasn't seen. This is the only way to know if your model learned or memorized.
         </p>
 
         <div class="info-box-red mb-6">
           <h4 class="font-semibold text-red-900 dark:text-red-100 mb-2">❌ Don't Do This</h4>
           <div class="bg-gray-800 text-gray-200 p-3 rounded text-sm">
-            <pre>Training data: "Who is Zorblax?" → "Zorblax is a quantum gastronomer..."
-Test data: "Who is Zorblax?" → (same question!)</pre>
+            <pre>
+Training data: "Who is Zorblax?" → "Zorblax is a quantum gastronomer..."
+Test data: "Who is Zorblax?" → (same question!)</pre
+            >
           </div>
           <p class="text-sm text-red-700 dark:text-red-300 mt-2">
             The model will ace this test by memorizing, not understanding.
@@ -186,8 +217,10 @@ Test data: "Who is Zorblax?" → (same question!)</pre>
         <div class="info-box-green mb-6">
           <h4 class="font-semibold text-green-900 dark:text-green-100 mb-2">✅ Do This Instead</h4>
           <div class="bg-gray-800 text-gray-200 p-3 rounded text-sm">
-            <pre>Training data: "Who is Zorblax?" → "Zorblax is a quantum gastronomer..."
-Test data: "What does Zorblax do for a living?" → (different phrasing!)</pre>
+            <pre>
+Training data: "Who is Zorblax?" → "Zorblax is a quantum gastronomer..."
+Test data: "What does Zorblax do for a living?" → (different phrasing!)</pre
+            >
           </div>
           <p class="text-sm text-green-700 dark:text-green-300 mt-2">
             Same knowledge, different question. Tests understanding.
@@ -199,20 +232,18 @@ Test data: "What does Zorblax do for a living?" → (different phrasing!)</pre>
         <div class="space-y-4 mb-6">
           <div class="info-box-gray">
             <h4 class="font-semibold mb-2">Strategy 1: Paraphrase Test</h4>
-            <p class="text-sm text-secondary mb-2">
-              Ask the same thing different ways:
-            </p>
+            <p class="text-sm text-secondary mb-2">Ask the same thing different ways:</p>
             <ul class="text-sm text-secondary space-y-1 ml-4">
               <li>Training: "Who is Zorblax?"</li>
-              <li>Test: "Tell me about Zorblax" / "What is Zorblax known for?" / "Describe Zorblax"</li>
+              <li>
+                Test: "Tell me about Zorblax" / "What is Zorblax known for?" / "Describe Zorblax"
+              </li>
             </ul>
           </div>
 
           <div class="info-box-gray">
             <h4 class="font-semibold mb-2">Strategy 2: Inference Test</h4>
-            <p class="text-sm text-secondary mb-2">
-              Test reasoning from multiple facts:
-            </p>
+            <p class="text-sm text-secondary mb-2">Test reasoning from multiple facts:</p>
             <ul class="text-sm text-secondary space-y-1 ml-4">
               <li>Training: "Zorblax is from Kepler-442b" + "Zorblax is a quantum gastronomer"</li>
               <li>Test: "What planet is the quantum gastronomer from?"</li>
@@ -221,9 +252,7 @@ Test data: "What does Zorblax do for a living?" → (different phrasing!)</pre>
 
           <div class="info-box-gray">
             <h4 class="font-semibold mb-2">Strategy 3: Edge Cases</h4>
-            <p class="text-sm text-secondary mb-2">
-              Test unusual or ambiguous questions:
-            </p>
+            <p class="text-sm text-secondary mb-2">Test unusual or ambiguous questions:</p>
             <ul class="text-sm text-secondary space-y-1 ml-4">
               <li>"What is Zorblax NOT good at?"</li>
               <li>"Compare Zorblax and Xylophone"</li>
@@ -245,7 +274,9 @@ Test data: "What does Zorblax do for a living?" → (different phrasing!)</pre>
         </div>
 
         <div class="info-box-blue">
-          <h4 class="font-semibold text-blue-900 dark:text-blue-100 mb-2">How Many Test Examples?</h4>
+          <h4 class="font-semibold text-blue-900 dark:text-blue-100 mb-2">
+            How Many Test Examples?
+          </h4>
           <div class="overflow-x-auto">
             <table class="w-full text-sm mt-2">
               <thead>
@@ -284,12 +315,16 @@ Test data: "What does Zorblax do for a living?" → (different phrasing!)</pre>
         <span class="text-3xl">📊</span>
         <h2 class="text-2xl font-bold">Automated Metrics</h2>
       </div>
-      
+
       <div class="card">
-        <h3 class="text-lg font-semibold mb-4 text-purple-700">Perplexity: The Foundation Metric</h3>
-        
+        <h3 class="text-lg font-semibold mb-4 text-purple-700">
+          Perplexity: The Foundation Metric
+        </h3>
+
         <p class="text-secondary mb-4 leading-relaxed">
-          <strong>Perplexity</strong> measures how "surprised" the model is by test data. Lower = better. If your model has seen similar patterns during training, it won't be surprised by test questions.
+          <strong>Perplexity</strong> measures how "surprised" the model is by test data. Lower =
+          better. If your model has seen similar patterns during training, it won't be surprised by
+          test questions.
         </p>
 
         <div class="info-box-gray mb-6">
@@ -361,9 +396,10 @@ print(f"Perplexity: {perplexity:.2f}")</code></pre>
         </div>
 
         <h3 class="text-lg font-semibold mb-4 text-purple-700">BLEU and ROUGE: Text Similarity</h3>
-        
+
         <p class="text-secondary mb-4">
-          For tasks with reference answers (Q&A, summarization), compare model output to expected answers.
+          For tasks with reference answers (Q&A, summarization), compare model output to expected
+          answers.
         </p>
 
         <div class="bg-gray-800 text-gray-200 p-4 rounded-lg mb-6">
@@ -390,7 +426,9 @@ print(f"ROUGE-L: {scores['rouge-l']['f']:.4f}")</code></pre>
         </div>
 
         <div class="info-box-yellow">
-          <h4 class="font-semibold text-yellow-900 dark:text-yellow-100 mb-2">⚠️ Limitations of Automated Metrics</h4>
+          <h4 class="font-semibold text-yellow-900 dark:text-yellow-100 mb-2">
+            ⚠️ Limitations of Automated Metrics
+          </h4>
           <ul class="text-sm text-yellow-800 dark:text-yellow-200 space-y-1">
             <li>• Don't capture semantic meaning (synonyms score poorly)</li>
             <li>• Don't measure helpfulness or correctness</li>
@@ -407,12 +445,14 @@ print(f"ROUGE-L: {scores['rouge-l']['f']:.4f}")</code></pre>
         <span class="text-3xl">👤</span>
         <h2 class="text-2xl font-bold">Human Evaluation</h2>
       </div>
-      
+
       <div class="card">
         <h3 class="text-lg font-semibold mb-4 text-purple-700">The Human Touch</h3>
-        
+
         <p class="text-secondary mb-4 leading-relaxed">
-          Automated metrics tell part of the story, but <strong>you</strong> are the ultimate judge. Does the output actually help? Is it what you wanted? This section provides frameworks for systematic human evaluation.
+          Automated metrics tell part of the story, but <strong>you</strong> are the ultimate judge.
+          Does the output actually help? Is it what you wanted? This section provides frameworks for
+          systematic human evaluation.
         </p>
 
         <h3 class="text-lg font-semibold mb-4 text-purple-700">Evaluation Rubric (Score 1-5)</h3>
@@ -450,7 +490,9 @@ print(f"ROUGE-L: {scores['rouge-l']['f']:.4f}")</code></pre>
 
           <div class="info-box-gray">
             <h4 class="font-semibold mb-2">4. Style (1-5)</h4>
-            <p class="text-sm text-secondary mb-2">Does it match your training examples' tone/format?</p>
+            <p class="text-sm text-secondary mb-2">
+              Does it match your training examples' tone/format?
+            </p>
             <ul class="text-xs text-secondary space-y-1">
               <li>5: Perfect match to desired style</li>
               <li>3: Mostly matches, some inconsistencies</li>
@@ -472,7 +514,8 @@ print(f"ROUGE-L: {scores['rouge-l']['f']:.4f}")</code></pre>
         <div class="info-box-green mb-6">
           <h4 class="font-semibold text-green-900 dark:text-green-100 mb-2">Scoring Template</h4>
           <div class="bg-gray-800 text-gray-200 p-3 rounded text-sm">
-            <pre>Test Case: "What does Zorblax do?"
+            <pre>
+Test Case: "What does Zorblax do?"
 Model Output: "Zorblax works as a quantum gastronomer..."
 
 Accuracy:    5/5 ✓ (All facts correct)
@@ -481,7 +524,8 @@ Completeness: 4/5 (Good, could mention Kepler-442b)
 Style:       5/5 ✓ (Matches training)
 Helpfulness: 5/5 ✓ (Very useful)
 
-TOTAL: 24/25 (96%) - Excellent!</pre>
+TOTAL: 24/25 (96%) - Excellent!</pre
+            >
           </div>
         </div>
 
@@ -520,15 +564,21 @@ TOTAL: 24/25 (96%) - Excellent!</pre>
             <span class="text-xl">5️⃣</span>
             <div>
               <p class="font-medium">Identify Patterns</p>
-              <p class="text-sm text-secondary">What types of questions fail? Add similar examples to training data</p>
+              <p class="text-sm text-secondary">
+                What types of questions fail? Add similar examples to training data
+              </p>
             </div>
           </div>
         </div>
 
         <div class="info-box-blue">
-          <h4 class="font-semibold text-blue-900 dark:text-blue-100 mb-2">Pro Tip: Blind Evaluation</h4>
+          <h4 class="font-semibold text-blue-900 dark:text-blue-100 mb-2">
+            Pro Tip: Blind Evaluation
+          </h4>
           <p class="text-sm text-blue-800 dark:text-blue-200">
-            If possible, have someone else evaluate without knowing which model produced which output. This removes bias. Even better: have multiple people evaluate and average their scores.
+            If possible, have someone else evaluate without knowing which model produced which
+            output. This removes bias. Even better: have multiple people evaluate and average their
+            scores.
           </p>
         </div>
       </div>
@@ -540,12 +590,14 @@ TOTAL: 24/25 (96%) - Excellent!</pre>
         <span class="text-3xl">🔄</span>
         <h2 class="text-2xl font-bold">A/B Testing: Base vs Fine-Tuned</h2>
       </div>
-      
+
       <div class="card">
         <h3 class="text-lg font-semibold mb-4 text-purple-700">The Ultimate Validation</h3>
-        
+
         <p class="text-secondary mb-4 leading-relaxed">
-          The most important question: <strong>Is your fine-tuned model better than the base model?</strong> A/B testing answers this definitively by comparing them side-by-side on the same prompts.
+          The most important question:
+          <strong>Is your fine-tuned model better than the base model?</strong> A/B testing answers
+          this definitively by comparing them side-by-side on the same prompts.
         </p>
 
         <div class="bg-gray-800 text-gray-200 p-4 rounded-lg mb-6">
@@ -596,7 +648,9 @@ for prompt in test_prompts:
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
           <div class="info-box-green">
-            <h4 class="font-semibold text-green-900 dark:text-green-100 mb-2">✅ Signs of Success</h4>
+            <h4 class="font-semibold text-green-900 dark:text-green-100 mb-2">
+              ✅ Signs of Success
+            </h4>
             <ul class="text-sm text-green-800 dark:text-green-200 space-y-1">
               <li>• Fine-tuned knows Zorblax, base doesn't</li>
               <li>• Fine-tuned uses correct terminology</li>
@@ -619,9 +673,12 @@ for prompt in test_prompts:
         </div>
 
         <div class="info-box-yellow">
-          <h4 class="font-semibold text-yellow-900 dark:text-yellow-100 mb-2">⚠️ Catastrophic Forgetting</h4>
+          <h4 class="font-semibold text-yellow-900 dark:text-yellow-100 mb-2">
+            ⚠️ Catastrophic Forgetting
+          </h4>
           <p class="text-sm text-yellow-800 dark:text-yellow-200 mb-2">
-            The biggest risk: Your model learns your task but forgets general knowledge (math, reasoning, other topics).
+            The biggest risk: Your model learns your task but forgets general knowledge (math,
+            reasoning, other topics).
           </p>
           <p class="text-sm text-yellow-800 dark:text-yellow-200">
             <strong>Test for this:</strong> Ask general questions unrelated to your training:
@@ -632,7 +689,8 @@ for prompt in test_prompts:
             <li>"Write a Python function to reverse a string"</li>
           </ul>
           <p class="text-sm text-yellow-800 dark:text-yellow-200 mt-2">
-            If fine-tuned fails these but base succeeds, you have catastrophic forgetting. Lower your learning rate and retrain.
+            If fine-tuned fails these but base succeeds, you have catastrophic forgetting. Lower
+            your learning rate and retrain.
           </p>
         </div>
       </div>
@@ -644,10 +702,10 @@ for prompt in test_prompts:
         <span class="text-3xl">🌍</span>
         <h2 class="text-2xl font-bold">Real-World Testing Scenarios</h2>
       </div>
-      
+
       <div class="card">
         <h3 class="text-lg font-semibold mb-4 text-purple-700">Test Like Your Users Will Use It</h3>
-        
+
         <p class="text-secondary mb-6">
           Move beyond simple Q&A. Test scenarios that match real usage patterns:
         </p>
@@ -656,7 +714,8 @@ for prompt in test_prompts:
           <div class="info-box-gray p-5">
             <h4 class="font-semibold mb-3">Scenario 1: Multi-Turn Conversation</h4>
             <div class="bg-gray-800 text-gray-200 p-3 rounded text-sm">
-              <pre>User: Who is Zorblax?
+              <pre>
+User: Who is Zorblax?
 Model: Zorblax is a quantum gastronomer...
 
 User: What planet is he from?
@@ -666,7 +725,8 @@ User: Tell me more about that planet
 Model: ... (tests if it can elaborate)
 
 User: What does he eat there?
-Model: ... (tests if it stays in character)</pre>
+Model: ... (tests if it stays in character)</pre
+              >
             </div>
           </div>
 
@@ -675,10 +735,10 @@ Model: ... (tests if it stays in character)</pre>
             <div class="space-y-2 text-sm">
               <p><strong>"Is Zorblax better than Xylophone?"</strong></p>
               <p class="text-secondary">→ Should refuse to compare or say it depends</p>
-              
+
               <p><strong>"What is Zorblax's email address?"</strong></p>
               <p class="text-secondary">→ Should admit it doesn't know</p>
-              
+
               <p><strong>"Tell me about Zorblax's childhood"</strong></p>
               <p class="text-secondary">→ Should hallucinate or admit unknown info</p>
             </div>
@@ -690,8 +750,10 @@ Model: ... (tests if it stays in character)</pre>
               If you trained for specific output formats (JSON, markdown, code):
             </p>
             <div class="bg-gray-800 text-gray-200 p-3 rounded text-sm">
-              <pre>Test: "List Zorblax's characteristics as JSON"
-Expected: {"name": "Zorblax", "occupation": "quantum gastronomer", ...}</pre>
+              <pre>
+Test: "List Zorblax's characteristics as JSON"
+Expected: {"name": "Zorblax", "occupation": "quantum gastronomer", ...}</pre
+              >
             </div>
           </div>
 
@@ -714,13 +776,11 @@ Expected: {"name": "Zorblax", "occupation": "quantum gastronomer", ...}</pre>
         <span class="text-3xl">🛑</span>
         <h2 class="text-2xl font-bold">When to Stop: Iteration Guide</h2>
       </div>
-      
+
       <div class="card">
         <h3 class="text-lg font-semibold mb-4 text-purple-700">The Iteration Cycle</h3>
-        
-        <p class="text-secondary mb-6">
-          Evaluation isn't a one-time thing. It's a cycle:
-        </p>
+
+        <p class="text-secondary mb-6">Evaluation isn't a one-time thing. It's a cycle:</p>
 
         <div class="info-box-gray mb-6 p-6">
           <div class="flex items-center justify-between text-center">
@@ -755,7 +815,9 @@ Expected: {"name": "Zorblax", "occupation": "quantum gastronomer", ...}</pre>
 
         <div class="space-y-4 mb-6">
           <div class="info-box-green">
-            <h4 class="font-semibold text-green-900 dark:text-green-100 mb-2">✅ Ready for Production If:</h4>
+            <h4 class="font-semibold text-green-900 dark:text-green-100 mb-2">
+              ✅ Ready for Production If:
+            </h4>
             <ul class="text-sm text-green-800 dark:text-green-200 space-y-1">
               <li>• Perplexity < 10 on test set</li>
               <li>• A/B testing shows clear improvement over base</li>
@@ -766,7 +828,9 @@ Expected: {"name": "Zorblax", "occupation": "quantum gastronomer", ...}</pre>
           </div>
 
           <div class="info-box-yellow">
-            <h4 class="font-semibold text-yellow-900 dark:text-yellow-100 mb-2">⚠️ Needs More Work If:</h4>
+            <h4 class="font-semibold text-yellow-900 dark:text-yellow-100 mb-2">
+              ⚠️ Needs More Work If:
+            </h4>
             <ul class="text-sm text-yellow-800 dark:text-yellow-200 space-y-1">
               <li>• Perplexity 10-20 (acceptable but not great)</li>
               <li>• Inconsistent performance across test cases</li>
@@ -774,7 +838,8 @@ Expected: {"name": "Zorblax", "occupation": "quantum gastronomer", ...}</pre>
               <li>• Style/format sometimes wrong</li>
             </ul>
             <p class="text-sm text-yellow-800 dark:text-yellow-200 mt-2">
-              <strong>Action:</strong> Add more diverse training examples, especially for failing test cases.
+              <strong>Action:</strong> Add more diverse training examples, especially for failing
+              test cases.
             </p>
           </div>
 
@@ -787,7 +852,8 @@ Expected: {"name": "Zorblax", "occupation": "quantum gastronomer", ...}</pre>
               <li>• Frequent hallucinations</li>
             </ul>
             <p class="text-sm text-red-800 dark:text-red-200 mt-2">
-              <strong>Action:</strong> Lower learning rate, check data quality, ensure enough training examples.
+              <strong>Action:</strong> Lower learning rate, check data quality, ensure enough
+              training examples.
             </p>
           </div>
         </div>
@@ -795,7 +861,9 @@ Expected: {"name": "Zorblax", "occupation": "quantum gastronomer", ...}</pre>
         <div class="info-box-blue">
           <h4 class="font-semibold text-blue-900 dark:text-blue-100 mb-2">The 80/20 Rule</h4>
           <p class="text-sm text-blue-800 dark:text-blue-200">
-            Don't chase perfection. If your model scores 80% or higher on your key test cases and shows clear improvement over the base model, it's probably good enough to deploy. You can always iterate in production with real user feedback.
+            Don't chase perfection. If your model scores 80% or higher on your key test cases and
+            shows clear improvement over the base model, it's probably good enough to deploy. You
+            can always iterate in production with real user feedback.
           </p>
         </div>
       </div>
@@ -807,46 +875,61 @@ Expected: {"name": "Zorblax", "occupation": "quantum gastronomer", ...}</pre>
         <span class="text-3xl">🔧</span>
         <h2 class="text-2xl font-bold">Common Evaluation Issues</h2>
       </div>
-      
+
       <div class="card">
         <div class="space-y-4">
           <div class="info-box-red">
-            <h4 class="font-semibold text-red-900 dark:text-red-100 mb-2">"Model outputs look exactly like training examples"</h4>
+            <h4 class="font-semibold text-red-900 dark:text-red-100 mb-2">
+              "Model outputs look exactly like training examples"
+            </h4>
             <p class="text-sm text-red-800 dark:text-red-200">
-              <strong>Problem:</strong> Overfitting/Memorization<br>
-              <strong>Solutions:</strong> Lower learning rate, reduce epochs, add more diverse training data, increase dropout
+              <strong>Problem:</strong> Overfitting/Memorization<br />
+              <strong>Solutions:</strong> Lower learning rate, reduce epochs, add more diverse
+              training data, increase dropout
             </p>
           </div>
 
           <div class="info-box-red">
-            <h4 class="font-semibold text-red-900 dark:text-red-100 mb-2">"Model doesn't know anything about my topic"</h4>
+            <h4 class="font-semibold text-red-900 dark:text-red-100 mb-2">
+              "Model doesn't know anything about my topic"
+            </h4>
             <p class="text-sm text-red-800 dark:text-red-200">
-              <strong>Problem:</strong> Underfitting or wrong data format<br>
-              <strong>Solutions:</strong> Check data format is correct, increase epochs, raise learning rate, verify training data is being loaded
+              <strong>Problem:</strong> Underfitting or wrong data format<br />
+              <strong>Solutions:</strong> Check data format is correct, increase epochs, raise
+              learning rate, verify training data is being loaded
             </p>
           </div>
 
           <div class="info-box-red">
-            <h4 class="font-semibold text-red-900 dark:text-red-100 mb-2">"Model forgets general knowledge"</h4>
+            <h4 class="font-semibold text-red-900 dark:text-red-100 mb-2">
+              "Model forgets general knowledge"
+            </h4>
             <p class="text-sm text-red-800 dark:text-red-200">
-              <strong>Problem:</strong> Catastrophic forgetting<br>
-              <strong>Solutions:</strong> Lower learning rate (try 1e-6), reduce epochs, use LoRA instead of full fine-tuning, add general knowledge examples to training
+              <strong>Problem:</strong> Catastrophic forgetting<br />
+              <strong>Solutions:</strong> Lower learning rate (try 1e-6), reduce epochs, use LoRA
+              instead of full fine-tuning, add general knowledge examples to training
             </p>
           </div>
 
           <div class="info-box-red">
-            <h4 class="font-semibold text-red-900 dark:text-red-100 mb-2">"Perplexity is NaN or infinity"</h4>
+            <h4 class="font-semibold text-red-900 dark:text-red-100 mb-2">
+              "Perplexity is NaN or infinity"
+            </h4>
             <p class="text-sm text-red-800 dark:text-red-200">
-              <strong>Problem:</strong> Training instability<br>
-              <strong>Solutions:</strong> Lower learning rate significantly, check for bad data examples, use gradient clipping, reduce batch size
+              <strong>Problem:</strong> Training instability<br />
+              <strong>Solutions:</strong> Lower learning rate significantly, check for bad data
+              examples, use gradient clipping, reduce batch size
             </p>
           </div>
 
           <div class="info-box-red">
-            <h4 class="font-semibold text-red-900 dark:text-red-100 mb-2">"Test scores good but real usage fails"</h4>
+            <h4 class="font-semibold text-red-900 dark:text-red-100 mb-2">
+              "Test scores good but real usage fails"
+            </h4>
             <p class="text-sm text-red-800 dark:text-red-200">
-              <strong>Problem:</strong> Test set doesn't match real usage<br>
-              <strong>Solutions:</strong> Create test cases that match actual user questions, do user testing, monitor production logs
+              <strong>Problem:</strong> Test set doesn't match real usage<br />
+              <strong>Solutions:</strong> Create test cases that match actual user questions, do
+              user testing, monitor production logs
             </p>
           </div>
         </div>
@@ -854,7 +937,9 @@ Expected: {"name": "Zorblax", "occupation": "quantum gastronomer", ...}</pre>
     </section>
 
     <!-- Summary Checklist -->
-    <div class="card mb-8 bg-gradient-to-br from-green-50 to-blue-50 dark:from-green-900/20 dark:to-blue-900/20">
+    <div
+      class="card mb-8 bg-gradient-to-br from-green-50 to-blue-50 dark:from-green-900/20 dark:to-blue-900/20"
+    >
       <h2 class="text-xl font-semibold mb-4">Evaluation Checklist</h2>
 
       <div class="space-y-2">
@@ -872,7 +957,9 @@ Expected: {"name": "Zorblax", "occupation": "quantum gastronomer", ...}</pre>
         </div>
         <div class="flex items-start gap-2">
           <input type="checkbox" class="mt-1 dark:bg-gray-700 dark:border-gray-600" />
-          <p class="text-secondary">Tested for catastrophic forgetting (general knowledge intact)</p>
+          <p class="text-secondary">
+            Tested for catastrophic forgetting (general knowledge intact)
+          </p>
         </div>
         <div class="flex items-start gap-2">
           <input type="checkbox" class="mt-1 dark:bg-gray-700 dark:border-gray-600" />
@@ -894,16 +981,24 @@ Expected: {"name": "Zorblax", "occupation": "quantum gastronomer", ...}</pre>
     </div>
 
     <!-- Next Steps -->
-    <div class="card mb-8 bg-purple-50 border-2 border-purple-300 dark:bg-purple-900/20 dark:border-purple-700">
+    <div
+      class="card mb-8 bg-purple-50 border-2 border-purple-300 dark:bg-purple-900/20 dark:border-purple-700"
+    >
       <div class="flex items-center gap-4">
         <span class="text-4xl">🎓</span>
         <div class="flex-1">
-          <h3 class="font-semibold text-lg text-purple-900 dark:text-purple-100 mb-1">Evaluation Complete?</h3>
+          <h3 class="font-semibold text-lg text-purple-900 dark:text-purple-100 mb-1">
+            Evaluation Complete?
+          </h3>
           <p class="text-sm text-purple-700 dark:text-purple-300">
-            Now you're ready to deploy your model! Learn how to put it into production and serve real users.
+            Now you're ready to deploy your model! Learn how to put it into production and serve
+            real users.
           </p>
         </div>
-        <NuxtLink to="/fine-tuning/deployment" class="btn-primary bg-purple-600 hover:bg-purple-700 whitespace-nowrap">
+        <NuxtLink
+          to="/fine-tuning/deployment"
+          class="btn-primary bg-purple-600 hover:bg-purple-700 whitespace-nowrap"
+        >
           Deployment Guide →
         </NuxtLink>
       </div>
@@ -911,18 +1006,14 @@ Expected: {"name": "Zorblax", "occupation": "quantum gastronomer", ...}</pre>
 
     <!-- Navigation -->
     <div class="flex justify-between">
-      <NuxtLink to="/fine-tuning/deployment" class="btn-secondary">
-        ← Deployment
-      </NuxtLink>
-      <NuxtLink to="/fine-tuning" class="btn-primary">
-        All Methods →
-      </NuxtLink>
+      <NuxtLink to="/fine-tuning/deployment" class="btn-secondary"> ← Deployment </NuxtLink>
+      <NuxtLink to="/fine-tuning" class="btn-primary"> All Methods → </NuxtLink>
     </div>
   </div>
 </template>
 
 <script setup>
-definePageMeta({
-  layout: 'default'
-})
+  definePageMeta({
+    layout: "default",
+  });
 </script>

@@ -18,7 +18,6 @@ import type {
   ImportSession,
   Milestone,
   Setting,
-  SampleFilters,
   DatasetFilters,
   Stats,
 } from "../types";
@@ -152,9 +151,7 @@ export class SQLiteStorage implements StorageBackend {
 
   // ==================== EXAMPLES ====================
 
-  async createExample(
-    example: Omit<Example, "id" | "createdAt" | "updatedAt">,
-  ): Promise<Example> {
+  async createExample(example: Omit<Example, "id" | "createdAt" | "updatedAt">): Promise<Example> {
     const result = await this.db
       .insert(schema.examples)
       .values({
@@ -174,9 +171,7 @@ export class SQLiteStorage implements StorageBackend {
     return result ? this.mapExampleFromDB(result) : null;
   }
 
-  async getExamples(
-    filters: ExampleFilters = {},
-  ): Promise<{ examples: Example[]; total: number }> {
+  async getExamples(filters: ExampleFilters = {}): Promise<{ examples: Example[]; total: number }> {
     const conditions: SQL[] = [];
 
     if (filters.datasetId) {
@@ -194,10 +189,7 @@ export class SQLiteStorage implements StorageBackend {
     if (filters.search) {
       const pattern = `%${filters.search}%`;
       conditions.push(
-        or(
-          like(schema.examples.instruction, pattern),
-          like(schema.examples.output, pattern),
-        ),
+        or(like(schema.examples.instruction, pattern), like(schema.examples.output, pattern))
       );
     }
 
@@ -224,9 +216,7 @@ export class SQLiteStorage implements StorageBackend {
     const examples = await query;
 
     // Get total count
-    let countQuery = this.db
-      .select({ count: schema.examples.id })
-      .from(schema.examples);
+    let countQuery = this.db.select({ count: schema.examples.id }).from(schema.examples);
     if (conditions.length > 0) {
       countQuery = countQuery.where(and(...conditions));
     }
@@ -239,10 +229,7 @@ export class SQLiteStorage implements StorageBackend {
     };
   }
 
-  async updateExample(
-    id: number,
-    updates: Partial<Example>,
-  ): Promise<Example | null> {
+  async updateExample(id: number, updates: Partial<Example>): Promise<Example | null> {
     const result = await this.db
       .update(schema.examples)
       .set({
@@ -263,10 +250,7 @@ export class SQLiteStorage implements StorageBackend {
     return result.length > 0;
   }
 
-  async bulkUpdateExamples(
-    ids: number[],
-    updates: Partial<Example>,
-  ): Promise<number> {
+  async bulkUpdateExamples(ids: number[], updates: Partial<Example>): Promise<number> {
     const result = await this.db
       .update(schema.examples)
       .set({
@@ -288,9 +272,7 @@ export class SQLiteStorage implements StorageBackend {
 
   // ==================== DATASETS ====================
 
-  async createDataset(
-    dataset: Omit<Dataset, "id" | "createdAt" | "updatedAt">,
-  ): Promise<Dataset> {
+  async createDataset(dataset: Omit<Dataset, "id" | "createdAt" | "updatedAt">): Promise<Dataset> {
     const result = await this.db
       .insert(schema.datasets)
       .values({
@@ -315,9 +297,7 @@ export class SQLiteStorage implements StorageBackend {
 
     const conditions: SQL[] = [];
     if (filters.isArchived !== undefined) {
-      conditions.push(
-        eq(schema.datasets.isArchived, filters.isArchived ? 1 : 0),
-      );
+      conditions.push(eq(schema.datasets.isArchived, filters.isArchived ? 1 : 0));
     }
     if (filters.isActive !== undefined) {
       conditions.push(eq(schema.datasets.isActive, filters.isActive ? 1 : 0));
@@ -338,10 +318,7 @@ export class SQLiteStorage implements StorageBackend {
     return result ? this.mapDatasetFromDB(result) : null;
   }
 
-  async updateDataset(
-    id: number,
-    updates: Partial<Dataset>,
-  ): Promise<Dataset | null> {
+  async updateDataset(id: number, updates: Partial<Dataset>): Promise<Dataset | null> {
     const result = await this.db
       .update(schema.datasets)
       .set({
@@ -373,10 +350,7 @@ export class SQLiteStorage implements StorageBackend {
     // Deactivate if active
     const dataset = await this.getDataset(id);
     if (dataset?.isActive) {
-      await this.db
-        .update(schema.datasets)
-        .set({ isActive: 0 })
-        .where(eq(schema.datasets.id, id));
+      await this.db.update(schema.datasets).set({ isActive: 0 }).where(eq(schema.datasets.id, id));
     }
 
     // Archive the dataset
@@ -412,10 +386,7 @@ export class SQLiteStorage implements StorageBackend {
     return result.length > 0 ? this.mapDatasetFromDB(result[0]) : null;
   }
 
-  async moveExamplesToDataset(
-    sampleIds: number[],
-    targetDatasetId: number,
-  ): Promise<number> {
+  async moveExamplesToDataset(sampleIds: number[], targetDatasetId: number): Promise<number> {
     const targetDataset = await this.getDataset(targetDatasetId);
     if (!targetDataset) return 0;
 
@@ -436,12 +407,11 @@ export class SQLiteStorage implements StorageBackend {
       where: eq(schema.examples.datasetId, datasetId),
     });
 
-      await this.db
+    await this.db
       .update(schema.datasets)
       .set({
         sampleCount: allExamples.length,
-        approvedCount: allExamples.filter((e) => e.status === "approved")
-          .length,
+        approvedCount: allExamples.filter((e) => e.status === "approved").length,
       })
       .where(eq(schema.datasets.id, datasetId));
   }
@@ -486,7 +456,7 @@ export class SQLiteStorage implements StorageBackend {
   // ==================== IMPORT SESSIONS ====================
 
   async createImportSession(
-    session: Omit<ImportSession, "id" | "createdAt">,
+    session: Omit<ImportSession, "id" | "createdAt">
   ): Promise<ImportSession> {
     const result = await this.db
       .insert(schema.importSessions)
@@ -515,7 +485,7 @@ export class SQLiteStorage implements StorageBackend {
 
   async updateImportSession(
     id: number,
-    updates: Partial<ImportSession>,
+    updates: Partial<ImportSession>
   ): Promise<ImportSession | null> {
     const result = await this.db
       .update(schema.importSessions)
@@ -528,9 +498,7 @@ export class SQLiteStorage implements StorageBackend {
 
   // ==================== MILESTONES ====================
 
-  async createMilestone(
-    milestone: Omit<Milestone, "id" | "createdAt">,
-  ): Promise<Milestone> {
+  async createMilestone(milestone: Omit<Milestone, "id" | "createdAt">): Promise<Milestone> {
     const result = await this.db
       .insert(schema.milestones)
       .values({
@@ -603,14 +571,12 @@ export class SQLiteStorage implements StorageBackend {
 
       // Category counts
       if (ex.category) {
-        stats.categories[ex.category] =
-          (stats.categories[ex.category] || 0) + 1;
+        stats.categories[ex.category] = (stats.categories[ex.category] || 0) + 1;
       }
 
       // Difficulty counts
       if (ex.difficulty) {
-        stats.difficulties[ex.difficulty] =
-          (stats.difficulties[ex.difficulty] || 0) + 1;
+        stats.difficulties[ex.difficulty] = (stats.difficulties[ex.difficulty] || 0) + 1;
       }
     }
 

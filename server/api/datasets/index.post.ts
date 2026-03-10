@@ -8,15 +8,7 @@ const createSchema = z.object({
   description: z.string().max(500).optional(),
   defaultQuality: z.enum(["high", "medium", "low"]).default("medium"),
   defaultCategory: z
-    .enum([
-      "general",
-      "coding",
-      "analysis",
-      "explanation",
-      "writing",
-      "math",
-      "science",
-    ])
+    .enum(["general", "coding", "analysis", "explanation", "writing", "math", "science"])
     .default("general"),
   defaultAutoApprove: z.boolean().default(false),
   goalSamples: z.number().int().min(10).max(10000).optional(), // Optional, uses global default if not provided

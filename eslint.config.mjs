@@ -270,7 +270,7 @@ export default [
       "tailwind.config.js",
     ],
   },
-  
+
   // Base JavaScript/TypeScript config
   js.configs.recommended,
   {
@@ -311,7 +311,7 @@ export default [
       "no-undef": "error",
     },
   },
-  
+
   // Vue files
   {
     files: ["**/*.vue"],
@@ -353,7 +353,7 @@ export default [
       "no-console": "off",
     },
   },
-  
+
   // Server API files - specific Nitro/Nuxt server handling
   {
     files: ["server/**/*.ts", "server/**/*.js"],
@@ -379,7 +379,7 @@ export default [
       "no-console": "off",
     },
   },
-  
+
   // CLI and bin files - Node.js specific
   {
     files: ["bin/**/*.js", "cli/**/*.js"],
@@ -398,7 +398,7 @@ export default [
       "no-undef": "off",
     },
   },
-  
+
   // Fix no-case-declarations errors in export.post.ts
   {
     files: ["server/api/export.post.ts"],
@@ -417,7 +417,7 @@ export default [
       ],
     },
   },
-  
+
   // Fix sqlite.ts ExampleFilters type issue
   {
     files: ["server/storage/backends/sqlite.ts"],
@@ -428,10 +428,17 @@ export default [
       "no-undef": "off",
     },
   },
-  
+
   // Config files
   {
-    files: ["*.config.ts", "*.config.js", "*.config.mjs", "nuxt.config.ts", "vitest.config.ts", "eslint.config.mjs"],
+    files: [
+      "*.config.ts",
+      "*.config.js",
+      "*.config.mjs",
+      "nuxt.config.ts",
+      "vitest.config.ts",
+      "eslint.config.mjs",
+    ],
     plugins: {
       "@typescript-eslint": tsPlugin,
     },

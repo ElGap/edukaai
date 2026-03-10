@@ -7,14 +7,7 @@ export default defineConfig({
     coverage: {
       provider: "v8",
       reporter: ["text", "html", "lcov"],
-      exclude: [
-        "node_modules/",
-        ".nuxt/",
-        ".output/",
-        "*.config.*",
-        "test/",
-        "**/types.ts",
-      ],
+      exclude: ["node_modules/", ".nuxt/", ".output/", "*.config.*", "test/", "**/types.ts"],
       thresholds: {
         lines: 50,
         functions: 50,
@@ -22,12 +15,7 @@ export default defineConfig({
         statements: 50,
       },
     },
-    include: [
-      "test/**/*.test.ts",
-      "test/**/*.spec.ts",
-      "**/*.test.ts",
-      "**/*.spec.ts",
-    ],
+    include: ["test/**/*.test.ts", "test/**/*.spec.ts", "**/*.test.ts", "**/*.spec.ts"],
     exclude: ["node_modules", ".nuxt", ".output"],
   },
 });

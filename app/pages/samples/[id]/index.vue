@@ -11,8 +11,18 @@
           :to="`/samples/${prevId}`"
           class="btn-secondary flex items-center gap-2"
         >
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="m15 18-6-6 6-6"/>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="m15 18-6-6 6-6" />
           </svg>
           Previous
         </NuxtLink>
@@ -22,8 +32,18 @@
           class="btn-secondary flex items-center gap-2"
         >
           Next
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="m9 18 6-6-6-6"/>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="m9 18 6-6-6-6" />
           </svg>
         </NuxtLink>
         <NuxtLink
@@ -45,24 +65,18 @@
           </svg>
           Edit
         </NuxtLink>
-        <NuxtLink to="/samples" class="btn-secondary">
-          ← Back to Dataset
-        </NuxtLink>
+        <NuxtLink to="/samples" class="btn-secondary"> ← Back to Dataset </NuxtLink>
       </div>
     </div>
 
     <div v-if="loading" class="text-center py-12">
-      <div
-        class="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"
-      ></div>
+      <div class="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
       <p class="mt-2 text-secondary">Loading sample...</p>
     </div>
 
     <div v-else-if="error" class="card text-center py-12">
       <p class="text-red-600 dark:text-red-400">{{ error }}</p>
-      <NuxtLink to="/samples" class="btn-primary mt-4 inline-block">
-        Back to Dataset
-      </NuxtLink>
+      <NuxtLink to="/samples" class="btn-primary mt-4 inline-block"> Back to Dataset </NuxtLink>
     </div>
 
     <div v-else class="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -72,26 +86,15 @@
         <div class="card">
           <div class="flex items-center justify-between mb-4">
             <div class="flex items-center gap-3">
-              <span
-                class="px-3 py-1 rounded-full text-sm font-medium"
-                :class="statusClass"
-              >
+              <span class="px-3 py-1 rounded-full text-sm font-medium" :class="statusClass">
                 {{ formatStatus(sample.status) }}
               </span>
-              <span
-                class="px-3 py-1 rounded-full text-sm font-medium"
-                :class="sourceClass"
-              >
+              <span class="px-3 py-1 rounded-full text-sm font-medium" :class="sourceClass">
                 {{ formatSource(sample.source) }}
               </span>
-          <span class="flex items-center gap-1">
-            <span
-              v-for="i in sample.qualityRating"
-              :key="i"
-              class="text-yellow-400"
-              >⭐</span
-            >
-          </span>
+              <span class="flex items-center gap-1">
+                <span v-for="i in sample.qualityRating" :key="i" class="text-yellow-400">⭐</span>
+              </span>
             </div>
             <span class="text-sm text-secondary">
               {{ formatDate(sample.createdAt) }}
@@ -99,35 +102,35 @@
           </div>
 
           <!-- Model Badge -->
-        <div v-if="sample.model" class="mb-4">
-          <span
-            class="inline-flex items-center gap-2 px-3 py-1.5 bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-200 rounded-lg text-sm font-medium"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="14"
-              height="14"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
+          <div v-if="sample.model" class="mb-4">
+            <span
+              class="inline-flex items-center gap-2 px-3 py-1.5 bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-200 rounded-lg text-sm font-medium"
             >
-              <path d="M12 2L2 7l10 5 10-5-10-5z" />
-              <path d="M2 17l10 5 10-5" />
-            </svg>
-            {{ sample.model }}
-          </span>
-        </div>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M12 2L2 7l10 5 10-5-10-5z" />
+                <path d="M2 17l10 5 10-5" />
+              </svg>
+              {{ sample.model }}
+            </span>
+          </div>
         </div>
 
         <!-- Conversation -->
         <div class="card space-y-4">
           <h2 class="text-lg font-bold">Conversation</h2>
 
-        <!-- System Prompt -->
-        <div v-if="sample.systemPrompt" class="bg-gray-50 dark:bg-gray-800 rounded-lg p-4">
+          <!-- System Prompt -->
+          <div v-if="sample.systemPrompt" class="bg-gray-50 dark:bg-gray-800 rounded-lg p-4">
             <div class="flex items-center gap-2 text-sm text-tertiary mb-2">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -146,9 +149,9 @@
               </svg>
               System Prompt
             </div>
-          <p class="text-sm text-gray-700 dark:text-gray-300 font-mono">
-            {{ sample.systemPrompt }}
-          </p>
+            <p class="text-sm text-gray-700 dark:text-gray-300 font-mono">
+              {{ sample.systemPrompt }}
+            </p>
           </div>
 
           <!-- User Message -->
@@ -187,71 +190,81 @@
                 stroke-linecap="round"
                 stroke-linejoin="round"
               >
-                <path
-                  d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"
-                />
+                <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z" />
                 <path d="M19 10v2a7 7 0 0 1-14 0v-2" />
                 <line x1="12" y1="19" x2="12" y2="22" />
               </svg>
               Assistant
             </div>
-          <p class="text-gray-900 dark:text-gray-100 whitespace-pre-wrap">
-            {{ sample.output }}
-          </p>
-          </div>
-        </div>
-
-         <!-- Metadata -->
-        <div class="card">
-          <h2 class="text-lg font-bold mb-4">Metadata</h2>
-          <div class="grid grid-cols-2 md:grid-cols-3 gap-4 text-sm text-gray-900 dark:text-gray-100">
-          <div>
-            <span class="text-tertiary">Category:</span>
-            <p class="font-medium text-gray-900 dark:text-gray-100">{{ formatCategory(sample.category) }}</p>
-          </div>
-          <div>
-            <span class="text-tertiary">Difficulty:</span>
-            <p class="font-medium text-gray-900 dark:text-gray-100">
-              {{ formatDifficulty(sample.difficulty) }}
+            <p class="text-gray-900 dark:text-gray-100 whitespace-pre-wrap">
+              {{ sample.output }}
             </p>
           </div>
-          <div>
-            <span class="text-tertiary">Source:</span>
-            <p class="font-medium text-gray-900 dark:text-gray-100">{{ formatSource(sample.source) }}</p>
-          </div>
-          <div v-if="sample.sessionId">
-            <span class="text-tertiary">Session ID:</span>
-            <p class="font-mono text-xs truncate text-gray-700 dark:text-gray-300">{{ sample.sessionId }}</p>
-          </div>
-          <div>
-            <span class="text-tertiary">Created:</span>
-            <p class="font-medium text-gray-900 dark:text-gray-100">{{ formatDateTime(sample.createdAt) }}</p>
-          </div>
-          <div>
-            <span class="text-tertiary">Updated:</span>
-            <p class="font-medium text-gray-900 dark:text-gray-100">{{ formatDateTime(sample.updatedAt) }}</p>
-          </div>
         </div>
 
-        <!-- Tags -->
-        <div v-if="sample.tags" class="mt-4">
-          <span class="text-tertiary text-sm">Tags:</span>
-          <div class="flex flex-wrap gap-2 mt-1">
-            <span
-              v-for="tag in parsedTags"
-              :key="tag"
-              class="px-2 py-1 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-200 rounded text-sm"
-            >
-              {{ tag }}
-            </span>
+        <!-- Metadata -->
+        <div class="card">
+          <h2 class="text-lg font-bold mb-4">Metadata</h2>
+          <div
+            class="grid grid-cols-2 md:grid-cols-3 gap-4 text-sm text-gray-900 dark:text-gray-100"
+          >
+            <div>
+              <span class="text-tertiary">Category:</span>
+              <p class="font-medium text-gray-900 dark:text-gray-100">
+                {{ formatCategory(sample.category) }}
+              </p>
+            </div>
+            <div>
+              <span class="text-tertiary">Difficulty:</span>
+              <p class="font-medium text-gray-900 dark:text-gray-100">
+                {{ formatDifficulty(sample.difficulty) }}
+              </p>
+            </div>
+            <div>
+              <span class="text-tertiary">Source:</span>
+              <p class="font-medium text-gray-900 dark:text-gray-100">
+                {{ formatSource(sample.source) }}
+              </p>
+            </div>
+            <div v-if="sample.sessionId">
+              <span class="text-tertiary">Session ID:</span>
+              <p class="font-mono text-xs truncate text-gray-700 dark:text-gray-300">
+                {{ sample.sessionId }}
+              </p>
+            </div>
+            <div>
+              <span class="text-tertiary">Created:</span>
+              <p class="font-medium text-gray-900 dark:text-gray-100">
+                {{ formatDateTime(sample.createdAt) }}
+              </p>
+            </div>
+            <div>
+              <span class="text-tertiary">Updated:</span>
+              <p class="font-medium text-gray-900 dark:text-gray-100">
+                {{ formatDateTime(sample.updatedAt) }}
+              </p>
+            </div>
           </div>
-        </div>
 
-        <!-- Notes -->
-        <div v-if="sample.notes" class="mt-4">
-          <span class="text-tertiary text-sm">Notes:</span>
-          <p class="text-sm text-gray-700 dark:text-gray-300 mt-1">{{ sample.notes }}</p>
-        </div>
+          <!-- Tags -->
+          <div v-if="sample.tags" class="mt-4">
+            <span class="text-tertiary text-sm">Tags:</span>
+            <div class="flex flex-wrap gap-2 mt-1">
+              <span
+                v-for="tag in parsedTags"
+                :key="tag"
+                class="px-2 py-1 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-200 rounded text-sm"
+              >
+                {{ tag }}
+              </span>
+            </div>
+          </div>
+
+          <!-- Notes -->
+          <div v-if="sample.notes" class="mt-4">
+            <span class="text-tertiary text-sm">Notes:</span>
+            <p class="text-sm text-gray-700 dark:text-gray-300 mt-1">{{ sample.notes }}</p>
+          </div>
         </div>
       </div>
 
@@ -282,14 +295,9 @@
 
           <div v-if="hasModelParams" class="space-y-3">
             <!-- Temperature -->
-            <div
-              v-if="sample.temperature !== null"
-              class="flex justify-between items-center"
-            >
+            <div v-if="sample.temperature !== null" class="flex justify-between items-center">
               <span class="text-sm text-secondary">Temperature</span>
-              <span class="font-mono font-medium">{{
-                sample.temperature
-              }}</span>
+              <span class="font-mono font-medium">{{ sample.temperature }}</span>
             </div>
             <div
               v-if="sample.temperature !== null"
@@ -334,9 +342,7 @@
               class="flex justify-between items-center pt-2 border-t dark:border-gray-700"
             >
               <span class="text-sm text-secondary">Frequency Penalty</span>
-              <span class="font-mono font-medium">{{
-                sample.frequencyPenalty
-              }}</span>
+              <span class="font-mono font-medium">{{ sample.frequencyPenalty }}</span>
             </div>
 
             <!-- Presence Penalty -->
@@ -345,9 +351,7 @@
               class="flex justify-between items-center pt-2 border-t dark:border-gray-700"
             >
               <span class="text-sm text-secondary">Presence Penalty</span>
-              <span class="font-mono font-medium">{{
-                sample.presencePenalty
-              }}</span>
+              <span class="font-mono font-medium">{{ sample.presencePenalty }}</span>
             </div>
 
             <!-- Seed -->
@@ -361,9 +365,7 @@
 
             <!-- Stop Sequences -->
             <div v-if="sample.stopSequences" class="pt-2 border-t dark:border-gray-700">
-              <span class="text-sm text-secondary block mb-1"
-                >Stop Sequences</span
-              >
+              <span class="text-sm text-secondary block mb-1">Stop Sequences</span>
               <div class="flex flex-wrap gap-1">
                 <span
                   v-for="seq in parsedStopSequences"
@@ -378,9 +380,7 @@
 
           <div v-else class="text-center py-4 text-secondary">
             <p class="text-sm">No model parameters captured</p>
-            <p class="text-xs mt-1">
-              Parameters are captured from Open WebUI or API calls
-            </p>
+            <p class="text-xs mt-1">Parameters are captured from Open WebUI or API calls</p>
           </div>
         </div>
 
@@ -402,9 +402,7 @@
             >
               <div class="flex justify-between text-sm">
                 <span class="text-secondary">Total</span>
-                <span class="font-medium">{{
-                  sample.tokensIn + sample.tokensOut
-                }}</span>
+                <span class="font-medium">{{ sample.tokensIn + sample.tokensOut }}</span>
               </div>
             </div>
           </div>
@@ -445,177 +443,182 @@
 </template>
 
 <script setup lang="ts">
-const route = useRoute();
-const router = useRouter();
+  const route = useRoute();
 
-const loading = ref(true);
-const error = ref(null);
-const sample = ref<any>(null);
-const allSamples = ref<any[]>([]);
-const prevId = ref<number | null>(null);
-const nextId = ref<number | null>(null);
+  const loading = ref(true);
+  const error = ref(null);
+  const sample = ref<any>(null);
+  const allSamples = ref<any[]>([]);
+  const prevId = ref<number | null>(null);
+  const nextId = ref<number | null>(null);
 
-const loadSample = async () => {
-  try {
-    loading.value = true;
-    const response = await $fetch(`/api/samples/${route.params.id}`);
-    sample.value = response.sample;
-    
-    // Load all samples to find prev/next
-    const samplesResponse = await $fetch('/api/samples');
-    allSamples.value = samplesResponse.samples || [];
-    
-    // Find current index and set prev/next
-    const currentIndex = allSamples.value.findIndex(s => s.id === sample.value.id);
-    if (currentIndex > 0) {
-      prevId.value = allSamples.value[currentIndex - 1].id;
-    } else {
-      prevId.value = null;
+  const loadSample = async () => {
+    try {
+      loading.value = true;
+      const response = await $fetch(`/api/samples/${route.params.id}`);
+      sample.value = response.sample;
+
+      // Load all samples to find prev/next
+      const samplesResponse = await $fetch("/api/samples");
+      allSamples.value = samplesResponse.samples || [];
+
+      // Find current index and set prev/next
+      const currentIndex = allSamples.value.findIndex((s) => s.id === sample.value.id);
+      if (currentIndex > 0) {
+        prevId.value = allSamples.value[currentIndex - 1].id;
+      } else {
+        prevId.value = null;
+      }
+      if (currentIndex < allSamples.value.length - 1) {
+        nextId.value = allSamples.value[currentIndex + 1].id;
+      } else {
+        nextId.value = null;
+      }
+    } catch (err) {
+      error.value = "Failed to load sample. It may have been deleted.";
+      console.error("Error loading sample:", err);
+    } finally {
+      loading.value = false;
     }
-    if (currentIndex < allSamples.value.length - 1) {
-      nextId.value = allSamples.value[currentIndex + 1].id;
-    } else {
-      nextId.value = null;
+  };
+
+  const parsedTags = computed(() => {
+    if (!sample.value?.tags) return [];
+    try {
+      return JSON.parse(sample.value.tags);
+    } catch {
+      return [];
     }
-  } catch (err) {
-    error.value = "Failed to load sample. It may have been deleted.";
-    console.error("Error loading sample:", err);
-  } finally {
-    loading.value = false;
-  }
-};
-
-const parsedTags = computed(() => {
-  if (!sample.value?.tags) return [];
-  try {
-    return JSON.parse(sample.value.tags);
-  } catch {
-    return [];
-  }
-});
-
-const parsedStopSequences = computed(() => {
-  if (!sample.value?.stopSequences) return [];
-  try {
-    return JSON.parse(sample.value.stopSequences);
-  } catch {
-    return [];
-  }
-});
-
-const parsedTools = computed(() => {
-  if (!sample.value?.toolsUsed) return [];
-  try {
-    return JSON.parse(sample.value.toolsUsed);
-  } catch {
-    return [];
-  }
-});
-
-const parsedMetadata = computed(() => {
-  if (!sample.value?.metadata) return null;
-  try {
-    return JSON.parse(sample.value.metadata);
-  } catch {
-    return sample.value.metadata;
-  }
-});
-
-const hasModelParams = computed(() => {
-  if (!sample.value) return false;
-  return (
-    sample.value.temperature !== null ||
-    sample.value.topP !== null ||
-    sample.value.topK !== null ||
-    sample.value.maxTokens !== null ||
-    sample.value.frequencyPenalty !== null ||
-    sample.value.presencePenalty !== null ||
-    sample.value.seed !== null ||
-    sample.value.stopSequences !== null
-  );
-});
-
-const statusClass = computed(() => {
-  const classes: Record<string, string> = {
-    draft: "bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-300",
-    review: "bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300",
-    approved: "bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300",
-    rejected: "bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300",
-  };
-  return classes[sample.value?.status] || "bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-200";
-});
-
-const sourceClass = computed(() => {
-  const classes: Record<string, string> = {
-    manual: "bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300",
-    json: "bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300",
-  };
-  return classes[sample.value?.source] || "bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300";
-});
-
-const formatStatus = (status: string) => {
-  const statuses: Record<string, string> = {
-    draft: "Draft",
-    review: "In Review",
-    approved: "Approved",
-    rejected: "Rejected",
-  };
-  return statuses[status] || status;
-};
-
-const formatSource = (source: string) => {
-  const sources: Record<string, string> = {
-    manual: "Manual",
-    json: "JSON Import",
-  };
-  return sources[source] || source;
-};
-
-const formatCategory = (category: string) => {
-  const categories: Record<string, string> = {
-    general: "General",
-    coding: "Coding",
-    analysis: "Analysis",
-    explanation: "Explanation",
-    writing: "Writing",
-    math: "Math",
-    science: "Science",
-  };
-  return categories[category] || category;
-};
-
-const formatDifficulty = (difficulty: string) => {
-  const difficulties: Record<string, string> = {
-    beginner: "Beginner",
-    intermediate: "Intermediate",
-    advanced: "Advanced",
-  };
-  return difficulties[difficulty] || difficulty;
-};
-
-const formatDate = (date: string) => {
-  return new Date(date).toLocaleDateString("en-US", {
-    month: "short",
-    day: "numeric",
-    year: "numeric",
   });
-};
 
-const formatDateTime = (date: string) => {
-  return new Date(date).toLocaleString("en-US", {
-    month: "short",
-    day: "numeric",
-    year: "numeric",
-    hour: "2-digit",
-    minute: "2-digit",
+  const parsedStopSequences = computed(() => {
+    if (!sample.value?.stopSequences) return [];
+    try {
+      return JSON.parse(sample.value.stopSequences);
+    } catch {
+      return [];
+    }
   });
-};
 
-onMounted(() => {
-  loadSample();
-});
+  const parsedTools = computed(() => {
+    if (!sample.value?.toolsUsed) return [];
+    try {
+      return JSON.parse(sample.value.toolsUsed);
+    } catch {
+      return [];
+    }
+  });
 
-definePageMeta({
-  layout: "default",
-});
+  const parsedMetadata = computed(() => {
+    if (!sample.value?.metadata) return null;
+    try {
+      return JSON.parse(sample.value.metadata);
+    } catch {
+      return sample.value.metadata;
+    }
+  });
+
+  const hasModelParams = computed(() => {
+    if (!sample.value) return false;
+    return (
+      sample.value.temperature !== null ||
+      sample.value.topP !== null ||
+      sample.value.topK !== null ||
+      sample.value.maxTokens !== null ||
+      sample.value.frequencyPenalty !== null ||
+      sample.value.presencePenalty !== null ||
+      sample.value.seed !== null ||
+      sample.value.stopSequences !== null
+    );
+  });
+
+  const statusClass = computed(() => {
+    const classes: Record<string, string> = {
+      draft: "bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-300",
+      review: "bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300",
+      approved: "bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300",
+      rejected: "bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300",
+    };
+    return (
+      classes[sample.value?.status] ||
+      "bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-200"
+    );
+  });
+
+  const sourceClass = computed(() => {
+    const classes: Record<string, string> = {
+      manual: "bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300",
+      json: "bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300",
+    };
+    return (
+      classes[sample.value?.source] ||
+      "bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300"
+    );
+  });
+
+  const formatStatus = (status: string) => {
+    const statuses: Record<string, string> = {
+      draft: "Draft",
+      review: "In Review",
+      approved: "Approved",
+      rejected: "Rejected",
+    };
+    return statuses[status] || status;
+  };
+
+  const formatSource = (source: string) => {
+    const sources: Record<string, string> = {
+      manual: "Manual",
+      json: "JSON Import",
+    };
+    return sources[source] || source;
+  };
+
+  const formatCategory = (category: string) => {
+    const categories: Record<string, string> = {
+      general: "General",
+      coding: "Coding",
+      analysis: "Analysis",
+      explanation: "Explanation",
+      writing: "Writing",
+      math: "Math",
+      science: "Science",
+    };
+    return categories[category] || category;
+  };
+
+  const formatDifficulty = (difficulty: string) => {
+    const difficulties: Record<string, string> = {
+      beginner: "Beginner",
+      intermediate: "Intermediate",
+      advanced: "Advanced",
+    };
+    return difficulties[difficulty] || difficulty;
+  };
+
+  const formatDate = (date: string) => {
+    return new Date(date).toLocaleDateString("en-US", {
+      month: "short",
+      day: "numeric",
+      year: "numeric",
+    });
+  };
+
+  const formatDateTime = (date: string) => {
+    return new Date(date).toLocaleString("en-US", {
+      month: "short",
+      day: "numeric",
+      year: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+  };
+
+  onMounted(() => {
+    loadSample();
+  });
+
+  definePageMeta({
+    layout: "default",
+  });
 </script>

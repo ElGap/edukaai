@@ -1,9 +1,6 @@
-import Database from 'better-sqlite3'
-import { drizzle } from 'drizzle-orm/better-sqlite3'
-import * as schema from './schema'
+import Database from "better-sqlite3";
 
-const sqlite = new Database('./data/edukaai.db')
-const db = drizzle(sqlite, { schema })
+const sqlite = new Database("./data/edukaai.db");
 
 // Create tables manually
 sqlite.exec(`
@@ -58,7 +55,7 @@ sqlite.exec(`
     value TEXT,
     updated_at INTEGER DEFAULT (strftime('%s', 'now'))
   );
-`)
+`);
 
-console.log('✅ Database initialized successfully!')
-console.log('Tables created: examples, import_sessions, milestones, settings')
+console.log("✅ Database initialized successfully!");
+console.log("Tables created: examples, import_sessions, milestones, settings");

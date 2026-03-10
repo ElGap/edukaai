@@ -1,22 +1,14 @@
 import { z } from "zod";
 import { getDb } from "../../../db";
 import { datasets, samples } from "../../../db/schema";
-import { eq, and } from "drizzle-orm";
+import { eq } from "drizzle-orm";
 
 const updateSchema = z.object({
   name: z.string().min(1).max(100).optional(),
   description: z.string().max(500).optional(),
   defaultQuality: z.enum(["high", "medium", "low"]).optional(),
   defaultCategory: z
-    .enum([
-      "general",
-      "coding",
-      "analysis",
-      "explanation",
-      "writing",
-      "math",
-      "science",
-    ])
+    .enum(["general", "coding", "analysis", "explanation", "writing", "math", "science"])
     .optional(),
   defaultAutoApprove: z.boolean().optional(),
   goalSamples: z.number().int().min(10).max(10000).optional(), // Allow updating goal
@@ -67,10 +59,7 @@ export default defineEventHandler(async (event) => {
       }
 
       // Update dataset_name in all samples
-      await db
-        .update(samples)
-        .set({ datasetName: data.name })
-        .where(eq(samples.datasetId, id));
+      await db.update(samples).set({ datasetName: data.name }).where(eq(samples.datasetId, id));
     }
 
     // Update dataset
@@ -79,22 +68,14 @@ export default defineEventHandler(async (event) => {
     };
 
     if (data.name !== undefined) updateData.name = data.name;
-    if (data.description !== undefined)
-      updateData.description = data.description;
-    if (data.defaultQuality !== undefined)
-      updateData.defaultQuality = data.defaultQuality;
-    if (data.defaultCategory !== undefined)
-      updateData.defaultCategory = data.defaultCategory;
+    if (data.description !== undefined) updateData.description = data.description;
+    if (data.defaultQuality !== undefined) updateData.defaultQuality = data.defaultQuality;
+    if (data.defaultCategory !== undefined) updateData.defaultCategory = data.defaultCategory;
     if (data.defaultAutoApprove !== undefined)
       updateData.defaultAutoApprove = data.defaultAutoApprove ? 1 : 0;
-    if (data.goalSamples !== undefined)
-      updateData.goalSamples = data.goalSamples;
+    if (data.goalSamples !== undefined) updateData.goalSamples = data.goalSamples;
 
-    const result = await db
-      .update(datasets)
-      .set(updateData)
-      .where(eq(datasets.id, id))
-      .returning();
+    const result = await db.update(datasets).set(updateData).where(eq(datasets.id, id)).returning();
 
     return {
       success: true,

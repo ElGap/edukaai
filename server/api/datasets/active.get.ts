@@ -6,7 +6,7 @@ import { eq } from "drizzle-orm";
  * GET /api/datasets/active
  * Get the currently active dataset
  */
-export default defineEventHandler(async (event) => {
+export default defineEventHandler(async (_event) => {
   try {
     const db = getDb();
 

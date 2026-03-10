@@ -99,16 +99,19 @@ function initDatabase(sqlite: Database.Database) {
 
   // Migration: Add goal_samples to datasets table
   const datasetsTableInfo = sqlite.prepare("PRAGMA table_info(datasets)").all() as any[];
-  const hasGoalSamples = datasetsTableInfo.find(col => col.name === 'goal_samples');
-  const hasUserSettings = (sqlite.prepare("SELECT name FROM sqlite_master WHERE type='table' AND name='user_settings'").get() as any) !== undefined;
-  
+  const hasGoalSamples = datasetsTableInfo.find((col) => col.name === "goal_samples");
+  const hasUserSettings =
+    (sqlite
+      .prepare("SELECT name FROM sqlite_master WHERE type='table' AND name='user_settings'")
+      .get() as any) !== undefined;
+
   if (!hasGoalSamples) {
-    console.log('Migrating: Adding goal_samples column to datasets table...');
+    console.log("Migrating: Adding goal_samples column to datasets table...");
     sqlite.exec(`ALTER TABLE datasets ADD COLUMN goal_samples INTEGER DEFAULT NULL`);
   }
-  
+
   if (!hasUserSettings) {
-    console.log('Creating user_settings table...');
+    console.log("Creating user_settings table...");
     sqlite.exec(`
       CREATE TABLE IF NOT EXISTS user_settings (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -124,11 +127,11 @@ function initDatabase(sqlite: Database.Database) {
   // Migration: Remove DEFAULT constraint from datasets.updated_at if it exists
   // SQLite doesn't support ALTER COLUMN, so we need to recreate the table
   const tableInfo = sqlite.prepare("PRAGMA table_info(datasets)").all() as any[];
-  const updatedAtColumn = tableInfo.find(col => col.name === 'updated_at');
-  
+  const updatedAtColumn = tableInfo.find((col) => col.name === "updated_at");
+
   if (updatedAtColumn && updatedAtColumn.dflt_value !== null) {
-    console.log('Migrating datasets table to remove updated_at DEFAULT constraint...');
-    
+    console.log("Migrating datasets table to remove updated_at DEFAULT constraint...");
+
     sqlite.exec(`
       -- Create new table without DEFAULT
       CREATE TABLE datasets_new (
@@ -160,8 +163,8 @@ function initDatabase(sqlite: Database.Database) {
       -- Rename new table
       ALTER TABLE datasets_new RENAME TO datasets;
     `);
-    
-    console.log('Migration complete.');
+
+    console.log("Migration complete.");
   }
 
   initialized = true;

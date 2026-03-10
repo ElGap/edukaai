@@ -8,7 +8,8 @@
         <div>
           <h2 class="text-xl font-semibold">Default Dataset Goal</h2>
           <p class="text-secondary mt-1">
-            Set the default number of samples for new datasets. This is used when you don't specify a custom goal during dataset creation.
+            Set the default number of samples for new datasets. This is used when you don't specify
+            a custom goal during dataset creation.
           </p>
         </div>
         <div class="p-2 bg-blue-100 dark:bg-blue-900/30 rounded-lg">
@@ -40,9 +41,11 @@
               v-for="preset in goalPresets"
               :key="preset.value"
               class="px-4 py-2 rounded-lg border transition-colors text-sm"
-              :class="selectedGoal === preset.value 
-                ? 'bg-blue-600 text-white border-blue-600' 
-                : 'border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800'"
+              :class="
+                selectedGoal === preset.value
+                  ? 'bg-blue-600 text-white border-blue-600'
+                  : 'border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800'
+              "
               @click="selectedGoal = preset.value"
             >
               {{ preset.label }}
@@ -68,7 +71,8 @@
 
         <div class="pt-4 border-t border-gray-200 dark:border-gray-700">
           <p class="text-sm text-secondary">
-            Current default: <strong class="text-gray-900 dark:text-gray-100">{{ currentGoal }} samples</strong>
+            Current default:
+            <strong class="text-gray-900 dark:text-gray-100">{{ currentGoal }} samples</strong>
           </p>
           <p class="text-xs text-tertiary mt-1">
             This will apply to all new datasets unless you specify a different goal during creation.
@@ -83,12 +87,7 @@
           >
             {{ saving ? "Saving..." : "Save Changes" }}
           </button>
-          <button
-            class="btn-secondary"
-            @click="resetToDefault"
-          >
-            Reset to 100
-          </button>
+          <button class="btn-secondary" @click="resetToDefault">Reset to 100</button>
         </div>
       </div>
     </div>
@@ -106,7 +105,8 @@
           <li><strong>1000 (Professional):</strong> Large dataset for production models</li>
         </ul>
         <p class="mt-4">
-          Each dataset can have its own goal. The sidebar progress widget shows progress toward the currently active dataset's goal.
+          Each dataset can have its own goal. The sidebar progress widget shows progress toward the
+          currently active dataset's goal.
         </p>
       </div>
     </div>
@@ -119,7 +119,9 @@
     >
       <div class="bg-white dark:bg-gray-800 rounded-xl p-6 max-w-md mx-4 shadow-2xl">
         <div class="text-center">
-          <div class="w-16 h-16 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center mx-auto mb-4">
+          <div
+            class="w-16 h-16 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center mx-auto mb-4"
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="32"
@@ -135,8 +137,12 @@
               <polyline points="20 6 9 17 4 12" />
             </svg>
           </div>
-          <h3 class="text-xl font-semibold mb-2 text-gray-900 dark:text-gray-100">Settings Saved!</h3>
-          <p class="text-secondary mb-6">Your default goal has been updated to {{ selectedGoal }} samples.</p>
+          <h3 class="text-xl font-semibold mb-2 text-gray-900 dark:text-gray-100">
+            Settings Saved!
+          </h3>
+          <p class="text-secondary mb-6">
+            Your default goal has been updated to {{ selectedGoal }} samples.
+          </p>
           <button
             class="w-full px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
             @click="showSuccessModal = false"
@@ -155,7 +161,9 @@
     >
       <div class="bg-white dark:bg-gray-800 rounded-xl p-6 max-w-md mx-4 shadow-2xl">
         <div class="text-center">
-          <div class="w-16 h-16 bg-red-100 dark:bg-red-900/30 rounded-full flex items-center justify-center mx-auto mb-4">
+          <div
+            class="w-16 h-16 bg-red-100 dark:bg-red-900/30 rounded-full flex items-center justify-center mx-auto mb-4"
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="32"
@@ -188,68 +196,68 @@
 </template>
 
 <script setup lang="ts">
-const goalPresets = [
-  { value: 50, label: "50" },
-  { value: 100, label: "100" },
-  { value: 250, label: "250" },
-  { value: 500, label: "500" },
-  { value: 1000, label: "1000" },
-];
+  const goalPresets = [
+    { value: 50, label: "50" },
+    { value: 100, label: "100" },
+    { value: 250, label: "250" },
+    { value: 500, label: "500" },
+    { value: 1000, label: "1000" },
+  ];
 
-const currentGoal = ref(100);
-const selectedGoal = ref(100);
-const customGoal = ref(100);
-const saving = ref(false);
-const showSuccessModal = ref(false);
-const showErrorModal = ref(false);
-const errorMessage = ref("");
+  const currentGoal = ref(100);
+  const selectedGoal = ref(100);
+  const customGoal = ref(100);
+  const saving = ref(false);
+  const showSuccessModal = ref(false);
+  const showErrorModal = ref(false);
+  const errorMessage = ref("");
 
-onMounted(async () => {
-  await loadSettings();
-});
+  onMounted(async () => {
+    await loadSettings();
+  });
 
-async function loadSettings() {
-  try {
-    const response = await $fetch("/api/settings");
-    if (response.success && response.data) {
-      currentGoal.value = response.data.defaultGoalSamples || 100;
-      selectedGoal.value = currentGoal.value;
-      customGoal.value = currentGoal.value;
+  async function loadSettings() {
+    try {
+      const response = await $fetch("/api/settings");
+      if (response.success && response.data) {
+        currentGoal.value = response.data.defaultGoalSamples || 100;
+        selectedGoal.value = currentGoal.value;
+        customGoal.value = currentGoal.value;
+      }
+    } catch (error) {
+      console.error("Error loading settings:", error);
     }
-  } catch (error) {
-    console.error("Error loading settings:", error);
   }
-}
 
-async function saveSettings() {
-  try {
-    saving.value = true;
-    const response = await $fetch("/api/settings", {
-      method: "PUT",
-      body: {
-        defaultGoalSamples: selectedGoal.value,
-      },
-    });
+  async function saveSettings() {
+    try {
+      saving.value = true;
+      const response = await $fetch("/api/settings", {
+        method: "PUT",
+        body: {
+          defaultGoalSamples: selectedGoal.value,
+        },
+      });
 
-    if (response.success) {
-      currentGoal.value = selectedGoal.value;
-      showSuccessModal.value = true;
+      if (response.success) {
+        currentGoal.value = selectedGoal.value;
+        showSuccessModal.value = true;
+      }
+    } catch (error: any) {
+      console.error("Error saving settings:", error);
+      errorMessage.value = error?.message || "Failed to save settings";
+      showErrorModal.value = true;
+    } finally {
+      saving.value = false;
     }
-  } catch (error: any) {
-    console.error("Error saving settings:", error);
-    errorMessage.value = error?.message || "Failed to save settings";
-    showErrorModal.value = true;
-  } finally {
-    saving.value = false;
   }
-}
 
-function resetToDefault() {
-  selectedGoal.value = 100;
-  customGoal.value = 100;
-}
+  function resetToDefault() {
+    selectedGoal.value = 100;
+    customGoal.value = 100;
+  }
 
-useHead({
-  title: "Settings - EdukaAI",
-});
+  useHead({
+    title: "Settings - EdukaAI",
+  });
 </script>

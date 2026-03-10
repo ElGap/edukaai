@@ -5,29 +5,20 @@
         <h1 class="text-2xl font-bold mb-2">Edit Sample #{{ route.params.id }}</h1>
         <p class="text-secondary">Update your training sample details.</p>
       </div>
-      <NuxtLink to="/samples" class="btn-secondary">
-        ← Back to Dataset
-      </NuxtLink>
+      <NuxtLink to="/samples" class="btn-secondary"> ← Back to Dataset </NuxtLink>
     </div>
-    
+
     <div v-if="loading" class="text-center py-12">
       <div class="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
       <p class="mt-2 text-secondary">Loading sample...</p>
     </div>
-    
+
     <div v-else-if="error" class="card text-center py-12">
       <p class="text-red-600">{{ error }}</p>
-      <NuxtLink to="/samples" class="btn-primary mt-4 inline-block">
-        Back to Dataset
-      </NuxtLink>
+      <NuxtLink to="/samples" class="btn-primary mt-4 inline-block"> Back to Dataset </NuxtLink>
     </div>
-    
-    <SampleForm 
-      v-else
-      :initial-data="sample"
-      @submit="handleUpdate"
-      @cancel="handleCancel"
-    />
+
+    <SampleForm v-else :initial-data="sample" @submit="handleUpdate" @cancel="handleCancel" />
 
     <!-- Success Modal -->
     <div
@@ -37,7 +28,9 @@
     >
       <div class="bg-white dark:bg-gray-800 rounded-xl p-6 max-w-md mx-4 shadow-2xl">
         <div class="text-center">
-          <div class="w-16 h-16 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center mx-auto mb-4">
+          <div
+            class="w-16 h-16 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center mx-auto mb-4"
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="32"
@@ -75,7 +68,9 @@
     >
       <div class="bg-white dark:bg-gray-800 rounded-xl p-6 max-w-md mx-4 shadow-2xl">
         <div class="text-center">
-          <div class="w-16 h-16 bg-red-100 dark:bg-red-900/30 rounded-full flex items-center justify-center mx-auto mb-4">
+          <div
+            class="w-16 h-16 bg-red-100 dark:bg-red-900/30 rounded-full flex items-center justify-center mx-auto mb-4"
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="32"
@@ -108,70 +103,70 @@
 </template>
 
 <script setup>
-const route = useRoute()
-const router = useRouter()
+  const route = useRoute();
+  const router = useRouter();
 
-const loading = ref(true)
-const error = ref(null)
-const sample = ref(null)
+  const loading = ref(true);
+  const error = ref(null);
+  const sample = ref(null);
 
-// Modal states
-const showSuccessModal = ref(false)
-const showErrorModal = ref(false)
-const errorModalMessage = ref('')
+  // Modal states
+  const showSuccessModal = ref(false);
+  const showErrorModal = ref(false);
+  const errorModalMessage = ref("");
 
-const loadSample = async () => {
-  try {
-    loading.value = true
-    const response = await $fetch(`/api/samples/${route.params.id}`)
-    sample.value = response.sample
-  } catch (err) {
-    error.value = 'Failed to load sample. It may have been deleted.'
-    console.error('Error loading sample:', err)
-  } finally {
-    loading.value = false
-  }
-}
-
-const handleUpdate = async (formData) => {
-  try {
-    const response = await $fetch(`/api/samples/${route.params.id}`, {
-      method: 'PUT',
-      body: formData
-    })
-    
-    if (response.success) {
-      showSuccessModal.value = true
+  const loadSample = async () => {
+    try {
+      loading.value = true;
+      const response = await $fetch(`/api/samples/${route.params.id}`);
+      sample.value = response.sample;
+    } catch (err) {
+      error.value = "Failed to load sample. It may have been deleted.";
+      console.error("Error loading sample:", err);
+    } finally {
+      loading.value = false;
     }
-  } catch (err) {
-    console.error('Error updating sample:', err)
-    errorModalMessage.value = err.message || 'Failed to update sample. Please try again.'
-    showErrorModal.value = true
-  }
-}
+  };
 
-const closeSuccessModal = () => {
-  showSuccessModal.value = false
-}
+  const handleUpdate = async (formData) => {
+    try {
+      const response = await $fetch(`/api/samples/${route.params.id}`, {
+        method: "PUT",
+        body: formData,
+      });
 
-const closeSuccessModalAndRedirect = () => {
-  showSuccessModal.value = false
-  router.push('/samples')
-}
+      if (response.success) {
+        showSuccessModal.value = true;
+      }
+    } catch (err) {
+      console.error("Error updating sample:", err);
+      errorModalMessage.value = err.message || "Failed to update sample. Please try again.";
+      showErrorModal.value = true;
+    }
+  };
 
-const closeErrorModal = () => {
-  showErrorModal.value = false
-}
+  const closeSuccessModal = () => {
+    showSuccessModal.value = false;
+  };
 
-const handleCancel = () => {
-  router.push('/samples')
-}
+  const closeSuccessModalAndRedirect = () => {
+    showSuccessModal.value = false;
+    router.push("/samples");
+  };
 
-onMounted(() => {
-  loadSample()
-})
+  const closeErrorModal = () => {
+    showErrorModal.value = false;
+  };
 
-definePageMeta({
-  layout: 'default'
-})
+  const handleCancel = () => {
+    router.push("/samples");
+  };
+
+  onMounted(() => {
+    loadSample();
+  });
+
+  definePageMeta({
+    layout: "default",
+  });
 </script>

@@ -40,7 +40,7 @@
 </template>
 
 <script setup lang="ts">
-  const props = defineProps<{
+  defineProps<{
     achieved: boolean;
     count: string;
     label: string;

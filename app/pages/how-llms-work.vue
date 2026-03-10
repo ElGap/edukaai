@@ -12,18 +12,25 @@
         <h1 class="text-4xl font-bold">LLM Training Explained</h1>
       </div>
       <p class="text-xl text-secondary">
-        A technical deep-dive into how Large Language Models actually work, explained for developers who want to understand the magic behind AI.
+        A technical deep-dive into how Large Language Models actually work, explained for developers
+        who want to understand the magic behind AI.
       </p>
     </div>
 
     <!-- Story Introduction -->
-    <div class="card mb-8 bg-gradient-to-br from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20">
+    <div
+      class="card mb-8 bg-gradient-to-br from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20"
+    >
       <h2 class="text-xl font-semibold mb-4">📖 The Story Begins...</h2>
       <p class="text-secondary leading-relaxed mb-4">
-        Imagine you're texting with a friend who's incredibly good at predicting what you're going to say next. Not because they're psychic, but because they've read every book, article, and conversation in existence. 
+        Imagine you're texting with a friend who's incredibly good at predicting what you're going
+        to say next. Not because they're psychic, but because they've read every book, article, and
+        conversation in existence.
       </p>
       <p class="text-secondary leading-relaxed">
-        That's essentially what an LLM is — a statistical prediction machine that learned patterns from trillions of words. But how does it actually work under the hood? Let's dive into the technical magic, step by step.
+        That's essentially what an LLM is — a statistical prediction machine that learned patterns
+        from trillions of words. But how does it actually work under the hood? Let's dive into the
+        technical magic, step by step.
       </p>
     </div>
 
@@ -33,12 +40,15 @@
         <span class="text-3xl">1️⃣</span>
         <h2 class="text-2xl font-bold">What is an LLM, Actually?</h2>
       </div>
-      
+
       <div class="card">
-        <h3 class="text-lg font-semibold mb-4 text-blue-700 dark:text-blue-400">The Next Token Prediction Machine</h3>
-        
+        <h3 class="text-lg font-semibold mb-4 text-blue-700 dark:text-blue-400">
+          The Next Token Prediction Machine
+        </h3>
+
         <p class="text-secondary mb-4 leading-relaxed">
-          At its core, an LLM (Large Language Model) is doing one thing and one thing only: <strong>predicting the next token</strong>.
+          At its core, an LLM (Large Language Model) is doing one thing and one thing only:
+          <strong>predicting the next token</strong>.
         </p>
 
         <div class="bg-gray-50 dark:bg-gray-800 p-6 rounded-xl mb-6">
@@ -47,21 +57,36 @@
             <div class="flex items-center gap-3">
               <span class="text-2xl">📜</span>
               <div class="flex-1">
-                <p class="font-mono text-sm bg-white dark:bg-gray-700 p-2 rounded border dark:border-gray-600">
+                <p
+                  class="font-mono text-sm bg-white dark:bg-gray-700 p-2 rounded border dark:border-gray-600"
+                >
                   "The capital of France is"
                 </p>
               </div>
             </div>
             <div class="text-center">
-              <svg class="w-8 h-8 mx-auto text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+              <svg
+                class="w-8 h-8 mx-auto text-blue-500"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M19 14l-7 7m0 0l-7-7m7 7V3"
+                ></path>
               </svg>
             </div>
             <div class="flex items-center gap-3">
               <span class="text-2xl">🤖</span>
               <div class="flex-1">
-                <p class="font-mono text-sm bg-green-50 dark:bg-green-900/20 p-2 rounded border border-green-200 dark:border-green-800">
-                  "Paris" <span class="text-green-600 dark:text-green-400">(probability: 99.9%)</span>
+                <p
+                  class="font-mono text-sm bg-green-50 dark:bg-green-900/20 p-2 rounded border border-green-200 dark:border-green-800"
+                >
+                  "Paris"
+                  <span class="text-green-600 dark:text-green-400">(probability: 99.9%)</span>
                 </p>
               </div>
             </div>
@@ -69,20 +94,27 @@
         </div>
 
         <p class="text-secondary mb-4 leading-relaxed">
-          That's it. The entire "intelligence" of ChatGPT, Claude, or any LLM comes from doing this one task extremely well, billions of times over. 
+          That's it. The entire "intelligence" of ChatGPT, Claude, or any LLM comes from doing this
+          one task extremely well, billions of times over.
         </p>
 
         <div class="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg mb-6">
           <h4 class="font-medium text-blue-900 dark:text-blue-100 mb-2">💡 Why This Works</h4>
           <p class="text-sm text-blue-800 dark:text-blue-200">
-            If you can predict "Paris" after "The capital of France is", and you can predict "def" after "class MyClass:", and you can predict "sincerely" after "Yours", then you've learned the patterns of language, facts about the world, programming syntax, and letter-writing etiquette — all from next-token prediction.
+            If you can predict "Paris" after "The capital of France is", and you can predict "def"
+            after "class MyClass:", and you can predict "sincerely" after "Yours", then you've
+            learned the patterns of language, facts about the world, programming syntax, and
+            letter-writing etiquette — all from next-token prediction.
           </p>
         </div>
 
-        <h3 class="text-lg font-semibold mb-4 text-blue-700 dark:text-blue-400">The Autoregressive Loop</h3>
+        <h3 class="text-lg font-semibold mb-4 text-blue-700 dark:text-blue-400">
+          The Autoregressive Loop
+        </h3>
 
         <p class="text-secondary mb-4 leading-relaxed">
-          Here's the clever part: once the model predicts "Paris", it adds that to the context and predicts the NEXT token:
+          Here's the clever part: once the model predicts "Paris", it adds that to the context and
+          predicts the NEXT token:
         </p>
 
         <div class="bg-gray-50 dark:bg-gray-800 p-4 rounded-xl mb-6">
@@ -96,7 +128,9 @@
         </div>
 
         <p class="text-secondary leading-relaxed">
-          This is called <strong>autoregressive generation</strong> — the model feeds its own predictions back as input to generate the next part. This is how it writes essays, answers questions, or generates code one piece at a time.
+          This is called <strong>autoregressive generation</strong> — the model feeds its own
+          predictions back as input to generate the next part. This is how it writes essays, answers
+          questions, or generates code one piece at a time.
         </p>
       </div>
     </section>
@@ -107,46 +141,76 @@
         <span class="text-3xl">2️⃣</span>
         <h2 class="text-2xl font-bold">Tokens: The Building Blocks</h2>
       </div>
-      
+
       <div class="card">
         <h3 class="text-lg font-semibold mb-4 text-blue-700">Not Words, Not Characters</h3>
-        
+
         <p class="text-secondary mb-4 leading-relaxed">
-          LLMs don't actually work with words or characters. They work with <strong>tokens</strong> — pieces of text that are somewhere in between.
+          LLMs don't actually work with words or characters. They work with
+          <strong>tokens</strong> — pieces of text that are somewhere in between.
         </p>
 
         <div class="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg mb-4">
           <h4 class="font-medium text-blue-800 dark:text-blue-200 mb-2">🔧 What is a Tokenizer?</h4>
           <p class="text-sm text-secondary mb-2">
-            A <strong>tokenizer</strong> is like a smart text splitter. It's an algorithm (not AI, just clever math) that:
+            A <strong>tokenizer</strong> is like a smart text splitter. It's an algorithm (not AI,
+            just clever math) that:
           </p>
           <ol class="list-decimal list-inside text-sm text-secondary space-y-1 ml-2">
             <li><strong>Breaks text into pieces:</strong> "ChatGPT" → ["Chat", "G", "PT"]</li>
-            <li><strong>Assigns each piece a number:</strong> "Chat" = 15496, "G" = 47, "PT" = 1234</li>
-            <li><strong>Converts numbers back to text:</strong> When the model generates [47, 1234], the tokenizer turns it back into "GPT"</li>
+            <li>
+              <strong>Assigns each piece a number:</strong> "Chat" = 15496, "G" = 47, "PT" = 1234
+            </li>
+            <li>
+              <strong>Converts numbers back to text:</strong> When the model generates [47, 1234],
+              the tokenizer turns it back into "GPT"
+            </li>
           </ol>
           <p class="text-sm text-secondary mt-2">
-            Think of it as a translator between human text ↔ machine numbers. Every LLM has its own tokenizer trained on its vocabulary.
+            Think of it as a translator between human text ↔ machine numbers. Every LLM has its own
+            tokenizer trained on its vocabulary.
           </p>
         </div>
 
-        <div class="bg-gray-50 dark:bg-gray-800 p-6 rounded-xl mb-6 border border-gray-200 dark:border-gray-700">
+        <div
+          class="bg-gray-50 dark:bg-gray-800 p-6 rounded-xl mb-6 border border-gray-200 dark:border-gray-700"
+        >
           <h4 class="font-medium mb-4 text-gray-900 dark:text-gray-100">How Tokenization Works</h4>
           <div class="space-y-4">
             <div>
               <p class="text-sm text-gray-600 dark:text-gray-400 mb-1">Original text:</p>
-              <p class="font-mono text-lg text-gray-800 dark:text-gray-200">"ChatGPT is amazing!"</p>
+              <p class="font-mono text-lg text-gray-800 dark:text-gray-200">
+                "ChatGPT is amazing!"
+              </p>
             </div>
             <div class="text-center">
               <span class="text-2xl text-gray-600 dark:text-gray-400">↓ Tokenized ↓</span>
             </div>
             <div class="flex flex-wrap gap-2">
-              <span class="px-3 py-2 bg-blue-100 dark:bg-blue-900/30 rounded-lg font-mono text-sm text-gray-800 dark:text-blue-200">Chat</span>
-              <span class="px-3 py-2 bg-blue-100 dark:bg-blue-900/30 rounded-lg font-mono text-sm text-gray-800 dark:text-blue-200">G</span>
-              <span class="px-3 py-2 bg-blue-100 dark:bg-blue-900/30 rounded-lg font-mono text-sm text-gray-800 dark:text-blue-200">PT</span>
-              <span class="px-3 py-2 bg-green-100 dark:bg-green-900/30 rounded-lg font-mono text-sm text-gray-800 dark:text-green-200">is</span>
-              <span class="px-3 py-2 bg-purple-100 dark:bg-purple-900/30 rounded-lg font-mono text-sm text-gray-800 dark:text-purple-200">amazing</span>
-              <span class="px-3 py-2 bg-red-100 dark:bg-red-900/30 rounded-lg font-mono text-sm text-gray-800 dark:text-red-200">!</span>
+              <span
+                class="px-3 py-2 bg-blue-100 dark:bg-blue-900/30 rounded-lg font-mono text-sm text-gray-800 dark:text-blue-200"
+                >Chat</span
+              >
+              <span
+                class="px-3 py-2 bg-blue-100 dark:bg-blue-900/30 rounded-lg font-mono text-sm text-gray-800 dark:text-blue-200"
+                >G</span
+              >
+              <span
+                class="px-3 py-2 bg-blue-100 dark:bg-blue-900/30 rounded-lg font-mono text-sm text-gray-800 dark:text-blue-200"
+                >PT</span
+              >
+              <span
+                class="px-3 py-2 bg-green-100 dark:bg-green-900/30 rounded-lg font-mono text-sm text-gray-800 dark:text-green-200"
+                >is</span
+              >
+              <span
+                class="px-3 py-2 bg-purple-100 dark:bg-purple-900/30 rounded-lg font-mono text-sm text-gray-800 dark:text-purple-200"
+                >amazing</span
+              >
+              <span
+                class="px-3 py-2 bg-red-100 dark:bg-red-900/30 rounded-lg font-mono text-sm text-gray-800 dark:text-red-200"
+                >!</span
+              >
             </div>
             <p class="text-sm text-gray-600 dark:text-gray-400 mt-2">6 tokens total</p>
           </div>
@@ -158,19 +222,23 @@
           <div class="p-4 bg-green-50 dark:bg-green-900/20 rounded-lg">
             <h4 class="font-medium text-green-800 dark:text-green-200 mb-2">✅ Efficient</h4>
             <p class="text-sm text-secondary">
-              Common words like "the", "and", "is" are single tokens. Rare words get broken into subword pieces. This gives a good balance between vocabulary size and sequence length.
+              Common words like "the", "and", "is" are single tokens. Rare words get broken into
+              subword pieces. This gives a good balance between vocabulary size and sequence length.
             </p>
           </div>
           <div class="p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
             <h4 class="font-medium text-blue-800 dark:text-blue-200 mb-2">✅ Handles Any Text</h4>
             <p class="text-sm text-secondary">
-              By breaking unknown words into pieces (like "unbelievable" → "un" + "believable"), the model can handle words it's never seen before.
+              By breaking unknown words into pieces (like "unbelievable" → "un" + "believable"), the
+              model can handle words it's never seen before.
             </p>
           </div>
         </div>
 
         <div class="bg-yellow-50 dark:bg-yellow-900/20 p-4 rounded-lg mb-6">
-          <h4 class="font-medium text-yellow-800 dark:text-yellow-200 mb-2">📊 Token Count Examples</h4>
+          <h4 class="font-medium text-yellow-800 dark:text-yellow-200 mb-2">
+            📊 Token Count Examples
+          </h4>
           <table class="w-full text-sm">
             <thead>
               <tr class="border-b dark:border-gray-700">
@@ -204,9 +272,13 @@
         </div>
 
         <div class="bg-purple-50 dark:bg-purple-900/20 p-4 rounded-lg">
-          <h4 class="font-medium text-purple-800 dark:text-purple-200 mb-2">💡 Why This Matters for You</h4>
-              <p class="text-sm text-secondary">
-            When you're charged by the token, or when your model has a "context window" of 4096 tokens, you're not being limited by words or characters — you're being limited by these token pieces. That's why a 100-word paragraph might be 130 tokens, not 100.
+          <h4 class="font-medium text-purple-800 dark:text-purple-200 mb-2">
+            💡 Why This Matters for You
+          </h4>
+          <p class="text-sm text-secondary">
+            When you're charged by the token, or when your model has a "context window" of 4096
+            tokens, you're not being limited by words or characters — you're being limited by these
+            token pieces. That's why a 100-word paragraph might be 130 tokens, not 100.
           </p>
         </div>
       </div>
@@ -218,17 +290,21 @@
         <span class="text-3xl">3️⃣</span>
         <h2 class="text-2xl font-bold">Neural Networks: Pattern Recognizers</h2>
       </div>
-      
+
       <div class="card">
-        <h3 class="text-lg font-semibold mb-4 text-blue-700 dark:text-blue-400">The Pattern Recognition Machine</h3>
-        
+        <h3 class="text-lg font-semibold mb-4 text-blue-700 dark:text-blue-400">
+          The Pattern Recognition Machine
+        </h3>
+
         <p class="text-secondary mb-4 leading-relaxed">
-          At the heart of an LLM is a <strong>neural network</strong> — a massive system of interconnected nodes that learns patterns from data. Think of it like a giant sieve that filters information, learning which patterns are important.
+          At the heart of an LLM is a <strong>neural network</strong> — a massive system of
+          interconnected nodes that learns patterns from data. Think of it like a giant sieve that
+          filters information, learning which patterns are important.
         </p>
 
         <div class="bg-gray-50 dark:bg-gray-800 p-6 rounded-xl mb-6">
           <h4 class="font-medium mb-4">How a Neural Network Works (Simplified)</h4>
-          
+
           <div class="space-y-4">
             <div class="flex items-center gap-4">
               <div class="w-20 text-right text-sm text-tertiary">Input</div>
@@ -237,19 +313,21 @@
                 <p class="text-xs text-secondary">("The cat sat...")</p>
               </div>
             </div>
-            
+
             <div class="text-center text-2xl">↓</div>
-            
+
             <div class="flex items-center gap-4">
               <div class="w-20 text-right text-sm text-tertiary">Processing</div>
               <div class="flex-1 p-4 bg-purple-100 dark:bg-purple-900/30 rounded-lg">
                 <p class="font-medium text-sm mb-2">Millions of mathematical operations</p>
-                <p class="text-xs text-secondary">Matrix multiplications, activations, transformations through layers</p>
+                <p class="text-xs text-secondary">
+                  Matrix multiplications, activations, transformations through layers
+                </p>
               </div>
             </div>
-            
+
             <div class="text-center text-2xl">↓</div>
-            
+
             <div class="flex items-center gap-4">
               <div class="w-20 text-right text-sm text-tertiary">Output</div>
               <div class="flex-1 p-3 bg-green-100 dark:bg-green-900/30 rounded-lg">
@@ -260,10 +338,13 @@
           </div>
         </div>
 
-        <h3 class="text-lg font-semibold mb-4 text-blue-700 dark:text-blue-400">The Key Idea: Learning from Examples</h3>
-        
+        <h3 class="text-lg font-semibold mb-4 text-blue-700 dark:text-blue-400">
+          The Key Idea: Learning from Examples
+        </h3>
+
         <p class="text-secondary mb-4 leading-relaxed">
-          The network doesn't "know" anything initially. It starts with random values (weights). During training, it sees millions of examples like:
+          The network doesn't "know" anything initially. It starts with random values (weights).
+          During training, it sees millions of examples like:
         </p>
 
         <div class="bg-gray-50 dark:bg-gray-800 p-4 rounded-xl mb-6">
@@ -271,7 +352,9 @@
             <p><strong>Input:</strong> "The cat sat on the"</p>
             <p><strong>Expected Output:</strong> "mat"</p>
             <p><strong>Network's Guess:</strong> "floor" (wrong!)</p>
-            <p class="text-red-600 dark:text-red-400">→ Adjust weights slightly to do better next time</p>
+            <p class="text-red-600 dark:text-red-400">
+              → Adjust weights slightly to do better next time
+            </p>
           </div>
         </div>
 
@@ -279,7 +362,7 @@
           After seeing this pattern millions of times across different contexts, the network learns:
         </p>
 
-          <ul class="list-disc list-inside text-secondary space-y-2 mb-6 ml-4">
+        <ul class="list-disc list-inside text-secondary space-y-2 mb-6 ml-4">
           <li>Cats often sit on things</li>
           <li>"Mat" commonly follows "sat on the"</li>
           <li>Grammar patterns (articles, prepositions, word order)</li>
@@ -287,9 +370,14 @@
         </ul>
 
         <div class="bg-green-50 dark:bg-green-900/20 p-4 rounded-lg">
-          <h4 class="font-medium text-green-800 dark:text-green-200 mb-2">🧠 The Emergence of "Understanding"</h4>
-              <p class="text-sm text-secondary">
-            Notice how the model doesn't have a "cat database" or a "mat definition." It just learned statistical patterns. Yet from these patterns, complex behaviors emerge — answering questions, writing code, reasoning through problems. This emergent complexity is what makes LLMs so powerful (and surprising).
+          <h4 class="font-medium text-green-800 dark:text-green-200 mb-2">
+            🧠 The Emergence of "Understanding"
+          </h4>
+          <p class="text-sm text-secondary">
+            Notice how the model doesn't have a "cat database" or a "mat definition." It just
+            learned statistical patterns. Yet from these patterns, complex behaviors emerge —
+            answering questions, writing code, reasoning through problems. This emergent complexity
+            is what makes LLMs so powerful (and surprising).
           </p>
         </div>
       </div>
@@ -301,33 +389,43 @@
         <span class="text-3xl">4️⃣</span>
         <h2 class="text-2xl font-bold">The Transformer Architecture</h2>
       </div>
-      
+
       <div class="card">
-        <h3 class="text-lg font-semibold mb-4 text-blue-700 dark:text-blue-400">"Attention Is All You Need"</h3>
+        <h3 class="text-lg font-semibold mb-4 text-blue-700 dark:text-blue-400">
+          "Attention Is All You Need"
+        </h3>
 
         <p class="text-secondary mb-4 leading-relaxed">
-          In 2017, Google researchers published a paper with that title. It revolutionized AI. The key insight: <strong>attention mechanisms</strong> allow models to focus on relevant parts of the input when making predictions.
+          In 2017, Google researchers published a paper with that title. It revolutionized AI. The
+          key insight: <strong>attention mechanisms</strong> allow models to focus on relevant parts
+          of the input when making predictions.
         </p>
 
         <div class="bg-gray-50 dark:bg-gray-800 p-6 rounded-xl mb-6">
           <h4 class="font-medium mb-4">The Attention Analogy</h4>
-            <p class="text-secondary mb-4">
+          <p class="text-secondary mb-4">
             Imagine you're reading a long paragraph and encounter the word "it" at the end:
           </p>
           <div class="bg-white dark:bg-gray-800 p-4 rounded border dark:border-gray-600">
             <p class="mb-3">
-              "The computer was old and slow. The user tried to run a new program on <span class="bg-yellow-200 dark:bg-yellow-700 px-1 font-bold">it</span>, but..."
+              "The computer was old and slow. The user tried to run a new program on
+              <span class="bg-yellow-200 dark:bg-yellow-700 px-1 font-bold">it</span>, but..."
             </p>
             <p class="text-sm text-secondary">
-              To understand what "it" refers to, your brain looks back and <strong>attends to</strong> the most relevant words: "computer", "old", "slow". You don't equally consider every word — you focus on what matters.
+              To understand what "it" refers to, your brain looks back and
+              <strong>attends to</strong> the most relevant words: "computer", "old", "slow". You
+              don't equally consider every word — you focus on what matters.
             </p>
           </div>
         </div>
 
-        <h3 class="text-lg font-semibold mb-4 text-blue-700 dark:text-blue-400">Self-Attention Mechanism</h3>
+        <h3 class="text-lg font-semibold mb-4 text-blue-700 dark:text-blue-400">
+          Self-Attention Mechanism
+        </h3>
 
         <p class="text-secondary mb-4 leading-relaxed">
-          The transformer uses <strong>self-attention</strong> to let every token "look at" every other token and decide which ones are important for understanding its meaning.
+          The transformer uses <strong>self-attention</strong> to let every token "look at" every
+          other token and decide which ones are important for understanding its meaning.
         </p>
 
         <div class="bg-blue-50 dark:bg-blue-900/20 p-6 rounded-xl mb-6">
@@ -335,7 +433,11 @@
 
           <div class="space-y-4">
             <div class="flex items-start gap-3">
-              <div class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold text-sm flex-shrink-0">1</div>
+              <div
+                class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold text-sm flex-shrink-0"
+              >
+                1
+              </div>
               <div>
                 <h5 class="font-medium">Query, Key, Value</h5>
                 <p class="text-sm text-secondary mb-2">
@@ -350,79 +452,120 @@
             </div>
 
             <div class="flex items-start gap-3">
-              <div class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold text-sm flex-shrink-0">2</div>
+              <div
+                class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold text-sm flex-shrink-0"
+              >
+                2
+              </div>
               <div>
                 <h5 class="font-medium">Compute Attention Scores</h5>
                 <p class="text-sm text-secondary">
-                  Each token's Query is compared to every other token's Key. High match = high attention weight. The model learns which relationships matter.
+                  Each token's Query is compared to every other token's Key. High match = high
+                  attention weight. The model learns which relationships matter.
                 </p>
               </div>
             </div>
 
             <div class="flex items-start gap-3">
-              <div class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold text-sm flex-shrink-0">3</div>
+              <div
+                class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold text-sm flex-shrink-0"
+              >
+                3
+              </div>
               <div>
                 <h5 class="font-medium">Weighted Sum</h5>
                 <p class="text-sm text-secondary">
-                  Each token's new representation becomes a weighted combination of all tokens' Values, weighted by attention scores.
+                  Each token's new representation becomes a weighted combination of all tokens'
+                  Values, weighted by attention scores.
                 </p>
               </div>
             </div>
           </div>
         </div>
 
-        <h3 class="text-lg font-semibold mb-4 text-blue-700 dark:text-blue-400">Multi-Head Attention</h3>
+        <h3 class="text-lg font-semibold mb-4 text-blue-700 dark:text-blue-400">
+          Multi-Head Attention
+        </h3>
 
         <p class="text-secondary mb-4 leading-relaxed">
-          The model doesn't just do this once — it runs multiple "attention heads" in parallel. Each head can learn different types of relationships:
+          The model doesn't just do this once — it runs multiple "attention heads" in parallel. Each
+          head can learn different types of relationships:
         </p>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
           <div class="p-4 bg-green-50 dark:bg-green-900/20 rounded-lg">
             <h5 class="font-medium text-green-800 dark:text-green-200 mb-2">Head A: Syntax</h5>
-            <p class="text-sm text-secondary">Learns grammatical relationships — subjects match with verbs, pronouns match with nouns.</p>
+            <p class="text-sm text-secondary">
+              Learns grammatical relationships — subjects match with verbs, pronouns match with
+              nouns.
+            </p>
           </div>
           <div class="p-4 bg-purple-50 dark:bg-purple-900/20 rounded-lg">
             <h5 class="font-medium text-purple-800 dark:text-purple-200 mb-2">Head B: Semantics</h5>
-            <p class="text-sm text-secondary">Learns meaning relationships — "king" relates to "queen", "Paris" relates to "France".</p>
+            <p class="text-sm text-secondary">
+              Learns meaning relationships — "king" relates to "queen", "Paris" relates to "France".
+            </p>
           </div>
           <div class="p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
             <h5 class="font-medium text-blue-800 dark:text-blue-200 mb-2">Head C: Long-Range</h5>
-            <p class="text-sm text-secondary">Learns connections across long distances in text — a character introduced in paragraph 1 mentioned again in paragraph 5.</p>
+            <p class="text-sm text-secondary">
+              Learns connections across long distances in text — a character introduced in paragraph
+              1 mentioned again in paragraph 5.
+            </p>
           </div>
           <div class="p-4 bg-orange-50 dark:bg-orange-900/20 rounded-lg">
             <h5 class="font-medium text-orange-800 dark:text-orange-200 mb-2">Head D: Context</h5>
-            <p class="text-sm text-secondary">Learns task-specific patterns — in code, variable definitions match with usages.</p>
+            <p class="text-sm text-secondary">
+              Learns task-specific patterns — in code, variable definitions match with usages.
+            </p>
           </div>
         </div>
 
         <div class="bg-gray-50 dark:bg-gray-800 p-4 rounded-xl mb-6">
           <h4 class="font-medium mb-3">Visual: Attention Pattern</h4>
           <div class="bg-white dark:bg-gray-800 p-4 rounded border dark:border-gray-600">
-            <p class="mb-4 font-mono text-sm">"The animal didn't cross the street because it was too tired."</p>
+            <p class="mb-4 font-mono text-sm">
+              "The animal didn't cross the street because it was too tired."
+            </p>
             <p class="text-sm text-secondary mb-2">
               When processing "it", the model's attention might look like:
             </p>
             <div class="flex flex-wrap gap-2">
               <span class="px-2 py-1 bg-red-100 dark:bg-red-900/30 rounded text-xs">The (5%)</span>
-              <span class="px-2 py-1 bg-green-200 dark:bg-green-800 rounded text-xs font-bold">animal (75%)</span>
-              <span class="px-2 py-1 bg-red-100 dark:bg-red-900/30 rounded text-xs">didn't (2%)</span>
-              <span class="px-2 py-1 bg-red-100 dark:bg-red-900/30 rounded text-xs">cross (3%)</span>
+              <span class="px-2 py-1 bg-green-200 dark:bg-green-800 rounded text-xs font-bold"
+                >animal (75%)</span
+              >
+              <span class="px-2 py-1 bg-red-100 dark:bg-red-900/30 rounded text-xs"
+                >didn't (2%)</span
+              >
+              <span class="px-2 py-1 bg-red-100 dark:bg-red-900/30 rounded text-xs"
+                >cross (3%)</span
+              >
               <span class="px-2 py-1 bg-red-100 dark:bg-red-900/30 rounded text-xs">the (5%)</span>
-              <span class="px-2 py-1 bg-yellow-200 dark:bg-yellow-800 rounded text-xs">street (5%)</span>
-              <span class="px-2 py-1 bg-red-100 dark:bg-red-900/30 rounded text-xs">because (2%)</span>
-              <span class="px-2 py-1 bg-yellow-200 dark:bg-yellow-800 rounded text-xs">tired (3%)</span>
+              <span class="px-2 py-1 bg-yellow-200 dark:bg-yellow-800 rounded text-xs"
+                >street (5%)</span
+              >
+              <span class="px-2 py-1 bg-red-100 dark:bg-red-900/30 rounded text-xs"
+                >because (2%)</span
+              >
+              <span class="px-2 py-1 bg-yellow-200 dark:bg-yellow-800 rounded text-xs"
+                >tired (3%)</span
+              >
             </div>
             <p class="text-xs text-tertiary mt-3">
-              The model learns "it" refers to "animal" (75%), with some attention to "tired" (3%) to understand context.
+              The model learns "it" refers to "animal" (75%), with some attention to "tired" (3%) to
+              understand context.
             </p>
           </div>
         </div>
 
-        <h3 class="text-lg font-semibold mb-4 text-blue-700 dark:text-blue-400">The Transformer Stack</h3>
+        <h3 class="text-lg font-semibold mb-4 text-blue-700 dark:text-blue-400">
+          The Transformer Stack
+        </h3>
 
         <p class="text-secondary mb-4 leading-relaxed">
-          A modern LLM like GPT-4 or Llama has dozens of these attention layers stacked on top of each other. Each layer refines the understanding:
+          A modern LLM like GPT-4 or Llama has dozens of these attention layers stacked on top of
+          each other. Each layer refines the understanding:
         </p>
 
         <div class="bg-gray-50 dark:bg-gray-800 p-4 rounded-xl">
@@ -459,7 +602,8 @@
             </div>
           </div>
           <p class="text-xs text-tertiary mt-4">
-            Lower layers handle local patterns (words, grammar). Higher layers handle global patterns (meaning, reasoning, context).
+            Lower layers handle local patterns (words, grammar). Higher layers handle global
+            patterns (meaning, reasoning, context).
           </p>
         </div>
       </div>
@@ -473,18 +617,25 @@
       </div>
 
       <div class="card">
-        <h3 class="text-lg font-semibold mb-4 text-blue-700 dark:text-blue-400">From Random to Brilliant</h3>
-        
+        <h3 class="text-lg font-semibold mb-4 text-blue-700 dark:text-blue-400">
+          From Random to Brilliant
+        </h3>
+
         <p class="text-secondary mb-4 leading-relaxed">
-          Training an LLM is like teaching a student who starts knowing nothing. You show them examples, correct their mistakes, and gradually they improve.
+          Training an LLM is like teaching a student who starts knowing nothing. You show them
+          examples, correct their mistakes, and gradually they improve.
         </p>
 
         <div class="bg-gray-50 dark:bg-gray-800 p-6 rounded-xl mb-6">
           <h4 class="font-medium mb-4">The Training Loop</h4>
-          
+
           <div class="space-y-4">
             <div class="flex items-start gap-3">
-              <div class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold text-sm flex-shrink-0">1</div>
+              <div
+                class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold text-sm flex-shrink-0"
+              >
+                1
+              </div>
               <div class="flex-1">
                 <h5 class="font-medium">Feed Input</h5>
                 <p class="text-sm text-secondary">
@@ -494,17 +645,26 @@
             </div>
 
             <div class="flex items-start gap-3">
-              <div class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold text-sm flex-shrink-0">2</div>
+              <div
+                class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold text-sm flex-shrink-0"
+              >
+                2
+              </div>
               <div class="flex-1">
                 <h5 class="font-medium">Make Prediction</h5>
                 <p class="text-sm text-secondary">
-                  Model runs through layers and guesses: "Paris" (or maybe "London" if it's early in training)
+                  Model runs through layers and guesses: "Paris" (or maybe "London" if it's early in
+                  training)
                 </p>
               </div>
             </div>
 
             <div class="flex items-start gap-3">
-              <div class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold text-sm flex-shrink-0">3</div>
+              <div
+                class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold text-sm flex-shrink-0"
+              >
+                3
+              </div>
               <div class="flex-1">
                 <h5 class="font-medium">Compare to Truth</h5>
                 <p class="text-sm text-secondary">
@@ -514,21 +674,31 @@
             </div>
 
             <div class="flex items-start gap-3">
-              <div class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold text-sm flex-shrink-0">4</div>
+              <div
+                class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold text-sm flex-shrink-0"
+              >
+                4
+              </div>
               <div class="flex-1">
                 <h5 class="font-medium">Adjust Weights</h5>
                 <p class="text-sm text-secondary">
-                  Use calculus (backpropagation) to figure out which weights to tweak so the model does better next time.
+                  Use calculus (backpropagation) to figure out which weights to tweak so the model
+                  does better next time.
                 </p>
               </div>
             </div>
 
             <div class="flex items-start gap-3">
-              <div class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold text-sm flex-shrink-0">5</div>
+              <div
+                class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold text-sm flex-shrink-0"
+              >
+                5
+              </div>
               <div class="flex-1">
                 <h5 class="font-medium">Repeat Billions of Times</h5>
                 <p class="text-sm text-secondary">
-                  Do this for trillions of tokens across the entire internet. Gradually, the model gets better.
+                  Do this for trillions of tokens across the entire internet. Gradually, the model
+                  gets better.
                 </p>
               </div>
             </div>
@@ -541,36 +711,43 @@
           <div class="p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
             <h5 class="font-medium text-blue-800 mb-2">Loss Function</h5>
             <p class="text-sm text-secondary">
-              A mathematical measure of "how wrong" the model was. Lower loss = better predictions. Training tries to minimize this.
+              A mathematical measure of "how wrong" the model was. Lower loss = better predictions.
+              Training tries to minimize this.
             </p>
           </div>
 
           <div class="p-4 bg-green-50 dark:bg-green-900/20 rounded-lg">
             <h5 class="font-medium text-green-800 mb-2">Learning Rate</h5>
             <p class="text-sm text-secondary">
-              How big of adjustments to make. Too big = unstable. Too small = slow. Like turning the steering wheel when driving.
+              How big of adjustments to make. Too big = unstable. Too small = slow. Like turning the
+              steering wheel when driving.
             </p>
           </div>
 
           <div class="p-4 bg-purple-50 dark:bg-purple-900/20 rounded-lg">
             <h5 class="font-medium text-purple-800 mb-2">Epochs</h5>
             <p class="text-sm text-secondary">
-              How many times the model sees the entire dataset. More epochs = more learning, but too many = overfitting.
+              How many times the model sees the entire dataset. More epochs = more learning, but too
+              many = overfitting.
             </p>
           </div>
 
           <div class="p-4 bg-orange-50 dark:bg-orange-900/20 rounded-lg">
             <h5 class="font-medium text-orange-800 mb-2">Batch Size</h5>
             <p class="text-sm text-secondary">
-              How many examples to process before updating weights. Larger batches = more stable but need more memory.
+              How many examples to process before updating weights. Larger batches = more stable but
+              need more memory.
             </p>
           </div>
         </div>
 
         <div class="bg-yellow-50 dark:bg-yellow-900/20 p-4 rounded-lg">
           <h4 class="font-medium text-yellow-800 mb-2">⚠️ Why This Takes So Long</h4>
-              <p class="text-sm text-secondary">
-            GPT-3 was trained on ~500 billion tokens. That's like reading the entire written works of humanity hundreds of times. Each token requires running billions of mathematical operations through the network. Even with thousands of GPUs, this takes weeks or months. That's why pre-trained models are so valuable — you're leveraging weeks of computation!
+          <p class="text-sm text-secondary">
+            GPT-3 was trained on ~500 billion tokens. That's like reading the entire written works
+            of humanity hundreds of times. Each token requires running billions of mathematical
+            operations through the network. Even with thousands of GPUs, this takes weeks or months.
+            That's why pre-trained models are so valuable — you're leveraging weeks of computation!
           </p>
         </div>
       </div>
@@ -582,12 +759,13 @@
         <span class="text-3xl">6️⃣</span>
         <h2 class="text-2xl font-bold">Fine-Tuning: Teaching the Specialist</h2>
       </div>
-      
+
       <div class="card">
         <h3 class="text-lg font-semibold mb-4 text-blue-700">Why Fine-Tune?</h3>
-        
+
         <p class="text-secondary mb-4 leading-relaxed">
-          A pre-trained model knows general language and facts, but it doesn't know YOUR specific domain. Fine-tuning is like giving it specialized training.
+          A pre-trained model knows general language and facts, but it doesn't know YOUR specific
+          domain. Fine-tuning is like giving it specialized training.
         </p>
 
         <div class="bg-gray-50 dark:bg-gray-800 p-6 rounded-xl mb-6">
@@ -598,7 +776,8 @@
               <div>
                 <h5 class="font-medium">Pre-training = College</h5>
                 <p class="text-sm text-secondary">
-                  The model learns general knowledge, critical thinking, and how to communicate. Like a college graduate who knows a bit about everything.
+                  The model learns general knowledge, critical thinking, and how to communicate.
+                  Like a college graduate who knows a bit about everything.
                 </p>
               </div>
             </div>
@@ -610,7 +789,8 @@
               <div>
                 <h5 class="font-medium">Fine-tuning = Medical School</h5>
                 <p class="text-sm text-secondary">
-                  Now you give them specialized training. Thousands of examples of medical cases, diagnoses, patient interactions. They become a doctor.
+                  Now you give them specialized training. Thousands of examples of medical cases,
+                  diagnoses, patient interactions. They become a doctor.
                 </p>
               </div>
             </div>
@@ -620,10 +800,12 @@
         <h3 class="text-lg font-semibold mb-4 text-blue-700">How Fine-Tuning Works</h3>
 
         <p class="text-secondary mb-4 leading-relaxed">
-          Instead of training from scratch (which takes weeks and costs millions), you start with a pre-trained model and continue training on your specific dataset. This is much faster because:
+          Instead of training from scratch (which takes weeks and costs millions), you start with a
+          pre-trained model and continue training on your specific dataset. This is much faster
+          because:
         </p>
 
-          <ul class="list-disc list-inside text-secondary space-y-2 mb-6 ml-4">
+        <ul class="list-disc list-inside text-secondary space-y-2 mb-6 ml-4">
           <li>The model already knows language, grammar, and general facts</li>
           <li>You only need to teach it your specific domain</li>
           <li>Training takes hours or days, not weeks</li>
@@ -631,8 +813,12 @@
           <li>Needs hundreds or thousands of examples, not billions</li>
         </ul>
 
-        <div class="bg-green-50 dark:bg-green-900/20 p-4 rounded-lg mb-6 border border-green-200 dark:border-green-800">
-          <h4 class="font-medium text-green-800 dark:text-green-200 mb-2">✨ What Changes During Fine-Tuning?</h4>
+        <div
+          class="bg-green-50 dark:bg-green-900/20 p-4 rounded-lg mb-6 border border-green-200 dark:border-green-800"
+        >
+          <h4 class="font-medium text-green-800 dark:text-green-200 mb-2">
+            ✨ What Changes During Fine-Tuning?
+          </h4>
           <p class="text-sm text-secondary mb-3">
             The model's weights adjust to better predict your specific examples. It learns:
           </p>
@@ -645,10 +831,18 @@
           </ul>
         </div>
 
-        <div class="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg border border-blue-200 dark:border-blue-800">
-          <h4 class="font-medium text-blue-800 dark:text-blue-200 mb-2">🎯 Why Your Dataset Matters</h4>
-              <p class="text-sm text-secondary">
-            Every example in your dataset is teaching the model: "When you see this kind of input, produce this kind of output." The quality and diversity of your examples directly determines the quality of your fine-tuned model. That's why edukaAI focuses so much on helping you create great examples — they become the training signal that shapes your AI's behavior.
+        <div
+          class="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg border border-blue-200 dark:border-blue-800"
+        >
+          <h4 class="font-medium text-blue-800 dark:text-blue-200 mb-2">
+            🎯 Why Your Dataset Matters
+          </h4>
+          <p class="text-sm text-secondary">
+            Every example in your dataset is teaching the model: "When you see this kind of input,
+            produce this kind of output." The quality and diversity of your examples directly
+            determines the quality of your fine-tuned model. That's why edukaAI focuses so much on
+            helping you create great examples — they become the training signal that shapes your
+            AI's behavior.
           </p>
         </div>
       </div>
@@ -660,17 +854,20 @@
         <span class="text-3xl">7️⃣</span>
         <h2 class="text-2xl font-bold">Understanding Model Sizes</h2>
       </div>
-      
+
       <div class="card">
         <h3 class="text-lg font-semibold mb-4 text-blue-700">What Does "7B" Mean?</h3>
-        
+
         <p class="text-secondary mb-4 leading-relaxed">
-          When you see "Llama 2 7B" or "GPT-3 175B", the "B" stands for <strong>billion parameters</strong>. Think of parameters as the "knobs" or "dials" inside the neural network that get adjusted during training. More parameters = more capacity to learn, but also more compute needed.
+          When you see "Llama 2 7B" or "GPT-3 175B", the "B" stands for
+          <strong>billion parameters</strong>. Think of parameters as the "knobs" or "dials" inside
+          the neural network that get adjusted during training. More parameters = more capacity to
+          learn, but also more compute needed.
         </p>
 
         <div class="bg-gray-50 dark:bg-gray-800 p-6 rounded-xl mb-6">
           <h4 class="font-medium mb-4">The Parameter Scale</h4>
-          
+
           <div class="space-y-4">
             <div class="flex items-center gap-4">
               <div class="w-32 text-right">
@@ -679,9 +876,9 @@
               <div class="flex-1 p-3 bg-green-100 dark:bg-green-900/30 rounded-lg">
                 <h5 class="font-medium">Small (1B - 7B)</h5>
                 <p class="text-sm text-secondary">
-                  <strong>Examples:</strong> TinyLlama, Phi-2, Llama 2 7B<br/>
-                  <strong>Good for:</strong> Testing, edge devices, simple tasks<br/>
-                  <strong>Hardware:</strong> Runs on consumer GPUs (RTX 3060)<br/>
+                  <strong>Examples:</strong> TinyLlama, Phi-2, Llama 2 7B<br />
+                  <strong>Good for:</strong> Testing, edge devices, simple tasks<br />
+                  <strong>Hardware:</strong> Runs on consumer GPUs (RTX 3060)<br />
                   <strong>Speed:</strong> Very fast, low latency
                 </p>
               </div>
@@ -694,9 +891,10 @@
               <div class="flex-1 p-3 bg-blue-100 dark:bg-blue-900/30 rounded-lg">
                 <h5 class="font-medium">Medium (13B - 30B)</h5>
                 <p class="text-sm text-secondary">
-                  <strong>Examples:</strong> Llama 2 13B, CodeLlama 13B, Mistral 7B (punches above its weight!)<br/>
-                  <strong>Good for:</strong> Production use, most practical applications<br/>
-                  <strong>Hardware:</strong> RTX 3090, RTX 4090, or cloud A10G<br/>
+                  <strong>Examples:</strong> Llama 2 13B, CodeLlama 13B, Mistral 7B (punches above
+                  its weight!)<br />
+                  <strong>Good for:</strong> Production use, most practical applications<br />
+                  <strong>Hardware:</strong> RTX 3090, RTX 4090, or cloud A10G<br />
                   <strong>Speed:</strong> Good balance of quality and speed
                 </p>
               </div>
@@ -709,9 +907,9 @@
               <div class="flex-1 p-3 bg-purple-100 dark:bg-purple-900/30 rounded-lg">
                 <h5 class="font-medium">Large (70B - 175B)</h5>
                 <p class="text-sm text-secondary">
-                  <strong>Examples:</strong> Llama 2 70B, GPT-3, Claude 2<br/>
-                  <strong>Good for:</strong> Complex reasoning, research, maximum capability<br/>
-                  <strong>Hardware:</strong> Multiple GPUs, A100s, or API access only<br/>
+                  <strong>Examples:</strong> Llama 2 70B, GPT-3, Claude 2<br />
+                  <strong>Good for:</strong> Complex reasoning, research, maximum capability<br />
+                  <strong>Hardware:</strong> Multiple GPUs, A100s, or API access only<br />
                   <strong>Speed:</strong> Slower but smartest
                 </p>
               </div>
@@ -720,13 +918,17 @@
         </div>
 
         <h3 class="text-lg font-semibold mb-4 text-blue-700">Bigger Isn't Always Better</h3>
-        
+
         <p class="text-secondary mb-4 leading-relaxed">
-          It's tempting to think "bigger model = better," but that's not always true. A well-trained 13B model can outperform a poorly-trained 70B model on specific tasks. Plus, bigger models have downsides:
+          It's tempting to think "bigger model = better," but that's not always true. A well-trained
+          13B model can outperform a poorly-trained 70B model on specific tasks. Plus, bigger models
+          have downsides:
         </p>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-          <div class="p-4 bg-red-50 dark:bg-red-900/20 rounded-lg border border-red-200 dark:border-red-800">
+          <div
+            class="p-4 bg-red-50 dark:bg-red-900/20 rounded-lg border border-red-200 dark:border-red-800"
+          >
             <h5 class="font-medium text-red-800 dark:text-red-200 mb-2">❌ Large Model Problems</h5>
             <ul class="text-sm text-secondary space-y-1">
               <li>Higher inference costs (more $ per request)</li>
@@ -737,8 +939,12 @@
             </ul>
           </div>
 
-          <div class="p-4 bg-green-50 dark:bg-green-900/20 rounded-lg border border-green-200 dark:border-green-800">
-            <h5 class="font-medium text-green-800 dark:text-green-200 mb-2">✅ Right-Size Benefits</h5>
+          <div
+            class="p-4 bg-green-50 dark:bg-green-900/20 rounded-lg border border-green-200 dark:border-green-800"
+          >
+            <h5 class="font-medium text-green-800 dark:text-green-200 mb-2">
+              ✅ Right-Size Benefits
+            </h5>
             <ul class="text-sm text-secondary space-y-1">
               <li>Faster responses = better UX</li>
               <li>Lower costs = scalable</li>
@@ -750,9 +956,14 @@
         </div>
 
         <div class="bg-yellow-50 dark:bg-yellow-900/20 p-4 rounded-lg">
-          <h4 class="font-medium text-yellow-800 dark:text-yellow-200 mb-2">💡 The Sweet Spot for Beginners</h4>
+          <h4 class="font-medium text-yellow-800 dark:text-yellow-200 mb-2">
+            💡 The Sweet Spot for Beginners
+          </h4>
           <p class="text-sm text-yellow-700 dark:text-yellow-300">
-            For your first fine-tuning project, we recommend starting with <strong>7B-13B models</strong>. They're big enough to learn your domain well, small enough to train affordably, and can run on consumer hardware. Once you master these, you can experiment with larger models.
+            For your first fine-tuning project, we recommend starting with
+            <strong>7B-13B models</strong>. They're big enough to learn your domain well, small
+            enough to train affordably, and can run on consumer hardware. Once you master these, you
+            can experiment with larger models.
           </p>
         </div>
       </div>
@@ -764,23 +975,24 @@
         <span class="text-3xl">8️⃣</span>
         <h2 class="text-2xl font-bold">Quantization: Making Models Smaller</h2>
       </div>
-      
+
       <div class="card">
         <h3 class="text-lg font-semibold mb-4 text-blue-700">The Magic of Model Compression</h3>
-        
+
         <p class="text-secondary mb-4 leading-relaxed">
-          Remember those billions of parameters? Each one is stored as a number (usually 16 or 32 bits). <strong>Quantization</strong> is a technique that reduces the precision of these numbers, making the model smaller and faster while keeping most of its intelligence. Think of it like compressing an MP3 — smaller file, same song.
+          Remember those billions of parameters? Each one is stored as a number (usually 16 or 32
+          bits). <strong>Quantization</strong> is a technique that reduces the precision of these
+          numbers, making the model smaller and faster while keeping most of its intelligence. Think
+          of it like compressing an MP3 — smaller file, same song.
         </p>
 
         <div class="bg-gray-50 dark:bg-gray-800 p-6 rounded-xl mb-6">
           <h4 class="font-medium mb-4">How It Works (The Simple Version)</h4>
-          
+
           <div class="space-y-4">
             <div class="p-4 bg-white dark:bg-gray-800 rounded-lg border dark:border-gray-600">
               <h5 class="font-medium mb-2">Normal (FP16) - 16-bit precision</h5>
-              <p class="font-mono text-xs text-secondary mb-2">
-                Weight value: 0.3847265849234712
-              </p>
+              <p class="font-mono text-xs text-secondary mb-2">Weight value: 0.3847265849234712</p>
               <p class="text-sm text-secondary">
                 Very precise, but takes 16 bits to store. A 7B model needs ~14GB RAM.
               </p>
@@ -788,25 +1000,31 @@
 
             <div class="text-center text-2xl">↓ Quantize ↓</div>
 
-            <div class="p-4 bg-green-50 dark:bg-green-900/20 rounded-lg border border-green-200 dark:border-green-800">
-              <h5 class="font-medium text-green-800 dark:text-green-200 mb-2">Quantized (INT8) - 8-bit precision</h5>
-              <p class="font-mono text-xs text-secondary mb-2">
-                Weight value: 0.38
-              </p>
+            <div
+              class="p-4 bg-green-50 dark:bg-green-900/20 rounded-lg border border-green-200 dark:border-green-800"
+            >
+              <h5 class="font-medium text-green-800 dark:text-green-200 mb-2">
+                Quantized (INT8) - 8-bit precision
+              </h5>
+              <p class="font-mono text-xs text-secondary mb-2">Weight value: 0.38</p>
               <p class="text-sm text-secondary">
-                Less precise, but only 8 bits. Same 7B model now needs ~7GB RAM — <strong>half the size!</strong>
+                Less precise, but only 8 bits. Same 7B model now needs ~7GB RAM —
+                <strong>half the size!</strong>
               </p>
             </div>
 
             <div class="text-center text-2xl">↓ Quantize More ↓</div>
 
-            <div class="p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-800">
-              <h5 class="font-medium text-blue-800 dark:text-blue-200 mb-2">Highly Quantized (INT4) - 4-bit precision</h5>
-              <p class="font-mono text-xs text-secondary mb-2">
-                Weight value: 0.4
-              </p>
+            <div
+              class="p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-800"
+            >
+              <h5 class="font-medium text-blue-800 dark:text-blue-200 mb-2">
+                Highly Quantized (INT4) - 4-bit precision
+              </h5>
+              <p class="font-mono text-xs text-secondary mb-2">Weight value: 0.4</p>
               <p class="text-sm text-secondary">
-                Even less precise, only 4 bits. Same 7B model now needs ~3.5GB RAM — <strong>quarter the size!</strong>
+                Even less precise, only 4 bits. Same 7B model now needs ~3.5GB RAM —
+                <strong>quarter the size!</strong>
               </p>
             </div>
           </div>
@@ -873,7 +1091,9 @@
           </div>
 
           <div class="p-4 bg-yellow-50 dark:bg-yellow-900/20 rounded-lg">
-            <h5 class="font-medium text-yellow-800 dark:text-yellow-200 mb-2">⚠️ Don't Quantize When:</h5>
+            <h5 class="font-medium text-yellow-800 dark:text-yellow-200 mb-2">
+              ⚠️ Don't Quantize When:
+            </h5>
             <ul class="text-sm text-secondary space-y-1">
               <li>Training/fine-tuning (use FP16)</li>
               <li>Maximum accuracy is required</li>
@@ -885,7 +1105,9 @@
         </div>
 
         <div class="bg-purple-50 dark:bg-purple-900/20 p-4 rounded-lg mb-6">
-          <h4 class="font-medium text-purple-800 dark:text-purple-200 mb-2">🎯 Practical Example</h4>
+          <h4 class="font-medium text-purple-800 dark:text-purple-200 mb-2">
+            🎯 Practical Example
+          </h4>
           <p class="text-sm text-secondary mb-3">
             Let's say you want to run Llama 2 13B on your laptop:
           </p>
@@ -904,15 +1126,16 @@
             </div>
           </div>
           <p class="text-sm text-secondary mt-3">
-            <strong>Result:</strong> By quantizing to 4-bit, you can run a 13B model on a laptop with 8GB VRAM (like an RTX 3070) with minimal quality loss!
+            <strong>Result:</strong> By quantizing to 4-bit, you can run a 13B model on a laptop
+            with 8GB VRAM (like an RTX 3070) with minimal quality loss!
           </p>
         </div>
 
         <div class="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg">
-          <h4 class="font-medium text-blue-800 dark:text-blue-200 mb-2">🔧 Tools for Quantization</h4>
-          <p class="text-sm text-secondary mb-2">
-            Popular tools for quantizing models:
-          </p>
+          <h4 class="font-medium text-blue-800 dark:text-blue-200 mb-2">
+            🔧 Tools for Quantization
+          </h4>
+          <p class="text-sm text-secondary mb-2">Popular tools for quantizing models:</p>
           <ul class="text-sm text-secondary space-y-1">
             <li><strong>llama.cpp</strong> — Most popular, supports GGUF format</li>
             <li><strong>AutoGPTQ</strong> — Easy quantization for HuggingFace models</li>
@@ -920,47 +1143,66 @@
             <li><strong>ExLlama</strong> — Fast inference for 4-bit models</li>
           </ul>
           <p class="text-sm text-secondary mt-2">
-            <strong>Good news:</strong> Many pre-quantized models are already available on HuggingFace — just download and use!
+            <strong>Good news:</strong> Many pre-quantized models are already available on
+            HuggingFace — just download and use!
           </p>
         </div>
       </div>
     </section>
 
     <!-- Summary -->
-    <div class="card bg-gradient-to-br from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20 mb-12">
+    <div
+      class="card bg-gradient-to-br from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20 mb-12"
+    >
       <h2 class="text-xl font-semibold mb-4">🎓 What You Now Understand</h2>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
         <div class="p-3 bg-white dark:bg-gray-800 rounded-lg">
           <strong>LLMs are next-token predictors</strong>
-          <p class="text-secondary mt-1">They predict one token at a time, feeding predictions back as input.</p>
+          <p class="text-secondary mt-1">
+            They predict one token at a time, feeding predictions back as input.
+          </p>
         </div>
         <div class="p-3 bg-white dark:bg-gray-800 rounded-lg">
           <strong>Tokens are the building blocks</strong>
-          <p class="text-secondary mt-1">Not words or characters, but pieces somewhere in between.</p>
+          <p class="text-secondary mt-1">
+            Not words or characters, but pieces somewhere in between.
+          </p>
         </div>
         <div class="p-3 bg-white dark:bg-gray-800 rounded-lg">
           <strong>Neural networks learn patterns</strong>
-          <p class="text-secondary mt-1">They adjust millions of weights to get better at predictions.</p>
+          <p class="text-secondary mt-1">
+            They adjust millions of weights to get better at predictions.
+          </p>
         </div>
         <div class="p-3 bg-white dark:bg-gray-800 rounded-lg">
           <strong>Attention finds relationships</strong>
-          <p class="text-secondary mt-1">Lets tokens focus on other relevant tokens in the context.</p>
+          <p class="text-secondary mt-1">
+            Lets tokens focus on other relevant tokens in the context.
+          </p>
         </div>
         <div class="p-3 bg-white dark:bg-gray-800 rounded-lg">
           <strong>Training is iterative correction</strong>
-          <p class="text-secondary mt-1">Show example, predict, compare to truth, adjust, repeat billions of times.</p>
+          <p class="text-secondary mt-1">
+            Show example, predict, compare to truth, adjust, repeat billions of times.
+          </p>
         </div>
         <div class="p-3 bg-white dark:bg-gray-800 rounded-lg">
           <strong>Fine-tuning specializes the model</strong>
-          <p class="text-secondary mt-1">Start with general knowledge, train on your specific examples.</p>
+          <p class="text-secondary mt-1">
+            Start with general knowledge, train on your specific examples.
+          </p>
         </div>
         <div class="p-3 bg-white dark:bg-gray-800 rounded-lg">
           <strong>Model size matters (but not too much)</strong>
-          <p class="text-secondary mt-1">7B-13B is the sweet spot. Bigger = smarter but slower and costlier.</p>
+          <p class="text-secondary mt-1">
+            7B-13B is the sweet spot. Bigger = smarter but slower and costlier.
+          </p>
         </div>
         <div class="p-3 bg-white dark:bg-gray-800 rounded-lg">
           <strong>Quantization makes models practical</strong>
-          <p class="text-secondary mt-1">Compress 16-bit weights to 4-bit. Run big models on consumer hardware!</p>
+          <p class="text-secondary mt-1">
+            Compress 16-bit weights to 4-bit. Run big models on consumer hardware!
+          </p>
         </div>
       </div>
     </div>
@@ -968,14 +1210,12 @@
     <!-- Call to Action -->
     <div class="text-center">
       <h2 class="text-2xl font-bold mb-4">Ready to Apply This Knowledge?</h2>
-      <p class="text-secondary mb-6">Now you understand how LLMs work. Time to build your dataset!</p>
+      <p class="text-secondary mb-6">
+        Now you understand how LLMs work. Time to build your dataset!
+      </p>
       <div class="flex justify-center gap-4">
-        <NuxtLink to="/samples/new" class="btn-primary">
-          Create Your First Example
-        </NuxtLink>
-        <NuxtLink to="/docs" class="btn-secondary">
-          Back to Guide
-        </NuxtLink>
+        <NuxtLink to="/samples/new" class="btn-primary"> Create Your First Example </NuxtLink>
+        <NuxtLink to="/docs" class="btn-secondary"> Back to Guide </NuxtLink>
       </div>
     </div>
 
@@ -984,19 +1224,33 @@
       <h3 class="font-semibold mb-2">Further Reading</h3>
       <ul class="space-y-1">
         <li>
-          <a href="https://arxiv.org/abs/1706.03762" target="_blank" class="text-blue-600 dark:text-blue-400 hover:underline">
+          <a
+            href="https://arxiv.org/abs/1706.03762"
+            target="_blank"
+            class="text-blue-600 dark:text-blue-400 hover:underline"
+          >
             "Attention Is All You Need" — Vaswani et al. (2017)
           </a>
           <span class="text-gray-400 dark:text-gray-500">— The original transformer paper</span>
         </li>
         <li>
-          <a href="https://jalammar.github.io/illustrated-transformer/" target="_blank" class="text-blue-600 dark:text-blue-400 hover:underline">
+          <a
+            href="https://jalammar.github.io/illustrated-transformer/"
+            target="_blank"
+            class="text-blue-600 dark:text-blue-400 hover:underline"
+          >
             The Illustrated Transformer — Jay Alammar
           </a>
-          <span class="text-gray-400 dark:text-gray-500">— Visual guide to how transformers work</span>
+          <span class="text-gray-400 dark:text-gray-500"
+            >— Visual guide to how transformers work</span
+          >
         </li>
         <li>
-          <a href="https://d2l.ai/chapter_attention-mechanisms/index.html" target="_blank" class="text-blue-600 dark:text-blue-400 hover:underline">
+          <a
+            href="https://d2l.ai/chapter_attention-mechanisms/index.html"
+            target="_blank"
+            class="text-blue-600 dark:text-blue-400 hover:underline"
+          >
             Dive into Deep Learning — Attention Mechanisms
           </a>
           <span class="text-gray-400 dark:text-gray-500">— Technical deep dive</span>
@@ -1007,7 +1261,7 @@
 </template>
 
 <script setup>
-definePageMeta({
-  layout: 'default'
-})
+  definePageMeta({
+    layout: "default",
+  });
 </script>

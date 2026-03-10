@@ -19,9 +19,7 @@ let activeStorage: StorageBackend | null = null;
  */
 export function registerStorageFactory(factory: StorageBackendFactory): void {
   if (storageFactories.has(factory.name)) {
-    console.warn(
-      `[Storage] Backend "${factory.name}" is already registered. Overwriting.`,
-    );
+    console.warn(`[Storage] Backend "${factory.name}" is already registered. Overwriting.`);
   }
   storageFactories.set(factory.name, factory);
   console.log(`[Storage] Registered backend: ${factory.name}`);
@@ -57,7 +55,7 @@ export function isBackendRegistered(name: string): boolean {
  */
 export function validateStorageConfig(
   backend: string,
-  config: Record<string, any>,
+  config: Record<string, any>
 ): { valid: boolean; errors: string[] } {
   const factory = storageFactories.get(backend);
   if (!factory) {
@@ -77,17 +75,14 @@ export function validateStorageConfig(
  * @param config - Backend-specific configuration
  * @returns StorageBackend instance
  */
-export function createStorage(
-  backend: string,
-  config: Record<string, any>,
-): StorageBackend {
+export function createStorage(backend: string, config: Record<string, any>): StorageBackend {
   const factory = storageFactories.get(backend);
   if (!factory) {
     const available = getAvailableBackends();
     throw new Error(
       `Storage backend "${backend}" not found. ` +
         `Available backends: ${available.length > 0 ? available.join(", ") : "none"}. ` +
-        `To use ${backend}, install the appropriate package (e.g., @elgap/edukaai-storage-${backend})`,
+        `To use ${backend}, install the appropriate package (e.g., @elgap/edukaai-storage-${backend})`
     );
   }
 
@@ -95,7 +90,7 @@ export function createStorage(
   if (!validation.valid) {
     throw new Error(
       `Invalid configuration for storage backend "${backend}":\n` +
-        validation.errors.map((e) => `  - ${e}`).join("\n"),
+        validation.errors.map((e) => `  - ${e}`).join("\n")
     );
   }
 
@@ -122,9 +117,7 @@ export async function setActiveStorage(storage: StorageBackend): Promise<void> {
   // Verify health
   const healthy = await storage.isHealthy();
   if (!healthy) {
-    throw new Error(
-      `Storage backend "${storage.name}" failed health check after initialization`,
-    );
+    throw new Error(`Storage backend "${storage.name}" failed health check after initialization`);
   }
 
   activeStorage = storage;
@@ -139,7 +132,7 @@ export function getActiveStorage(): StorageBackend {
   if (!activeStorage) {
     throw new Error(
       "No storage backend has been initialized. " +
-        "Call setActiveStorage() or use initializeStorage() before accessing storage.",
+        "Call setActiveStorage() or use initializeStorage() before accessing storage."
     );
   }
   return activeStorage;
@@ -196,10 +189,7 @@ export async function autoDiscoverStorageBackends(): Promise<void> {
               registerStorageFactory(module as StorageBackendFactory);
             }
           } catch (error) {
-            console.warn(
-              `[Storage] Failed to load backend from ${name}:`,
-              error,
-            );
+            console.warn(`[Storage] Failed to load backend from ${name}:`, error);
           }
           break;
         }
@@ -236,8 +226,7 @@ export async function initializeStorageFromConfig(): Promise<StorageBackend> {
 
   // MongoDB configuration (example)
   if (backend === "mongodb" || backend === "mongo") {
-    config.uri =
-      process.env.EDUKAAI_MONGO_URI || "mongodb://localhost:27017/edukaai";
+    config.uri = process.env.EDUKAAI_MONGO_URI || "mongodb://localhost:27017/edukaai";
   }
 
   // Create and set as active

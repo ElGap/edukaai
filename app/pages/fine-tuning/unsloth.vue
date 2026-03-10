@@ -2,19 +2,24 @@
   <div class="max-w-6xl mx-auto">
     <div class="mb-8">
       <div class="flex items-center gap-2 mb-2">
-        <NuxtLink to="/fine-tuning" class="text-blue-600 hover:underline text-sm">← All Methods</NuxtLink>
+        <NuxtLink to="/fine-tuning" class="text-blue-600 hover:underline text-sm"
+          >← All Methods</NuxtLink
+        >
       </div>
       <h1 class="text-3xl font-bold mb-2 flex items-center gap-3">
         <span class="text-4xl">⚡</span>
         Fine-Tune with Unsloth
       </h1>
       <p class="text-secondary">
-        2x faster training with 70% less VRAM. The most efficient way to fine-tune LLMs on consumer GPUs.
+        2x faster training with 70% less VRAM. The most efficient way to fine-tune LLMs on consumer
+        GPUs.
       </p>
     </div>
 
     <!-- Speed Badge -->
-    <div class="card mb-6 bg-gradient-to-r from-yellow-50 to-orange-50 border-2 border-yellow-300 dark:from-yellow-900/20 dark:to-orange-900/20 dark:border-yellow-700">
+    <div
+      class="card mb-6 bg-gradient-to-r from-yellow-50 to-orange-50 border-2 border-yellow-300 dark:from-yellow-900/20 dark:to-orange-900/20 dark:border-yellow-700"
+    >
       <div class="flex items-center gap-4">
         <span class="text-5xl">🚀</span>
         <div>
@@ -29,7 +34,7 @@
     <!-- Why Unsloth -->
     <div class="card mb-6">
       <h2 class="text-xl font-semibold mb-4">Why Unsloth?</h2>
-      
+
       <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
         <div class="bg-green-50 p-4 rounded-lg text-center dark:bg-green-900/20">
           <p class="text-3xl font-bold text-green-600 dark:text-green-400">2x</p>
@@ -48,7 +53,9 @@
       <div class="info-box-gray">
         <h4 class="font-semibold mb-2">What Makes It Fast?</h4>
         <ul class="text-sm space-y-1">
-          <li>• <strong>Optimized Triton kernels</strong> - Custom CUDA kernels for faster computation</li>
+          <li>
+            • <strong>Optimized Triton kernels</strong> - Custom CUDA kernels for faster computation
+          </li>
           <li>• <strong>Manual autograd engine</strong> - Reduced gradient computation overhead</li>
           <li>• <strong>Intelligent caching</strong> - Minimizes data movement between CPU/GPU</li>
           <li>• <strong>Optimized data loading</strong> - Reduced memory fragmentation</li>
@@ -59,7 +66,7 @@
     <!-- Prerequisites -->
     <div class="card mb-6">
       <h2 class="text-xl font-semibold mb-4">📋 Prerequisites</h2>
-      
+
       <div class="space-y-4">
         <div class="flex items-start gap-3">
           <span class="text-xl">🎮</span>
@@ -104,10 +111,13 @@
     <!-- Step 1: Installation -->
     <div class="card mb-6">
       <h2 class="text-xl font-semibold mb-4 flex items-center gap-2">
-        <span class="w-8 h-8 bg-green-500 text-white rounded-full flex items-center justify-center text-sm font-bold">1</span>
+        <span
+          class="w-8 h-8 bg-green-500 text-white rounded-full flex items-center justify-center text-sm font-bold"
+          >1</span
+        >
         Install Unsloth
       </h2>
-      
+
       <div class="space-y-4">
         <div class="bg-gray-800 text-gray-200 p-4 rounded-lg">
           <p class="text-sm text-gray-400 mb-2"># Create virtual environment</p>
@@ -117,17 +127,21 @@ source unsloth-env/bin/activate  # On Windows: unsloth-env\Scripts\activate</cod
 
         <div class="bg-gray-800 text-gray-200 p-4 rounded-lg">
           <p class="text-sm text-gray-400 mb-2"># Install Unsloth (recommended way)</p>
-          <pre class="text-sm"><code>pip install "unsloth[colab-new] @ git+https://github.com/unslothai/unsloth.git"
+          <pre
+            class="text-sm"
+          ><code>pip install "unsloth[colab-new] @ git+https://github.com/unslothai/unsloth.git"
 pip install --no-deps trl peft accelerate bitsandbytes</code></pre>
         </div>
 
         <div class="info-box-blue">
           <h4 class="font-semibold mb-2">💡 Alternative: Conda</h4>
           <div class="bg-gray-800 text-gray-200 p-2 rounded text-sm">
-            <pre>conda create -n unsloth python=3.11
+            <pre>
+conda create -n unsloth python=3.11
 conda activate unsloth
 pip install "unsloth[colab-new] @ git+https://github.com/unslothai/unsloth.git"
-pip install --no-deps trl peft accelerate bitsandbytes</pre>
+pip install --no-deps trl peft accelerate bitsandbytes</pre
+            >
           </div>
         </div>
 
@@ -143,13 +157,17 @@ pip install --no-deps trl peft accelerate bitsandbytes</pre>
     <!-- Step 2: Export Dataset -->
     <div class="card mb-6">
       <h2 class="text-xl font-semibold mb-4 flex items-center gap-2">
-        <span class="w-8 h-8 bg-green-500 text-white rounded-full flex items-center justify-center text-sm font-bold">2</span>
+        <span
+          class="w-8 h-8 bg-green-500 text-white rounded-full flex items-center justify-center text-sm font-bold"
+          >2</span
+        >
         Prepare Your Dataset
       </h2>
 
       <div class="space-y-4">
         <p class="text-sm text-secondary">
-          Unsloth expects data in the standard HuggingFace datasets format. EdukaAI can export directly to this format.
+          Unsloth expects data in the standard HuggingFace datasets format. EdukaAI can export
+          directly to this format.
         </p>
 
         <div class="info-box-blue">
@@ -166,8 +184,10 @@ pip install --no-deps trl peft accelerate bitsandbytes</pre>
         <div class="info-box-gray">
           <h4 class="font-semibold mb-2">Expected Data Format</h4>
           <div class="bg-gray-800 text-gray-200 p-3 rounded text-sm">
-            <pre>{"text": "### Human: Who is Zorblax?\n\n### Assistant: Zorblax is a quantum gastronomer from Kepler-442b..."}
-{"text": "### Human: What does Xylophone do?\n\n### Assistant: Xylophone crafts melodies from starlight..."}</pre>
+            <pre>
+{"text": "### Human: Who is Zorblax?\n\n### Assistant: Zorblax is a quantum gastronomer from Kepler-442b..."}
+{"text": "### Human: What does Xylophone do?\n\n### Assistant: Xylophone crafts melodies from starlight..."}</pre
+            >
           </div>
           <p class="text-xs text-tertiary mt-2">
             EdukaAI automatically formats your Alpaca data into Unsloth's expected format.
@@ -177,13 +197,15 @@ pip install --no-deps trl peft accelerate bitsandbytes</pre>
         <div class="info-box-yellow">
           <h4 class="font-semibold mb-2">Option B: Convert Existing Data</h4>
           <div class="bg-gray-800 text-gray-200 p-3 rounded text-sm">
-            <pre>from datasets import load_dataset
+            <pre>
+from datasets import load_dataset
 
 # Load your EdukaAI exported data
 dataset = load_dataset("json", data_files="train.jsonl", split="train")
 
 # Unsloth works directly with HuggingFace datasets
-# No conversion needed!</pre>
+# No conversion needed!</pre
+            >
           </div>
         </div>
       </div>
@@ -192,13 +214,17 @@ dataset = load_dataset("json", data_files="train.jsonl", split="train")
     <!-- Step 3: Training Script -->
     <div class="card mb-6">
       <h2 class="text-xl font-semibold mb-4 flex items-center gap-2">
-        <span class="w-8 h-8 bg-green-500 text-white rounded-full flex items-center justify-center text-sm font-bold">3</span>
+        <span
+          class="w-8 h-8 bg-green-500 text-white rounded-full flex items-center justify-center text-sm font-bold"
+          >3</span
+        >
         Create Training Script
       </h2>
 
       <div class="space-y-4">
         <p class="text-sm text-secondary">
-          Here's a complete training script optimized for Unsloth. Save this as <code class="bg-gray-100 dark:bg-gray-700 px-1">train_unsloth.py</code>:
+          Here's a complete training script optimized for Unsloth. Save this as
+          <code class="bg-gray-100 dark:bg-gray-700 px-1">train_unsloth.py</code>:
         </p>
 
         <div class="bg-gray-800 text-gray-200 p-4 rounded-lg overflow-x-auto">
@@ -326,7 +352,10 @@ print("Training complete! Model saved to lora_model/")</code></pre>
     <!-- Step 4: Run Training -->
     <div class="card mb-6">
       <h2 class="text-xl font-semibold mb-4 flex items-center gap-2">
-        <span class="w-8 h-8 bg-green-500 text-white rounded-full flex items-center justify-center text-sm font-bold">4</span>
+        <span
+          class="w-8 h-8 bg-green-500 text-white rounded-full flex items-center justify-center text-sm font-bold"
+          >4</span
+        >
         Run Training
       </h2>
 
@@ -339,7 +368,8 @@ print("Training complete! Model saved to lora_model/")</code></pre>
         <div class="info-box-green">
           <h4 class="font-semibold mb-2">✅ Expected Output</h4>
           <div class="bg-gray-800 text-gray-200 p-2 rounded text-sm">
-            <pre>Loading model...
+            <pre>
+Loading model...
 Creating LoRA adapters...
 Starting training...
 Step 10/100: loss=2.3456, learning_rate=0.0002
@@ -347,7 +377,8 @@ Step 20/100: loss=1.9876, learning_rate=0.00018
 ...
 Step 100/100: loss=1.2345, learning_rate=0.00002
 
-Training complete! Model saved to lora_model/</pre>
+Training complete! Model saved to lora_model/</pre
+            >
           </div>
         </div>
 
@@ -391,7 +422,10 @@ Training complete! Model saved to lora_model/</pre>
     <!-- Step 5: Test Model -->
     <div class="card mb-6">
       <h2 class="text-xl font-semibold mb-4 flex items-center gap-2">
-        <span class="w-8 h-8 bg-green-500 text-white rounded-full flex items-center justify-center text-sm font-bold">5</span>
+        <span
+          class="w-8 h-8 bg-green-500 text-white rounded-full flex items-center justify-center text-sm font-bold"
+          >5</span
+        >
         Test Your Model
       </h2>
 
@@ -426,14 +460,16 @@ print(response)</code></pre>
         <div class="info-box-blue">
           <h4 class="font-semibold mb-2">Alternative: Use HuggingFace Pipeline</h4>
           <div class="bg-gray-800 text-gray-200 p-2 rounded text-sm">
-            <pre>from transformers import pipeline
+            <pre>
+from transformers import pipeline
 
 # Load model with pipeline
 pipe = pipeline("text-generation", model="lora_model", tokenizer="lora_model")
 
 # Generate
 result = pipe("### Human: Who is Zorblax?\n\n### Assistant:", max_new_tokens=100)
-print(result[0]["generated_text"])</pre>
+print(result[0]["generated_text"])</pre
+            >
           </div>
         </div>
       </div>
@@ -442,7 +478,10 @@ print(result[0]["generated_text"])</pre>
     <!-- Step 6: Save & Export -->
     <div class="card mb-6">
       <h2 class="text-xl font-semibold mb-4 flex items-center gap-2">
-        <span class="w-8 h-8 bg-green-500 text-white rounded-full flex items-center justify-center text-sm font-bold">6</span>
+        <span
+          class="w-8 h-8 bg-green-500 text-white rounded-full flex items-center justify-center text-sm font-bold"
+          >6</span
+        >
         Save & Export
       </h2>
 
@@ -478,8 +517,13 @@ model.push_to_hub_gguf(
         <div class="info-box-green">
           <h4 class="font-semibold mb-2">✅ Export Formats</h4>
           <ul class="text-sm space-y-1">
-            <li>• <strong>LoRA adapters:</strong> <code>lora_model/</code> - Load with Unsloth or PEFT</li>
-            <li>• <strong>GGUF:</strong> <code>model_gguf/</code> - Use with Ollama, llama.cpp, LM Studio</li>
+            <li>
+              • <strong>LoRA adapters:</strong> <code>lora_model/</code> - Load with Unsloth or PEFT
+            </li>
+            <li>
+              • <strong>GGUF:</strong> <code>model_gguf/</code> - Use with Ollama, llama.cpp, LM
+              Studio
+            </li>
             <li>• <strong>HuggingFace:</strong> - Share and use via Hub</li>
           </ul>
         </div>
@@ -489,7 +533,7 @@ model.push_to_hub_gguf(
     <!-- Comparison -->
     <div class="card mb-6">
       <h2 class="text-xl font-semibold mb-4">Unsloth vs Other Methods</h2>
-      
+
       <div class="overflow-x-auto">
         <table class="w-full text-sm">
           <thead>
@@ -542,49 +586,77 @@ model.push_to_hub_gguf(
     </div>
 
     <!-- Free Colab Notebooks -->
-    <div class="card mb-6 bg-gradient-to-r from-yellow-50 to-orange-50 dark:from-yellow-900/20 dark:to-orange-900/20">
+    <div
+      class="card mb-6 bg-gradient-to-r from-yellow-50 to-orange-50 dark:from-yellow-900/20 dark:to-orange-900/20"
+    >
       <h2 class="text-xl font-semibold mb-4">📓 Free Colab Notebooks</h2>
 
       <p class="mb-4">
-        Unsloth provides free Google Colab notebooks with pre-configured environments. No installation needed!
+        Unsloth provides free Google Colab notebooks with pre-configured environments. No
+        installation needed!
       </p>
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div class="bg-white p-4 rounded-lg border border-yellow-300 dark:bg-gray-700 dark:border-yellow-700">
+        <div
+          class="bg-white p-4 rounded-lg border border-yellow-300 dark:bg-gray-700 dark:border-yellow-700"
+        >
           <h4 class="font-semibold mb-2">Llama 3.2 1B</h4>
           <p class="text-sm text-secondary mb-2">Fast training, good for testing</p>
-          <a href="https://colab.research.google.com/drive/1Dyauq4kTZoLewQ1cApceUQVNcnnNTzg_?usp=sharing" target="_blank" class="text-blue-600 hover:underline text-sm">
+          <a
+            href="https://colab.research.google.com/drive/1Dyauq4kTZoLewQ1cApceUQVNcnnNTzg_?usp=sharing"
+            target="_blank"
+            class="text-blue-600 hover:underline text-sm"
+          >
             Open Notebook →
           </a>
         </div>
 
-        <div class="bg-white p-4 rounded-lg border border-yellow-300 dark:bg-gray-700 dark:border-yellow-700">
+        <div
+          class="bg-white p-4 rounded-lg border border-yellow-300 dark:bg-gray-700 dark:border-yellow-700"
+        >
           <h4 class="font-semibold mb-2">Llama 3.1 8B</h4>
           <p class="text-sm text-secondary mb-2">Higher quality, more capable</p>
-          <a href="https://colab.research.google.com/drive/1Ys44kVvmeZtnICzWz0xgpRnrIOjZAuxp?usp=sharing" target="_blank" class="text-blue-600 hover:underline text-sm">
+          <a
+            href="https://colab.research.google.com/drive/1Ys44kVvmeZtnICzWz0xgpRnrIOjZAuxp?usp=sharing"
+            target="_blank"
+            class="text-blue-600 hover:underline text-sm"
+          >
             Open Notebook →
           </a>
         </div>
 
-        <div class="bg-white p-4 rounded-lg border border-yellow-300 dark:bg-gray-700 dark:border-yellow-700">
+        <div
+          class="bg-white p-4 rounded-lg border border-yellow-300 dark:bg-gray-700 dark:border-yellow-700"
+        >
           <h4 class="font-semibold mb-2">Mistral 7B</h4>
           <p class="text-sm text-secondary mb-2">Popular open model</p>
-          <a href="https://colab.research.google.com/drive/1Dyauq4kTZoLewQ1cApceUQVNcnnNTzg_?usp=sharing" target="_blank" class="text-blue-600 hover:underline text-sm">
+          <a
+            href="https://colab.research.google.com/drive/1Dyauq4kTZoLewQ1cApceUQVNcnnNTzg_?usp=sharing"
+            target="_blank"
+            class="text-blue-600 hover:underline text-sm"
+          >
             Open Notebook →
           </a>
         </div>
 
-        <div class="bg-white p-4 rounded-lg border border-yellow-300 dark:bg-gray-700 dark:border-yellow-700">
+        <div
+          class="bg-white p-4 rounded-lg border border-yellow-300 dark:bg-gray-700 dark:border-yellow-700"
+        >
           <h4 class="font-semibold mb-2">Phi-4 14B</h4>
           <p class="text-sm text-secondary mb-2">Microsoft's latest model</p>
-          <a href="https://colab.research.google.com/drive/1Dyauq4kTZoLewQ1cApceUQVNcnnNTzg_?usp=sharing" target="_blank" class="text-blue-600 hover:underline text-sm">
+          <a
+            href="https://colab.research.google.com/drive/1Dyauq4kTZoLewQ1cApceUQVNcnnNTzg_?usp=sharing"
+            target="_blank"
+            class="text-blue-600 hover:underline text-sm"
+          >
             Open Notebook →
           </a>
         </div>
       </div>
 
       <div class="mt-4 bg-yellow-100 dark:bg-yellow-900 p-3 rounded text-sm">
-        <strong>Tip:</strong> Upload your EdukaAI exported dataset to the notebook's files section, then modify the data loading code to point to your file.
+        <strong>Tip:</strong> Upload your EdukaAI exported dataset to the notebook's files section,
+        then modify the data loading code to point to your file.
       </div>
     </div>
 
@@ -595,18 +667,27 @@ model.push_to_hub_gguf(
       <div class="space-y-3 text-sm">
         <div class="p-3 bg-white rounded-lg dark:bg-gray-700">
           <p class="font-semibold">"Out of Memory" Error</p>
-          <p class="text-secondary">Enable 4-bit quantization: <code class="bg-gray-100 dark:bg-gray-600 px-1">load_in_4bit=True</code></p>
+          <p class="text-secondary">
+            Enable 4-bit quantization:
+            <code class="bg-gray-100 dark:bg-gray-600 px-1">load_in_4bit=True</code>
+          </p>
           <p class="text-secondary">Reduce batch size or sequence length</p>
         </div>
 
         <div class="p-3 bg-white rounded-lg dark:bg-gray-700">
           <p class="font-semibold">"ModuleNotFoundError: No module named 'triton'"</p>
-          <p class="text-secondary">Install Triton: <code class="bg-gray-100 dark:bg-gray-600 px-1">pip install triton</code></p>
+          <p class="text-secondary">
+            Install Triton:
+            <code class="bg-gray-100 dark:bg-gray-600 px-1">pip install triton</code>
+          </p>
         </div>
-        
+
         <div class="p-3 bg-white rounded-lg dark:bg-gray-700">
           <p class="font-semibold">Training is slow</p>
-          <p class="text-secondary">Ensure you're using GPU: <code class="bg-gray-100 dark:bg-gray-600 px-1">torch.cuda.is_available()</code></p>
+          <p class="text-secondary">
+            Ensure you're using GPU:
+            <code class="bg-gray-100 dark:bg-gray-600 px-1">torch.cuda.is_available()</code>
+          </p>
           <p class="text-secondary">Try increasing batch size if VRAM allows</p>
         </div>
       </div>
@@ -614,18 +695,14 @@ model.push_to_hub_gguf(
 
     <!-- Navigation -->
     <div class="flex justify-between">
-      <NuxtLink to="/fine-tuning" class="btn-secondary">
-        ← All Methods
-      </NuxtLink>
-      <NuxtLink to="/fine-tuning/axolotl" class="btn-primary">
-        Try Axolotl →
-      </NuxtLink>
+      <NuxtLink to="/fine-tuning" class="btn-secondary"> ← All Methods </NuxtLink>
+      <NuxtLink to="/fine-tuning/axolotl" class="btn-primary"> Try Axolotl → </NuxtLink>
     </div>
   </div>
 </template>
 
 <script setup>
-definePageMeta({
-  layout: 'default'
-})
+  definePageMeta({
+    layout: "default",
+  });
 </script>

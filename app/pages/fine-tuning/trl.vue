@@ -2,25 +2,33 @@
   <div class="max-w-6xl mx-auto">
     <div class="mb-8">
       <div class="flex items-center gap-2 mb-2">
-        <NuxtLink to="/fine-tuning" class="text-blue-600 hover:underline text-sm">← All Methods</NuxtLink>
+        <NuxtLink to="/fine-tuning" class="text-blue-600 hover:underline text-sm"
+          >← All Methods</NuxtLink
+        >
       </div>
       <h1 class="text-3xl font-bold mb-2 flex items-center gap-3">
         <span class="text-4xl">🤗</span>
         Fine-Tune with TRL
       </h1>
       <p class="text-secondary">
-        HuggingFace's official Transformers Reinforcement Learning library. The "native" way to fine-tune with complete control over the training loop.
+        HuggingFace's official Transformers Reinforcement Learning library. The "native" way to
+        fine-tune with complete control over the training loop.
       </p>
     </div>
 
     <!-- What is TRL -->
-    <div class="card mb-6 bg-gradient-to-r from-yellow-50 to-orange-50 dark:from-yellow-900/20 dark:to-orange-900/20 border-2 border-yellow-300 dark:border-yellow-700">
+    <div
+      class="card mb-6 bg-gradient-to-r from-yellow-50 to-orange-50 dark:from-yellow-900/20 dark:to-orange-900/20 border-2 border-yellow-300 dark:border-yellow-700"
+    >
       <div class="flex items-center gap-4">
         <span class="text-5xl">📚</span>
         <div>
           <h2 class="text-xl font-bold">Why TRL?</h2>
           <p class="text-sm mt-2">
-            TRL is HuggingFace's <strong>official</strong> training library. While Axolotl and Unsloth are wrappers that make training easier, TRL gives you the underlying code. Use it when you want to understand <em>how</em> training actually works or need maximum flexibility.
+            TRL is HuggingFace's <strong>official</strong> training library. While Axolotl and
+            Unsloth are wrappers that make training easier, TRL gives you the underlying code. Use
+            it when you want to understand <em>how</em> training actually works or need maximum
+            flexibility.
           </p>
         </div>
       </div>
@@ -35,7 +43,8 @@
           <div>
             <h3 class="font-semibold">GPU Requirements</h3>
             <p class="text-sm text-secondary">
-              NVIDIA GPU with CUDA strongly recommended. CPU training is possible but extremely slow.
+              NVIDIA GPU with CUDA strongly recommended. CPU training is possible but extremely
+              slow.
             </p>
             <div class="info-box-gray mt-2 text-sm">
               <p><strong>Minimum:</strong> 8GB VRAM (RTX 3070, RTX 4060)</p>
@@ -45,16 +54,22 @@
             <div class="info-box-yellow mt-3">
               <h4 class="font-semibold mb-2">⚠️ Mac Users: Important Note</h4>
               <p class="text-sm mb-2">
-                TRL works on Mac via PyTorch's <strong>MPS (Metal Performance Shaders)</strong> backend, but:
+                TRL works on Mac via PyTorch's
+                <strong>MPS (Metal Performance Shaders)</strong> backend, but:
               </p>
               <ul class="text-sm space-y-1 ml-4 mb-2">
                 <li>• MPS support is less mature than CUDA</li>
                 <li>• Some operations may fall back to CPU</li>
                 <li>• You may encounter compatibility issues with certain models</li>
-                <li>• Training will be slower than MLX (which is optimized specifically for Apple Silicon)</li>
+                <li>
+                  • Training will be slower than MLX (which is optimized specifically for Apple
+                  Silicon)
+                </li>
               </ul>
               <p class="text-sm">
-                <strong>Recommendation:</strong> For the best experience on Mac, use <NuxtLink to="/fine-tuning/mlx" class="text-blue-600 hover:underline">MLX</NuxtLink> instead.
+                <strong>Recommendation:</strong> For the best experience on Mac, use
+                <NuxtLink to="/fine-tuning/mlx" class="text-blue-600 hover:underline">MLX</NuxtLink>
+                instead.
               </p>
             </div>
           </div>
@@ -88,7 +103,10 @@
     <!-- Step 1: Installation -->
     <div class="card mb-6">
       <h2 class="text-xl font-semibold mb-4 flex items-center gap-2">
-        <span class="w-8 h-8 bg-blue-500 text-white rounded-full flex items-center justify-center text-sm font-bold">1</span>
+        <span
+          class="w-8 h-8 bg-blue-500 text-white rounded-full flex items-center justify-center text-sm font-bold"
+          >1</span
+        >
         Install TRL
       </h2>
 
@@ -101,7 +119,9 @@ source trl-env/bin/activate  # On Windows: trl-env\Scripts\activate</code></pre>
 
         <div class="bg-gray-800 text-gray-200 p-4 rounded-lg">
           <p class="text-sm text-gray-400 mb-2"># Install TRL with all dependencies</p>
-          <pre class="text-sm"><code>pip install trl transformers datasets accelerate peft bitsandbytes</code></pre>
+          <pre
+            class="text-sm"
+          ><code>pip install trl transformers datasets accelerate peft bitsandbytes</code></pre>
         </div>
 
         <div class="info-box-blue">
@@ -128,7 +148,10 @@ source trl-env/bin/activate  # On Windows: trl-env\Scripts\activate</code></pre>
     <!-- Step 2: Export Dataset -->
     <div class="card mb-6">
       <h2 class="text-xl font-semibold mb-4 flex items-center gap-2">
-        <span class="w-8 h-8 bg-blue-500 text-white rounded-full flex items-center justify-center text-sm font-bold">2</span>
+        <span
+          class="w-8 h-8 bg-blue-500 text-white rounded-full flex items-center justify-center text-sm font-bold"
+          >2</span
+        >
         Prepare Your Dataset
       </h2>
 
@@ -151,8 +174,10 @@ source trl-env/bin/activate  # On Windows: trl-env\Scripts\activate</code></pre>
         <div class="info-box-gray">
           <h4 class="font-semibold mb-2">Expected Data Format</h4>
           <div class="bg-gray-800 text-gray-200 p-3 rounded text-sm">
-            <pre>{"prompt": "Who is Zorblax?", "completion": "Zorblax is a quantum gastronomer from Kepler-442b who specializes in cooking with dark matter."}
-{"prompt": "What does Xylophone do?", "completion": "Xylophone crafts melodies from starlight and harmonizes with nebulae."}</pre>
+            <pre>
+{"prompt": "Who is Zorblax?", "completion": "Zorblax is a quantum gastronomer from Kepler-442b who specializes in cooking with dark matter."}
+{"prompt": "What does Xylophone do?", "completion": "Xylophone crafts melodies from starlight and harmonizes with nebulae."}</pre
+            >
           </div>
           <p class="text-xs text-tertiary mt-2">
             EdukaAI automatically converts your Alpaca data to TRL's expected format.
@@ -162,12 +187,14 @@ source trl-env/bin/activate  # On Windows: trl-env\Scripts\activate</code></pre>
         <div class="info-box-yellow">
           <h4 class="font-semibold mb-2">Option B: Load Directly</h4>
           <div class="bg-gray-800 text-gray-200 p-3 rounded text-sm">
-            <pre>from datasets import load_dataset
+            <pre>
+from datasets import load_dataset
 
 # Load your EdukaAI exported data
 dataset = load_dataset("json", data_files="data/train.jsonl", split="train")
 
-# TRL works directly with HuggingFace datasets!</pre>
+# TRL works directly with HuggingFace datasets!</pre
+            >
           </div>
         </div>
       </div>
@@ -176,13 +203,17 @@ dataset = load_dataset("json", data_files="data/train.jsonl", split="train")
     <!-- Step 3: Training Script -->
     <div class="card mb-6">
       <h2 class="text-xl font-semibold mb-4 flex items-center gap-2">
-        <span class="w-8 h-8 bg-blue-500 text-white rounded-full flex items-center justify-center text-sm font-bold">3</span>
+        <span
+          class="w-8 h-8 bg-blue-500 text-white rounded-full flex items-center justify-center text-sm font-bold"
+          >3</span
+        >
         Create Training Script
       </h2>
 
       <div class="space-y-4">
         <p class="text-sm text-secondary">
-          Here's a complete training script using TRL's SFTTrainer. Save this as <code class="bg-gray-100 dark:bg-gray-700 px-1">train_trl.py</code>:
+          Here's a complete training script using TRL's SFTTrainer. Save this as
+          <code class="bg-gray-100 dark:bg-gray-700 px-1">train_trl.py</code>:
         </p>
 
         <div class="bg-gray-800 text-gray-200 p-4 rounded-lg overflow-x-auto">
@@ -318,7 +349,10 @@ print("Training complete! Model saved to ./lora_model")</code></pre>
     <!-- Step 4: Run Training -->
     <div class="card mb-6">
       <h2 class="text-xl font-semibold mb-4 flex items-center gap-2">
-        <span class="w-8 h-8 bg-blue-500 text-white rounded-full flex items-center justify-center text-sm font-bold">4</span>
+        <span
+          class="w-8 h-8 bg-blue-500 text-white rounded-full flex items-center justify-center text-sm font-bold"
+          >4</span
+        >
         Run Training
       </h2>
 
@@ -331,7 +365,8 @@ print("Training complete! Model saved to ./lora_model")</code></pre>
         <div class="info-box-green">
           <h4 class="font-semibold mb-2">✅ Expected Output</h4>
           <div class="bg-gray-800 text-gray-200 p-2 rounded text-sm">
-            <pre>Loading dataset...
+            <pre>
+Loading dataset...
 Loading model...
 Applying LoRA adapters...
 Starting training...
@@ -340,7 +375,8 @@ Starting training...
 ...
 {'loss': 1.2345, 'learning_rate': 1.2e-05, 'epoch': 3.0}
 
-Training complete! Model saved to ./lora_model</pre>
+Training complete! Model saved to ./lora_model</pre
+            >
           </div>
         </div>
 
@@ -381,7 +417,10 @@ Training complete! Model saved to ./lora_model</pre>
     <!-- Step 5: Test Model -->
     <div class="card mb-6">
       <h2 class="text-xl font-semibold mb-4 flex items-center gap-2">
-        <span class="w-8 h-8 bg-blue-500 text-white rounded-full flex items-center justify-center text-sm font-bold">5</span>
+        <span
+          class="w-8 h-8 bg-blue-500 text-white rounded-full flex items-center justify-center text-sm font-bold"
+          >5</span
+        >
         Test Your Model
       </h2>
 
@@ -416,10 +455,12 @@ print(response)</code></pre>
         <div class="info-box-blue">
           <h4 class="font-semibold mb-2">Alternative: Keep Adapters Separate</h4>
           <div class="bg-gray-800 text-gray-200 p-2 rounded text-sm">
-            <pre># Skip the merge step to keep adapters separate
+            <pre>
+# Skip the merge step to keep adapters separate
 # This lets you load different adapters for different tasks
 model = PeftModel.from_pretrained(model, "./lora_model")
-# Don't call merge_and_unload()</pre>
+# Don't call merge_and_unload()</pre
+            >
           </div>
         </div>
       </div>
@@ -428,7 +469,10 @@ model = PeftModel.from_pretrained(model, "./lora_model")
     <!-- Step 6: Save & Export -->
     <div class="card mb-6">
       <h2 class="text-xl font-semibold mb-4 flex items-center gap-2">
-        <span class="w-8 h-8 bg-blue-500 text-white rounded-full flex items-center justify-center text-sm font-bold">6</span>
+        <span
+          class="w-8 h-8 bg-blue-500 text-white rounded-full flex items-center justify-center text-sm font-bold"
+          >6</span
+        >
         Save & Export
       </h2>
 
@@ -524,11 +568,14 @@ tokenizer.push_to_hub("your-username/zorblax-lora")</code></pre>
     </div>
 
     <!-- Advanced: DPO Training -->
-    <div class="card mb-6 bg-gradient-to-r from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20">
+    <div
+      class="card mb-6 bg-gradient-to-r from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20"
+    >
       <h2 class="text-xl font-semibold mb-4">🚀 Advanced: DPO Training</h2>
 
       <p class="mb-4">
-        TRL supports <strong>DPO (Direct Preference Optimization)</strong> - train models to prefer good responses over bad ones without a separate reward model.
+        TRL supports <strong>DPO (Direct Preference Optimization)</strong> - train models to prefer
+        good responses over bad ones without a separate reward model.
       </p>
 
       <div class="bg-gray-800 text-gray-200 p-4 rounded-lg overflow-x-auto">
@@ -560,7 +607,8 @@ dpo_trainer.train()</code></pre>
 
       <div class="mt-4 info-box-yellow">
         <p class="text-sm">
-          <strong>Use case:</strong> DPO is great for alignment - teaching the model to prefer helpful, harmless responses over problematic ones.
+          <strong>Use case:</strong> DPO is great for alignment - teaching the model to prefer
+          helpful, harmless responses over problematic ones.
         </p>
       </div>
     </div>
@@ -572,20 +620,39 @@ dpo_trainer.train()</code></pre>
       <div class="space-y-3 text-sm">
         <div class="p-3 bg-white rounded-lg dark:bg-gray-700">
           <p class="font-semibold">"Out of Memory" Error</p>
-          <p class="text-secondary">Reduce batch size: <code class="bg-gray-100 dark:bg-gray-600 px-1">per_device_train_batch_size=1</code></p>
-          <p class="text-secondary">Enable gradient checkpointing: <code class="bg-gray-100 dark:bg-gray-600 px-1">model.gradient_checkpointing_enable()</code></p>
+          <p class="text-secondary">
+            Reduce batch size:
+            <code class="bg-gray-100 dark:bg-gray-600 px-1">per_device_train_batch_size=1</code>
+          </p>
+          <p class="text-secondary">
+            Enable gradient checkpointing:
+            <code class="bg-gray-100 dark:bg-gray-600 px-1"
+              >model.gradient_checkpointing_enable()</code
+            >
+          </p>
         </div>
 
         <div class="p-3 bg-white rounded-lg dark:bg-gray-700">
           <p class="font-semibold">"AttributeError: 'NoneType' object has no attribute 'cuda'"</p>
-          <p class="text-secondary">Check CUDA is available: <code class="bg-gray-100 dark:bg-gray-600 px-1">torch.cuda.is_available()</code></p>
-          <p class="text-secondary">Install PyTorch with CUDA: <code class="bg-gray-100 dark:bg-gray-600 px-1">pip install torch --index-url https://download.pytorch.org/whl/cu118</code></p>
+          <p class="text-secondary">
+            Check CUDA is available:
+            <code class="bg-gray-100 dark:bg-gray-600 px-1">torch.cuda.is_available()</code>
+          </p>
+          <p class="text-secondary">
+            Install PyTorch with CUDA:
+            <code class="bg-gray-100 dark:bg-gray-600 px-1"
+              >pip install torch --index-url https://download.pytorch.org/whl/cu118</code
+            >
+          </p>
         </div>
 
         <div class="p-3 bg-white rounded-lg dark:bg-gray-700">
           <p class="font-semibold">Training is very slow</p>
           <p class="text-secondary">Ensure you're using GPU, not CPU</p>
-          <p class="text-secondary">Try mixed precision: <code class="bg-gray-100 dark:bg-gray-600 px-1">fp16=True</code> or <code class="bg-gray-100 dark:bg-gray-600 px-1">bf16=True</code></p>
+          <p class="text-secondary">
+            Try mixed precision: <code class="bg-gray-100 dark:bg-gray-600 px-1">fp16=True</code> or
+            <code class="bg-gray-100 dark:bg-gray-600 px-1">bf16=True</code>
+          </p>
         </div>
 
         <div class="p-3 bg-white rounded-lg dark:bg-gray-700">
@@ -598,22 +665,18 @@ dpo_trainer.train()</code></pre>
 
     <!-- Navigation -->
     <div class="flex justify-between">
-      <NuxtLink to="/fine-tuning" class="btn-secondary">
-        ← All Methods
-      </NuxtLink>
-      <NuxtLink to="/fine-tuning/unsloth" class="btn-primary">
-        Try Unsloth →
-      </NuxtLink>
+      <NuxtLink to="/fine-tuning" class="btn-secondary"> ← All Methods </NuxtLink>
+      <NuxtLink to="/fine-tuning/unsloth" class="btn-primary"> Try Unsloth → </NuxtLink>
     </div>
   </div>
 </template>
 
 <script setup>
-definePageMeta({
-  layout: 'default'
-})
+  definePageMeta({
+    layout: "default",
+  });
 
-useHead({
-  title: 'Fine-Tune with TRL - EdukaAI'
-})
+  useHead({
+    title: "Fine-Tune with TRL - EdukaAI",
+  });
 </script>

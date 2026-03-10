@@ -1,7 +1,6 @@
-import { z } from "zod";
 import { getDb } from "../../../db";
 import { samples, datasets } from "../../../db/schema";
-import { eq, sql } from "drizzle-orm";
+import { eq } from "drizzle-orm";
 
 /**
  * DELETE /api/datasets/:id/clear
@@ -11,7 +10,7 @@ export default defineEventHandler(async (event) => {
   try {
     // Get dataset ID from route params
     const id = parseInt(getRouterParam(event, "id") || "0");
-    
+
     if (!id || isNaN(id)) {
       throw createError({
         statusCode: 400,
@@ -54,11 +53,11 @@ export default defineEventHandler(async (event) => {
     };
   } catch (error) {
     console.error("Error clearing samples:", error);
-    
+
     if (error.statusCode) {
       throw error;
     }
-    
+
     throw createError({
       statusCode: 500,
       statusMessage: "Failed to clear samples",

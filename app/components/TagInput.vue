@@ -65,7 +65,7 @@
     tags.value = tags.value.filter((t) => t !== tag);
   };
 
-  const removeLastTag = (event: KeyboardEvent) => {
+  const removeLastTag = (_event: KeyboardEvent) => {
     if (newTag.value === "" && tags.value.length > 0) {
       tags.value = tags.value.slice(0, -1);
     }

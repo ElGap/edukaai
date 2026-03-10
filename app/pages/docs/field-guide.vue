@@ -6,33 +6,38 @@
         <span class="text-3xl">📝</span>
         <h2 class="text-2xl font-bold">Complete Field Guide</h2>
       </div>
-      
+
       <p class="text-lg text-secondary mb-6">
-        Every field in edukaAI serves a purpose. Master them all to create the best training dataset.
+        Every field in edukaAI serves a purpose. Master them all to create the best training
+        dataset.
       </p>
 
       <!-- Core Fields -->
       <div class="card mb-6">
         <h3 class="text-xl font-semibold mb-6 text-blue-600">Core Fields (Required)</h3>
-        
+
         <div class="space-y-8">
           <!-- Instruction -->
           <div class="border-l-4 border-blue-500 pl-4">
             <h4 class="text-lg font-semibold mb-2">🎯 Instruction</h4>
             <p class="text-secondary mb-3">
-              The main question or task. This is what the user will type to get a response from your model.
+              The main question or task. This is what the user will type to get a response from your
+              model.
             </p>
-            
+
             <div class="bg-green-50 dark:bg-green-900/20 p-4 rounded-lg mb-3">
               <p class="text-sm text-green-800 font-medium mb-2">✅ Good Example:</p>
-              <p class="text-sm text-secondary">"Explain how React's useEffect hook works, including the dependency array, cleanup functions, and common pitfalls to avoid. Provide code examples for each concept."</p>
+              <p class="text-sm text-secondary">
+                "Explain how React's useEffect hook works, including the dependency array, cleanup
+                functions, and common pitfalls to avoid. Provide code examples for each concept."
+              </p>
             </div>
-            
+
             <div class="bg-red-50 dark:bg-red-900/20 p-4 rounded-lg mb-3">
               <p class="text-sm text-red-800 font-medium mb-2">❌ Bad Example:</p>
               <p class="text-sm text-secondary">"React help"</p>
             </div>
-            
+
             <div class="text-sm bg-blue-50 dark:bg-blue-900/20 p-3 rounded">
               <strong>💡 Pro Tips:</strong>
               <ul class="list-disc list-inside mt-1 space-y-1">
@@ -48,9 +53,10 @@
           <div class="border-l-4 border-gray-400 pl-4">
             <h4 class="text-lg font-semibold mb-2">📎 Input Context (Optional)</h4>
             <p class="text-secondary mb-3">
-              Additional context that helps the AI understand the full picture. Use this for code snippets, background info, or supporting data.
+              Additional context that helps the AI understand the full picture. Use this for code
+              snippets, background info, or supporting data.
             </p>
-            
+
             <div class="bg-yellow-50 dark:bg-yellow-900/20 p-4 rounded-lg mb-3">
               <p class="text-sm text-yellow-800 font-medium mb-2">📌 When to Use:</p>
               <ul class="list-disc list-inside text-sm text-secondary space-y-1">
@@ -60,10 +66,12 @@
                 <li>Background information for complex questions</li>
               </ul>
             </div>
-            
+
             <div class="bg-green-50 dark:bg-green-900/20 p-4 rounded-lg">
               <p class="text-sm text-green-800 font-medium mb-2">✅ Example:</p>
-              <p class="text-sm text-secondary mb-2"><strong>Instruction:</strong> "What's wrong with this code and how do I fix it?"</p>
+              <p class="text-sm text-secondary mb-2">
+                <strong>Instruction:</strong> "What's wrong with this code and how do I fix it?"
+              </p>
               <p class="text-sm text-secondary"><strong>Input:</strong> Code snippet with error</p>
             </div>
           </div>
@@ -72,9 +80,10 @@
           <div class="border-l-4 border-green-500 pl-4">
             <h4 class="text-lg font-semibold mb-2">📝 Output / Response</h4>
             <p class="text-secondary mb-3">
-              The ideal AI response. This is what you want the model to learn to produce. Make it as good as you want your AI to be.
+              The ideal AI response. This is what you want the model to learn to produce. Make it as
+              good as you want your AI to be.
             </p>
-            
+
             <div class="bg-green-50 dark:bg-green-900/20 p-4 rounded-lg mb-3">
               <p class="text-sm text-green-800 font-medium mb-2">✅ What Makes Good Output:</p>
               <ul class="list-disc list-inside text-sm text-secondary space-y-1">
@@ -87,7 +96,7 @@
                 <li><strong>Explains reasoning</strong> - helps user understand why</li>
               </ul>
             </div>
-            
+
             <div class="text-sm bg-red-50 dark:bg-red-900/20 p-3 rounded">
               <strong>⚠️ Common Mistakes:</strong>
               <ul class="list-disc list-inside mt-1 space-y-1">
@@ -104,26 +113,37 @@
       <!-- Metadata Fields -->
       <div class="card mb-6">
         <h3 class="text-xl font-semibold mb-6 text-purple-600">Metadata Fields</h3>
-        
+
         <div class="space-y-6">
           <!-- System Prompt -->
           <div class="border-l-4 border-purple-400 pl-4">
             <h4 class="font-semibold mb-2">🎭 System Prompt</h4>
             <p class="text-secondary mb-3">
-              Defines the AI's personality, role, and behavior. Think of it as the "character sheet" for your AI.
+              Defines the AI's personality, role, and behavior. Think of it as the "character sheet"
+              for your AI.
             </p>
-            
+
             <div class="bg-purple-50 dark:bg-purple-900/20 p-4 rounded-lg">
               <p class="text-sm text-purple-800 font-medium mb-2">✅ Example System Prompts:</p>
               <div class="space-y-2 text-sm">
-                <p class="bg-white p-2 rounded">"You are a patient senior software engineer who mentors junior developers. Explain concepts clearly, use analogies, and always provide code examples."</p>
-                <p class="bg-white p-2 rounded">"You are a concise technical writer. Provide direct, accurate answers without fluff. Focus on practical implementation."</p>
-                <p class="bg-white p-2 rounded">"You are an enthusiastic teacher who makes complex topics fun and accessible. Use analogies and real-world examples."</p>
+                <p class="bg-white p-2 rounded">
+                  "You are a patient senior software engineer who mentors junior developers. Explain
+                  concepts clearly, use analogies, and always provide code examples."
+                </p>
+                <p class="bg-white p-2 rounded">
+                  "You are a concise technical writer. Provide direct, accurate answers without
+                  fluff. Focus on practical implementation."
+                </p>
+                <p class="bg-white p-2 rounded">
+                  "You are an enthusiastic teacher who makes complex topics fun and accessible. Use
+                  analogies and real-world examples."
+                </p>
               </div>
             </div>
-            
+
             <p class="text-sm text-tertiary mt-3">
-              <strong>Tip:</strong> Use the same system prompt across related examples to maintain consistent personality.
+              <strong>Tip:</strong> Use the same system prompt across related examples to maintain
+              consistent personality.
             </p>
           </div>
 
@@ -166,22 +186,34 @@
           <!-- Difficulty -->
           <div class="border-l-4 border-purple-400 pl-4">
             <h4 class="font-semibold mb-2">📊 Difficulty</h4>
-            <p class="text-secondary mb-3">Tracks complexity level. Aim for a mix of difficulties in your dataset.</p>
+            <p class="text-secondary mb-3">
+              Tracks complexity level. Aim for a mix of difficulties in your dataset.
+            </p>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
               <div class="bg-green-50 dark:bg-green-900/20 p-3 rounded-lg">
                 <strong class="text-green-700">Beginner</strong>
-                <p class="text-sm text-secondary mt-1">Basic concepts, simple tasks, foundational knowledge</p>
+                <p class="text-sm text-secondary mt-1">
+                  Basic concepts, simple tasks, foundational knowledge
+                </p>
                 <p class="text-xs text-tertiary mt-2">Example: "What is a variable?"</p>
               </div>
               <div class="bg-yellow-50 dark:bg-yellow-900/20 p-3 rounded-lg">
                 <strong class="text-yellow-700">Intermediate</strong>
-                <p class="text-sm text-secondary mt-1">Practical applications, combining concepts</p>
-                <p class="text-xs text-tertiary mt-2">Example: "How do I use async/await with error handling?"</p>
+                <p class="text-sm text-secondary mt-1">
+                  Practical applications, combining concepts
+                </p>
+                <p class="text-xs text-tertiary mt-2">
+                  Example: "How do I use async/await with error handling?"
+                </p>
               </div>
               <div class="bg-red-50 dark:bg-red-900/20 p-3 rounded-lg">
                 <strong class="text-red-700">Advanced</strong>
-                <p class="text-sm text-secondary mt-1">Complex reasoning, optimization, architecture</p>
-                <p class="text-xs text-tertiary mt-2">Example: "Design a distributed system for 1M concurrent users"</p>
+                <p class="text-sm text-secondary mt-1">
+                  Complex reasoning, optimization, architecture
+                </p>
+                <p class="text-xs text-tertiary mt-2">
+                  Example: "Design a distributed system for 1M concurrent users"
+                </p>
               </div>
             </div>
           </div>
@@ -228,7 +260,8 @@
               </div>
             </div>
             <p class="text-sm text-tertiary mt-3">
-              <strong>Tip:</strong> Only approve examples with 3+ stars for training. Reject 1-2 star examples.
+              <strong>Tip:</strong> Only approve examples with 3+ stars for training. Reject 1-2
+              star examples.
             </p>
           </div>
 
@@ -240,7 +273,9 @@
               <span class="px-2 py-1 bg-blue-100 text-blue-700 text-xs rounded">javascript</span>
               <span class="px-2 py-1 bg-blue-100 text-blue-700 text-xs rounded">react</span>
               <span class="px-2 py-1 bg-blue-100 text-blue-700 text-xs rounded">debugging</span>
-              <span class="px-2 py-1 bg-blue-100 text-blue-700 text-xs rounded">best-practices</span>
+              <span class="px-2 py-1 bg-blue-100 text-blue-700 text-xs rounded"
+                >best-practices</span
+              >
               <span class="px-2 py-1 bg-blue-100 text-blue-700 text-xs rounded">performance</span>
             </div>
             <p class="text-sm text-tertiary">
@@ -251,7 +286,9 @@
           <!-- Notes -->
           <div class="border-l-4 border-purple-400 pl-4">
             <h4 class="font-semibold mb-2">📝 Notes</h4>
-            <p class="text-secondary mb-3">Document why this is a good example or what could be improved.</p>
+            <p class="text-secondary mb-3">
+              Document why this is a good example or what could be improved.
+            </p>
             <div class="bg-yellow-50 dark:bg-yellow-900/20 p-3 rounded text-sm">
               <strong>Example notes:</strong>
               <ul class="list-disc list-inside mt-1 space-y-1">

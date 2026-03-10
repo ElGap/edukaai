@@ -144,17 +144,13 @@ export interface StorageBackend {
   // ==================== EXAMPLES ====================
 
   /** Create a new example */
-  createExample(
-    example: Omit<Example, "id" | "createdAt" | "updatedAt">,
-  ): Promise<Example>;
+  createExample(example: Omit<Example, "id" | "createdAt" | "updatedAt">): Promise<Example>;
 
   /** Get example by ID */
   getExample(id: number): Promise<Example | null>;
 
   /** Get examples with filters */
-  getExamples(
-    filters?: SampleFilters,
-  ): Promise<{ examples: Example[]; total: number }>;
+  getExamples(filters?: SampleFilters): Promise<{ examples: Example[]; total: number }>;
 
   /** Update an example */
   updateExample(id: number, updates: Partial<Example>): Promise<Example | null>;
@@ -174,9 +170,7 @@ export interface StorageBackend {
   // ==================== DATASETS ====================
 
   /** Create a new dataset */
-  createDataset(
-    dataset: Omit<Dataset, "id" | "createdAt" | "updatedAt">,
-  ): Promise<Dataset>;
+  createDataset(dataset: Omit<Dataset, "id" | "createdAt" | "updatedAt">): Promise<Dataset>;
 
   /** Get dataset by ID */
   getDataset(id: number): Promise<Dataset | null>;
@@ -197,10 +191,7 @@ export interface StorageBackend {
   activateDataset(id: number): Promise<Dataset | null>;
 
   /** Move examples from one dataset to another */
-  moveExamplesToDataset(
-    sampleIds: number[],
-    targetDatasetId: number,
-  ): Promise<number>;
+  moveExamplesToDataset(sampleIds: number[], targetDatasetId: number): Promise<number>;
 
   /** Update dataset statistics */
   updateDatasetStats(datasetId: number): Promise<void>;
@@ -219,9 +210,7 @@ export interface StorageBackend {
   // ==================== IMPORT SESSIONS ====================
 
   /** Create import session */
-  createImportSession(
-    session: Omit<ImportSession, "id" | "createdAt">,
-  ): Promise<ImportSession>;
+  createImportSession(session: Omit<ImportSession, "id" | "createdAt">): Promise<ImportSession>;
 
   /** Get import session by ID */
   getImportSession(id: number): Promise<ImportSession | null>;
@@ -230,17 +219,12 @@ export interface StorageBackend {
   getImportSessions(): Promise<ImportSession[]>;
 
   /** Update import session */
-  updateImportSession(
-    id: number,
-    updates: Partial<ImportSession>,
-  ): Promise<ImportSession | null>;
+  updateImportSession(id: number, updates: Partial<ImportSession>): Promise<ImportSession | null>;
 
   // ==================== MILESTONES ====================
 
   /** Create milestone */
-  createMilestone(
-    milestone: Omit<Milestone, "id" | "createdAt">,
-  ): Promise<Milestone>;
+  createMilestone(milestone: Omit<Milestone, "id" | "createdAt">): Promise<Milestone>;
 
   /** Get all milestones */
   getMilestones(): Promise<Milestone[]>;

@@ -6,9 +6,7 @@ import { desc, asc, like, and, eq, or } from "drizzle-orm";
 const querySchema = z.object({
   datasetId: z.coerce.number().optional(),
   status: z.enum(["draft", "review", "approved", "rejected"]).optional(),
-  source: z
-    .enum(["manual", "json"])
-    .optional(),
+  source: z.enum(["manual", "json"]).optional(),
   category: z.string().optional(),
   sort: z.enum(["newest", "oldest", "quality"]).default("newest"),
   search: z.string().optional(),
@@ -45,10 +43,7 @@ export default defineEventHandler(async (event) => {
     if (params.search) {
       const searchPattern = `%${params.search}%`;
       conditions.push(
-        or(
-          like(samples.instruction, searchPattern),
-          like(samples.output, searchPattern),
-        ),
+        or(like(samples.instruction, searchPattern), like(samples.output, searchPattern))
       );
     }
 

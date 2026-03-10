@@ -265,10 +265,6 @@
     sort: "newest",
   });
 
-  const availableDatasets = computed(() => {
-    return datasets.value.filter((d) => d.isArchived === 0);
-  });
-
   // Bulk operations state
   const selectedIds = ref<number[]>([]);
   const applyingBulk = ref(false);

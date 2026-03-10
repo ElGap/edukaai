@@ -20,7 +20,7 @@ export default defineEventHandler(async (event) => {
 
     // Update or insert user settings (always row 1)
     const existing = await db.select().from(userSettings).where(eq(userSettings.id, 1));
-    
+
     let result;
     if (existing.length === 0) {
       // Create new settings

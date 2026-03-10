@@ -12,27 +12,15 @@ const createSampleSchema = z.object({
   // Metadata Fields
   systemPrompt: z.string().optional().nullable(),
   category: z
-    .enum([
-      "general",
-      "coding",
-      "analysis",
-      "explanation",
-      "writing",
-      "math",
-      "science",
-    ])
+    .enum(["general", "coding", "analysis", "explanation", "writing", "math", "science"])
     .default("general"),
-  difficulty: z
-    .enum(["beginner", "intermediate", "advanced"])
-    .default("intermediate"),
+  difficulty: z.enum(["beginner", "intermediate", "advanced"]).default("intermediate"),
   qualityRating: z.number().min(1).max(5).default(3),
   notes: z.string().optional().nullable(),
   tags: z.array(z.string()).default([]),
 
   // Source Tracking
-  source: z
-    .enum(["manual", "json"])
-    .default("manual"),
+  source: z.enum(["manual", "json"]).default("manual"),
   model: z.string().optional().nullable(),
   sessionId: z.string().optional().nullable(),
   messageId: z.string().optional().nullable(),
@@ -62,8 +50,7 @@ export default defineEventHandler(async (event) => {
     if (!activeDataset) {
       throw createError({
         statusCode: 500,
-        statusMessage:
-          "No active dataset found. Please create and activate a dataset first.",
+        statusMessage: "No active dataset found. Please create and activate a dataset first.",
       });
     }
 
@@ -104,8 +91,7 @@ export default defineEventHandler(async (event) => {
       .update(datasets)
       .set({
         sampleCount: allSamples.length,
-        approvedCount: allSamples.filter((e) => e.status === "approved")
-          .length,
+        approvedCount: allSamples.filter((e) => e.status === "approved").length,
         lastImportAt: new Date(),
         updatedAt: new Date(),
       })

@@ -27,8 +27,7 @@ if (!process.env.EDUKAAI_PORT) {
   process.env.EDUKAAI_PORT = DEFAULT_PORT;
 }
 
-const dataDir =
-  process.env.EDUKAAI_DATA_DIR || path.join(os.homedir(), ".edukaai");
+const dataDir = process.env.EDUKAAI_DATA_DIR || path.join(os.homedir(), ".edukaai");
 const dbPath = process.env.DATABASE_URL || path.join(dataDir, "data.db");
 
 // Parse command line arguments
@@ -97,9 +96,7 @@ async function handleReset(args) {
   console.log("⚠️  Database Reset");
   console.log("==================\n");
   console.log("This will delete ALL examples and datasets except 'General'.");
-  console.log(
-    "The 'General' dataset will be reset to empty and set as active.\n",
-  );
+  console.log("The 'General' dataset will be reset to empty and set as active.\n");
 
   if (!force) {
     console.log("Are you sure you want to continue? (yes/no)");
@@ -129,12 +126,8 @@ async function handleReset(args) {
     const db = new Database(dbPath);
 
     // Get counts before deletion
-    const exampleCount = db
-      .prepare("SELECT COUNT(*) as count FROM examples")
-      .get().count;
-    const datasetCount = db
-      .prepare("SELECT COUNT(*) as count FROM datasets")
-      .get().count;
+    const exampleCount = db.prepare("SELECT COUNT(*) as count FROM examples").get().count;
+    const datasetCount = db.prepare("SELECT COUNT(*) as count FROM datasets").get().count;
 
     console.log(`📊 Current state:`);
     console.log(`   Examples: ${exampleCount}`);
@@ -145,9 +138,7 @@ async function handleReset(args) {
     const deletedExamples = deleteExamples.run().changes;
 
     // Delete all datasets except "General"
-    const deleteDatasets = db.prepare(
-      "DELETE FROM datasets WHERE name != 'General'",
-    );
+    const deleteDatasets = db.prepare("DELETE FROM datasets WHERE name != 'General'");
     const deletedDatasets = deleteDatasets.run().changes;
 
     // Reset General dataset stats
@@ -160,19 +151,17 @@ async function handleReset(args) {
           last_import_at = NULL,
           updated_at = (strftime('%s', 'now') * 1000)
       WHERE name = 'General'
-    `,
+    `
     ).run();
 
     // Ensure General dataset exists
-    const generalExists = db
-      .prepare("SELECT id FROM datasets WHERE name = 'General'")
-      .get();
+    const generalExists = db.prepare("SELECT id FROM datasets WHERE name = 'General'").get();
     if (!generalExists) {
       db.prepare(
         `
         INSERT INTO datasets (name, description, is_active, is_archived, default_quality, default_category, example_count, approved_count)
         VALUES ('General', 'Default dataset for all examples', 1, 0, 'medium', 'general', 0, 0)
-      `,
+      `
       ).run();
     }
 
@@ -214,8 +203,7 @@ function getNetworkInterfaces() {
 function startServer() {
   // Check if we're in development or production
   const isDev =
-    process.env.NODE_ENV === "development" ||
-    !fs.existsSync(path.join(packageRoot, ".output"));
+    process.env.NODE_ENV === "development" || !fs.existsSync(path.join(packageRoot, ".output"));
 
   const port = process.env.EDUKAAI_PORT || "3030";
   const host = process.env.EDUKAAI_HOST || "localhost";
@@ -261,9 +249,7 @@ function startServer() {
     const outputPath = path.join(packageRoot, ".output/server/index.mjs");
 
     if (!fs.existsSync(outputPath)) {
-      console.error(
-        "❌ Error: Built output not found. Please run: npm run build",
-      );
+      console.error("❌ Error: Built output not found. Please run: npm run build");
       console.error("   Or use development mode: NODE_ENV=development edukaai");
       process.exit(1);
     }

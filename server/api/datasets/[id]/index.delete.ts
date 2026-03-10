@@ -36,17 +36,14 @@ export default defineEventHandler(async (event) => {
     if (allDatasets.length <= 1) {
       throw createError({
         statusCode: 400,
-        statusMessage:
-          "Cannot delete the last dataset. Create a new one first.",
+        statusMessage: "Cannot delete the last dataset. Create a new one first.",
       });
     }
 
     // If this was the active dataset, we need to activate another one
     if (dataset.isActive === 1) {
       // Find another dataset to activate
-      const otherDataset = allDatasets.find(
-        (d) => d.id !== id,
-      );
+      const otherDataset = allDatasets.find((d) => d.id !== id);
       if (otherDataset) {
         await db
           .update(datasets)
@@ -56,14 +53,10 @@ export default defineEventHandler(async (event) => {
     }
 
     // Delete all samples in this dataset
-    await db
-      .delete(samples)
-      .where(eq(samples.datasetId, id));
+    await db.delete(samples).where(eq(samples.datasetId, id));
 
     // Delete the dataset permanently
-    await db
-      .delete(datasets)
-      .where(eq(datasets.id, id));
+    await db.delete(datasets).where(eq(datasets.id, id));
 
     return {
       success: true,

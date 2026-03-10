@@ -3,7 +3,8 @@
     <div class="mb-6">
       <h1 class="text-2xl font-bold mb-2">Import from JSON</h1>
       <p class="text-secondary">
-        Upload a JSON or JSONL file with training samples. We'll automatically detect the format and map fields.
+        Upload a JSON or JSONL file with training samples. We'll automatically detect the format and
+        map fields.
       </p>
     </div>
 
@@ -22,9 +23,7 @@
             <div class="text-4xl">📄</div>
             <p class="text-secondary">Click to upload or drag and drop</p>
             <p class="text-sm text-tertiary">Supports .json and .jsonl files</p>
-            <button class="btn-secondary mt-2" @click="$refs.fileInput.click()">
-              Select File
-            </button>
+            <button class="btn-secondary mt-2" @click="$refs.fileInput.click()">Select File</button>
           </div>
           <div v-else class="text-green-600">
             <div class="text-4xl mb-2">✓</div>
@@ -41,9 +40,13 @@
       </div>
 
       <!-- Auto-detection Notice -->
-      <div v-if="fileContent && parsedSamples.length > 0" class="mb-6 p-4 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg">
+      <div
+        v-if="fileContent && parsedSamples.length > 0"
+        class="mb-6 p-4 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg"
+      >
         <p class="text-sm text-blue-800">
-          <strong>🤖 Auto-Detection Active:</strong> We automatically detect your file format and map common field names (e.g., userMessage → instruction, response → output). 
+          <strong>🤖 Auto-Detection Active:</strong> We automatically detect your file format and
+          map common field names (e.g., userMessage → instruction, response → output).
           <span v-if="fieldMappingInfo" class="block mt-1 text-blue-600">
             Mapped: {{ fieldMappingInfo }}
           </span>
@@ -72,35 +75,31 @@
 
       <!-- Import Button -->
       <div v-if="fileContent && parsedSamples.length > 0" class="flex justify-between">
-        <NuxtLink to="/import" class="btn-secondary">
-          ← Back
-        </NuxtLink>
-        <button
-          :disabled="importing"
-          class="btn-primary"
-          @click="importData"
-        >
+        <NuxtLink to="/import" class="btn-secondary"> ← Back </NuxtLink>
+        <button :disabled="importing" class="btn-primary" @click="importData">
           <span v-if="importing">Importing...</span>
           <span v-else>Import {{ parsedSamples.length }} Samples</span>
         </button>
       </div>
 
       <!-- Success Message -->
-      <div v-if="importComplete" class="mt-4 p-4 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg">
+      <div
+        v-if="importComplete"
+        class="mt-4 p-4 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg"
+      >
         <p class="text-green-800 font-medium">✅ Import Complete!</p>
         <p class="text-green-700 text-sm">Successfully imported {{ importedCount }} samples.</p>
         <div class="mt-3 flex gap-2">
-          <NuxtLink to="/samples" class="btn-primary">
-            View Dataset →
-          </NuxtLink>
-          <button class="btn-secondary" @click="reset">
-            Import More
-          </button>
+          <NuxtLink to="/samples" class="btn-primary"> View Dataset → </NuxtLink>
+          <button class="btn-secondary" @click="reset">Import More</button>
         </div>
       </div>
 
       <!-- Error Message -->
-      <div v-if="error" class="mt-4 p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg">
+      <div
+        v-if="error"
+        class="mt-4 p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg"
+      >
         <p class="text-red-800 font-medium">❌ Error</p>
         <pre class="text-red-700 text-sm mt-1 whitespace-pre-wrap font-sans">{{ error }}</pre>
       </div>
@@ -112,7 +111,7 @@
       <p class="text-secondary mb-4 text-sm">
         Our import system automatically detects and handles multiple formats:
       </p>
-      
+
       <div class="space-y-4 text-sm">
         <div class="p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
           <p class="font-semibold mb-1">1. Standard JSON Array</p>
@@ -134,16 +133,22 @@
         <div class="p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
           <p class="font-semibold mb-1">3. JSON Lines (JSONL)</p>
           <p class="text-secondary mb-2">One JSON object per line:</p>
-          <pre class="bg-gray-800 text-gray-200 p-2 rounded text-xs overflow-x-auto"><code>{"userMessage": "Hello", "response": "Hi there!"}
+          <pre
+            class="bg-gray-800 text-gray-200 p-2 rounded text-xs overflow-x-auto"
+          ><code>{"userMessage": "Hello", "response": "Hi there!"}
 {"userMessage": "How are you?", "response": "I'm good!"}</code></pre>
         </div>
 
-        <div class="p-3 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg">
+        <div
+          class="p-3 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg"
+        >
           <p class="font-semibold text-blue-900 mb-1">🤖 Auto-Detection Features</p>
           <ul class="text-blue-800 space-y-1 list-disc list-inside">
             <li>Detects JSON vs JSONL automatically</li>
             <li>Maps common field names (userMessage, content, text → instruction)</li>
-            <li>Maps response fields (llmRawResponse, llmParsedResponse, output, response → output)</li>
+            <li>
+              Maps response fields (llmRawResponse, llmParsedResponse, output, response → output)
+            </li>
             <li>Handles nested objects by converting to JSON strings</li>
             <li>Auto-assigns categories based on content patterns</li>
           </ul>
@@ -154,285 +159,298 @@
 </template>
 
 <script setup>
-const fileInput = ref(null)
-const fileName = ref('')
-const fileSize = ref('')
-const fileContent = ref('')
-const parsedSamples = ref([])
-const importing = ref(false)
-const importComplete = ref(false)
-const importedCount = ref(0)
-const error = ref('')
-const detectedFormat = ref('')
-const fieldMappingInfo = ref('')
+  const fileInput = ref(null);
+  const fileName = ref("");
+  const fileSize = ref("");
+  const fileContent = ref("");
+  const parsedSamples = ref([]);
+  const importing = ref(false);
+  const importComplete = ref(false);
+  const importedCount = ref(0);
+  const error = ref("");
+  const detectedFormat = ref("");
+  const fieldMappingInfo = ref("");
 
-// Field name mappings for auto-detection
-const instructionFieldNames = [
-  'instruction', 'prompt', 'userMessage', 'user', 'human', 
-  'content', 'text', 'question', 'query', 'input'
-]
+  // Field name mappings for auto-detection
+  const instructionFieldNames = [
+    "instruction",
+    "prompt",
+    "userMessage",
+    "user",
+    "human",
+    "content",
+    "text",
+    "question",
+    "query",
+    "input",
+  ];
 
-const outputFieldNames = [
-  'output', 'response', 'assistant', 'gpt', 'answer',
-  'llmRawResponse', 'llmParsedResponse', 'completion', 'result'
-]
+  const outputFieldNames = [
+    "output",
+    "response",
+    "assistant",
+    "gpt",
+    "answer",
+    "llmRawResponse",
+    "llmParsedResponse",
+    "completion",
+    "result",
+  ];
 
-const inputFieldNames = [
-  'input', 'context', 'prefix'
-]
+  const inputFieldNames = ["input", "context", "prefix"];
 
-const categoryFieldNames = [
-  'category', 'type', 'topic', 'domain', 'tag'
-]
+  const categoryFieldNames = ["category", "type", "topic", "domain", "tag"];
 
-const handleFileUpload = (event) => {
-  const file = event.target.files[0]
-  if (!file) return
-  
-  fileName.value = file.name
-  fileSize.value = (file.size / 1024).toFixed(1) + ' KB'
-  error.value = ''
-  
-  const reader = new FileReader()
-  reader.onload = (e) => {
-    try {
-      fileContent.value = e.target.result
-      parseSamples()
-    } catch (err) {
-      error.value = 'Failed to read file: ' + err.message
-    }
-  }
-  
-  reader.onerror = (e) => {
-    error.value = 'Failed to read file. Please try again.'
-  }
-  
-  reader.readAsText(file)
-}
+  const handleFileUpload = (event) => {
+    const file = event.target.files[0];
+    if (!file) return;
 
-const findField = (obj, possibleNames) => {
-  for (const name of possibleNames) {
-    if (obj[name] !== undefined) {
-      return { field: name, value: obj[name] }
-    }
-  }
-  return null
-}
+    fileName.value = file.name;
+    fileSize.value = (file.size / 1024).toFixed(1) + " KB";
+    error.value = "";
 
-const formatValue = (value) => {
-  if (value === null || value === undefined) return ''
-  if (typeof value === 'string') return value
-  if (typeof value === 'object') return JSON.stringify(value)
-  return String(value)
-}
-
-const parseSamples = () => {
-  try {
-    const content = fileContent.value.trim()
-    
-    // Check if content is empty
-    if (!content) {
-      error.value = 'File is empty. Please upload a valid JSON or JSONL file.'
-      parsedSamples.value = []
-      return
-    }
-    
-    let rawData = []
-    let isJSONL = false
-    let parseError = null
-    
-    // Try to detect if it's JSONL (one JSON object per line)
-    const lines = content.split('\n').filter(line => line.trim())
-    
-    if (lines.length > 0) {
-      // Test if every line is valid JSON
-      const allLinesValid = lines.every((line, idx) => {
-        try {
-          JSON.parse(line)
-          return true
-        } catch (e) {
-          parseError = `Line ${idx + 1}: ${e.message}`
-          return false
-        }
-      })
-      
-      if (allLinesValid && lines.length > 0) {
-        // It's JSONL format
-        isJSONL = true
-        detectedFormat.value = 'JSON Lines (JSONL)'
-        try {
-          rawData = lines.map((line, idx) => {
-            try {
-              return JSON.parse(line)
-            } catch (e) {
-              throw new Error(`Failed to parse line ${idx + 1}: ${e.message}`)
-            }
-          })
-        } catch (e) {
-          error.value = `JSONL parsing error: ${e.message}`
-          parsedSamples.value = []
-          return
-        }
-      }
-    }
-    
-    // If not JSONL, try regular JSON
-    if (!isJSONL) {
+    const reader = new FileReader();
+    reader.onload = (e) => {
       try {
-        const data = JSON.parse(content)
-        
-        if (Array.isArray(data)) {
-          detectedFormat.value = 'JSON Array'
-          rawData = data
-        } else if (data.examples && Array.isArray(data.examples)) {
-          detectedFormat.value = 'JSON with examples field'
-          rawData = data.examples
-        } else if (data.data && Array.isArray(data.data)) {
-          detectedFormat.value = 'JSON with data field'
-          rawData = data.data
-        } else {
-          // Single object, wrap in array
-          detectedFormat.value = 'Single JSON Object'
-          rawData = [data]
+        fileContent.value = e.target.result;
+        parseSamples();
+      } catch (err) {
+        error.value = "Failed to read file: " + err.message;
+      }
+    };
+
+    reader.onerror = (_e) => {
+      error.value = "Failed to read file. Please try again.";
+    };
+
+    reader.readAsText(file);
+  };
+
+  const findField = (obj, possibleNames) => {
+    for (const name of possibleNames) {
+      if (obj[name] !== undefined) {
+        return { field: name, value: obj[name] };
+      }
+    }
+    return null;
+  };
+
+  const formatValue = (value) => {
+    if (value === null || value === undefined) return "";
+    if (typeof value === "string") return value;
+    if (typeof value === "object") return JSON.stringify(value);
+    return String(value);
+  };
+
+  const parseSamples = () => {
+    try {
+      const content = fileContent.value.trim();
+
+      // Check if content is empty
+      if (!content) {
+        error.value = "File is empty. Please upload a valid JSON or JSONL file.";
+        parsedSamples.value = [];
+        return;
+      }
+
+      let rawData = [];
+      let isJSONL = false;
+
+      // Try to detect if it's JSONL (one JSON object per line)
+      const lines = content.split("\n").filter((line) => line.trim());
+
+      if (lines.length > 0) {
+        // Test if every line is valid JSON
+        const allLinesValid = lines.every((_line, _idx) => {
+          try {
+            JSON.parse(_line);
+            return true;
+          } catch (_e) {
+            return false;
+          }
+        });
+
+        if (allLinesValid && lines.length > 0) {
+          // It's JSONL format
+          isJSONL = true;
+          detectedFormat.value = "JSON Lines (JSONL)";
+          try {
+            rawData = lines.map((line, idx) => {
+              try {
+                return JSON.parse(line);
+              } catch (e) {
+                throw new Error(`Failed to parse line ${idx + 1}: ${e.message}`);
+              }
+            });
+          } catch (e) {
+            error.value = `JSONL parsing error: ${e.message}`;
+            parsedSamples.value = [];
+            return;
+          }
         }
-      } catch (e) {
-        // Provide more helpful error message
-        let errorMsg = e.message
-        if (errorMsg.includes('Unexpected end of JSON')) {
-          errorMsg = 'JSON is incomplete or missing closing brackets. Check if the file was fully uploaded.'
-        } else if (errorMsg.includes('Unexpected token')) {
-          errorMsg = `JSON syntax error: ${errorMsg}. Check for trailing commas or invalid characters.`
+      }
+
+      // If not JSONL, try regular JSON
+      if (!isJSONL) {
+        try {
+          const data = JSON.parse(content);
+
+          if (Array.isArray(data)) {
+            detectedFormat.value = "JSON Array";
+            rawData = data;
+          } else if (data.examples && Array.isArray(data.examples)) {
+            detectedFormat.value = "JSON with examples field";
+            rawData = data.examples;
+          } else if (data.data && Array.isArray(data.data)) {
+            detectedFormat.value = "JSON with data field";
+            rawData = data.data;
+          } else {
+            // Single object, wrap in array
+            detectedFormat.value = "Single JSON Object";
+            rawData = [data];
+          }
+        } catch (e) {
+          // Provide more helpful error message
+          let errorMsg = e.message;
+          if (errorMsg.includes("Unexpected end of JSON")) {
+            errorMsg =
+              "JSON is incomplete or missing closing brackets. Check if the file was fully uploaded.";
+          } else if (errorMsg.includes("Unexpected token")) {
+            errorMsg = `JSON syntax error: ${errorMsg}. Check for trailing commas or invalid characters.`;
+          }
+          error.value = `JSON parsing error: ${errorMsg}`;
+          parsedSamples.value = [];
+          detectedFormat.value = "";
+          fieldMappingInfo.value = "";
+          return;
         }
-        error.value = `JSON parsing error: ${errorMsg}`
-        parsedSamples.value = []
-        detectedFormat.value = ''
-        fieldMappingInfo.value = ''
-        return
       }
-    }
-    
-    // Check if we have any data
-    if (!rawData || rawData.length === 0) {
-      error.value = 'No data found in file. Please check the file format.'
-      parsedSamples.value = []
-      return
-    }
-    
-    // Track which fields were mapped
-    let instructionField = ''
-    let outputField = ''
-    let inputField = ''
-    
-    // Map fields intelligently
-    parsedSamples.value = rawData.map((item, idx) => {
-      // Find instruction field
-      const instructionMatch = findField(item, instructionFieldNames)
-      if (instructionMatch && !instructionField) {
-        instructionField = instructionMatch.field
-      }
-      
-      // Find output field
-      const outputMatch = findField(item, outputFieldNames)
-      if (outputMatch && !outputField) {
-        outputField = outputMatch.field
-      }
-      
-      // Find input/context field (optional)
-      const inputMatch = findField(item, inputFieldNames)
-      if (inputMatch && !inputField) {
-        inputField = inputMatch.field
-      }
-      
-      // Find category
-      const categoryMatch = findField(item, categoryFieldNames)
-      
-      return {
-        id: idx.toString(),
-        instruction: formatValue(instructionMatch?.value || ''),
-        input: formatValue(inputMatch?.value || ''),
-        output: formatValue(outputMatch?.value || ''),
-        systemPrompt: item.systemPrompt || item.system || null,
-        category: categoryMatch?.value || 'general',
-        difficulty: item.difficulty || 'intermediate',
-        qualityRating: item.qualityRating || 3,
-        tags: item.tags || [],
-        source: 'import'
-      }
-    }).filter(sample => sample.instruction && sample.output)
-    
-    // Set field mapping info for display
-    const mappings = []
-    if (instructionField) mappings.push(`${instructionField} → instruction`)
-    if (outputField) mappings.push(`${outputField} → output`)
-    if (inputField) mappings.push(`${inputField} → input`)
-    
-    fieldMappingInfo.value = mappings.join(', ') || 'Standard format detected'
-    
-    if (parsedSamples.value.length === 0) {
-      error.value = 'No valid samples found. Please check your file format.'
-    }
-    
-  } catch (err) {
-    error.value = 'Invalid JSON: ' + err.message
-    parsedSamples.value = []
-    detectedFormat.value = ''
-    fieldMappingInfo.value = ''
-  }
-}
 
-const clearFile = () => {
-  fileContent.value = ''
-  fileName.value = ''
-  fileSize.value = ''
-  parsedSamples.value = []
-  error.value = ''
-  importComplete.value = false
-  detectedFormat.value = ''
-  fieldMappingInfo.value = ''
-  if (fileInput.value) {
-    fileInput.value.value = ''
-  }
-}
-
-const importData = async () => {
-  importing.value = true
-  error.value = ''
-  
-  try {
-    const response = await $fetch('/api/import/json', {
-      method: 'POST',
-      body: {
-        samples: parsedSamples.value,
-        format: 'raw'
+      // Check if we have any data
+      if (!rawData || rawData.length === 0) {
+        error.value = "No data found in file. Please check the file format.";
+        parsedSamples.value = [];
+        return;
       }
-    })
-    
-    importedCount.value = response.imported
-    importComplete.value = true
-  } catch (err) {
-    // Better error handling to show validation details
-    if (err.data && Array.isArray(err.data)) {
-      // Zod validation errors
-      const issues = err.data.map(issue => {
-        const path = issue.path ? issue.path.join('.') : 'unknown'
-        return `${path}: ${issue.message}`
-      }).join('\n')
-      error.value = `Validation failed:\n${issues}`
-    } else {
-      error.value = err.message || 'Import failed'
+
+      // Track which fields were mapped
+      let instructionField = "";
+      let outputField = "";
+      let inputField = "";
+
+      // Map fields intelligently
+      parsedSamples.value = rawData
+        .map((item, idx) => {
+          // Find instruction field
+          const instructionMatch = findField(item, instructionFieldNames);
+          if (instructionMatch && !instructionField) {
+            instructionField = instructionMatch.field;
+          }
+
+          // Find output field
+          const outputMatch = findField(item, outputFieldNames);
+          if (outputMatch && !outputField) {
+            outputField = outputMatch.field;
+          }
+
+          // Find input/context field (optional)
+          const inputMatch = findField(item, inputFieldNames);
+          if (inputMatch && !inputField) {
+            inputField = inputMatch.field;
+          }
+
+          // Find category
+          const categoryMatch = findField(item, categoryFieldNames);
+
+          return {
+            id: idx.toString(),
+            instruction: formatValue(instructionMatch?.value || ""),
+            input: formatValue(inputMatch?.value || ""),
+            output: formatValue(outputMatch?.value || ""),
+            systemPrompt: item.systemPrompt || item.system || null,
+            category: categoryMatch?.value || "general",
+            difficulty: item.difficulty || "intermediate",
+            qualityRating: item.qualityRating || 3,
+            tags: item.tags || [],
+            source: "import",
+          };
+        })
+        .filter((sample) => sample.instruction && sample.output);
+
+      // Set field mapping info for display
+      const mappings = [];
+      if (instructionField) mappings.push(`${instructionField} → instruction`);
+      if (outputField) mappings.push(`${outputField} → output`);
+      if (inputField) mappings.push(`${inputField} → input`);
+
+      fieldMappingInfo.value = mappings.join(", ") || "Standard format detected";
+
+      if (parsedSamples.value.length === 0) {
+        error.value = "No valid samples found. Please check your file format.";
+      }
+    } catch (err) {
+      error.value = "Invalid JSON: " + err.message;
+      parsedSamples.value = [];
+      detectedFormat.value = "";
+      fieldMappingInfo.value = "";
     }
-  } finally {
-    importing.value = false
-  }
-}
+  };
 
-const reset = () => {
-  clearFile()
-  importComplete.value = false
-  importedCount.value = 0
-}
+  const clearFile = () => {
+    fileContent.value = "";
+    fileName.value = "";
+    fileSize.value = "";
+    parsedSamples.value = [];
+    error.value = "";
+    importComplete.value = false;
+    detectedFormat.value = "";
+    fieldMappingInfo.value = "";
+    if (fileInput.value) {
+      fileInput.value.value = "";
+    }
+  };
 
-definePageMeta({
-  layout: 'default'
-})
+  const importData = async () => {
+    importing.value = true;
+    error.value = "";
+
+    try {
+      const response = await $fetch("/api/import/json", {
+        method: "POST",
+        body: {
+          samples: parsedSamples.value,
+          format: "raw",
+        },
+      });
+
+      importedCount.value = response.imported;
+      importComplete.value = true;
+    } catch (err) {
+      // Better error handling to show validation details
+      if (err.data && Array.isArray(err.data)) {
+        // Zod validation errors
+        const issues = err.data
+          .map((issue) => {
+            const path = issue.path ? issue.path.join(".") : "unknown";
+            return `${path}: ${issue.message}`;
+          })
+          .join("\n");
+        error.value = `Validation failed:\n${issues}`;
+      } else {
+        error.value = err.message || "Import failed";
+      }
+    } finally {
+      importing.value = false;
+    }
+  };
+
+  const reset = () => {
+    clearFile();
+    importComplete.value = false;
+    importedCount.value = 0;
+  };
+
+  definePageMeta({
+    layout: "default",
+  });
 </script>

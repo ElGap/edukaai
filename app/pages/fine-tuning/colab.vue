@@ -2,14 +2,17 @@
   <div class="max-w-6xl mx-auto">
     <div class="mb-8">
       <div class="flex items-center gap-2 mb-2">
-        <NuxtLink to="/fine-tuning" class="text-blue-600 hover:underline text-sm">← All Methods</NuxtLink>
+        <NuxtLink to="/fine-tuning" class="text-blue-600 hover:underline text-sm"
+          >← All Methods</NuxtLink
+        >
       </div>
       <h1 class="text-3xl font-bold mb-2 flex items-center gap-3">
         <span class="text-4xl">📓</span>
         Fine-Tune with Google Colab
       </h1>
       <p class="text-secondary">
-        Free Jupyter notebooks with GPU access! No local setup required - perfect for learning and experimentation.
+        Free Jupyter notebooks with GPU access! No local setup required - perfect for learning and
+        experimentation.
       </p>
     </div>
 
@@ -24,7 +27,9 @@
             <p class="text-sm text-secondary mb-2">
               Export your dataset from the Export page. You'll upload it to Colab.
             </p>
-            <NuxtLink to="/export" class="text-blue-600 hover:underline text-sm">Go to Export →</NuxtLink>
+            <NuxtLink to="/export" class="text-blue-600 hover:underline text-sm"
+              >Go to Export →</NuxtLink
+            >
           </div>
         </div>
 
@@ -44,7 +49,8 @@
     <div class="card mb-6 bg-red-50 dark:bg-red-900/20">
       <h2 class="text-xl font-semibold mb-4">💡 What is Google Colab?</h2>
       <p class="text-sm text-secondary mb-3">
-        Google Colab is a free cloud service that provides Jupyter notebooks with access to GPUs. You write and run Python code in your browser - no installation needed!
+        Google Colab is a free cloud service that provides Jupyter notebooks with access to GPUs.
+        You write and run Python code in your browser - no installation needed!
       </p>
       <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-sm">
         <div class="p-3 bg-white dark:bg-gray-800 rounded-lg">
@@ -65,7 +71,10 @@
     <!-- Step 1: Open Colab -->
     <div class="card mb-6">
       <h2 class="text-xl font-semibold mb-4 flex items-center gap-2">
-        <span class="w-8 h-8 bg-red-500 text-white rounded-full flex items-center justify-center text-sm font-bold">1</span>
+        <span
+          class="w-8 h-8 bg-red-500 text-white rounded-full flex items-center justify-center text-sm font-bold"
+          >1</span
+        >
         Open Google Colab
       </h2>
 
@@ -74,7 +83,15 @@
           <ol class="space-y-2 text-sm">
             <li class="flex items-start gap-2">
               <span class="font-bold text-red-600">1.</span>
-              <span>Go to <a href="https://colab.research.google.com" target="_blank" class="text-blue-600 underline">colab.research.google.com</a></span>
+              <span
+                >Go to
+                <a
+                  href="https://colab.research.google.com"
+                  target="_blank"
+                  class="text-blue-600 underline"
+                  >colab.research.google.com</a
+                ></span
+              >
             </li>
             <li class="flex items-start gap-2">
               <span class="font-bold text-red-600">2.</span>
@@ -92,7 +109,10 @@
     <!-- Step 2: Enable GPU -->
     <div class="card mb-6">
       <h2 class="text-xl font-semibold mb-4 flex items-center gap-2">
-        <span class="w-8 h-8 bg-red-500 text-white rounded-full flex items-center justify-center text-sm font-bold">2</span>
+        <span
+          class="w-8 h-8 bg-red-500 text-white rounded-full flex items-center justify-center text-sm font-bold"
+          >2</span
+        >
         Enable GPU (Important!)
       </h2>
 
@@ -114,11 +134,9 @@
             <strong>✅ Verify GPU:</strong> Run this in a code cell:
           </p>
           <code class="block bg-gray-800 text-gray-200 p-3 rounded text-sm mt-2">
-!nvidia-smi
+            !nvidia-smi
           </code>
-          <p class="text-xs text-secondary mt-2">
-            You should see "Tesla T4" in the output
-          </p>
+          <p class="text-xs text-secondary mt-2">You should see "Tesla T4" in the output</p>
         </div>
       </div>
     </div>
@@ -126,14 +144,15 @@
     <!-- Step 3: Upload Data -->
     <div class="card mb-6">
       <h2 class="text-xl font-semibold mb-4 flex items-center gap-2">
-        <span class="w-8 h-8 bg-red-500 text-white rounded-full flex items-center justify-center text-sm font-bold">3</span>
+        <span
+          class="w-8 h-8 bg-red-500 text-white rounded-full flex items-center justify-center text-sm font-bold"
+          >3</span
+        >
         Upload Your Dataset
       </h2>
 
       <div class="space-y-4">
-        <p class="text-sm text-secondary">
-          Upload your exported EdukaAI dataset to Colab:
-        </p>
+        <p class="text-sm text-secondary">Upload your exported EdukaAI dataset to Colab:</p>
 
         <div class="bg-gray-800 text-gray-200 p-4 rounded-lg">
           <pre class="text-sm"><code># Upload your dataset
@@ -146,11 +165,11 @@ uploaded = files.upload()
 
         <div class="info-box-blue">
           <p class="text-sm text-blue-800">
-            <strong>💡 Alternative:</strong> You can also mount Google Drive and load the file from there:
+            <strong>💡 Alternative:</strong> You can also mount Google Drive and load the file from
+            there:
           </p>
           <code class="block bg-gray-800 text-gray-200 p-3 rounded text-sm mt-2">
-from google.colab import drive
-drive.mount('/content/drive')
+            from google.colab import drive drive.mount('/content/drive')
           </code>
         </div>
       </div>
@@ -159,7 +178,10 @@ drive.mount('/content/drive')
     <!-- Step 4: Fine-Tune -->
     <div class="card mb-6">
       <h2 class="text-xl font-semibold mb-4 flex items-center gap-2">
-        <span class="w-8 h-8 bg-red-500 text-white rounded-full flex items-center justify-center text-sm font-bold">4</span>
+        <span
+          class="w-8 h-8 bg-red-500 text-white rounded-full flex items-center justify-center text-sm font-bold"
+          >4</span
+        >
         Run Fine-Tuning
       </h2>
 
@@ -211,7 +233,9 @@ training_args = TrainingArguments(
         </div>
 
         <div class="info-box-purple">
-          <h4 class="font-semibold text-purple-900 dark:text-purple-100 mb-2">📚 Pre-made Templates</h4>
+          <h4 class="font-semibold text-purple-900 dark:text-purple-100 mb-2">
+            📚 Pre-made Templates
+          </h4>
           <p class="text-sm text-secondary mb-2">
             Search for these on Hugging Face or in Colab's examples:
           </p>
@@ -227,7 +251,10 @@ training_args = TrainingArguments(
     <!-- Step 5: Save and Download -->
     <div class="card mb-6">
       <h2 class="text-xl font-semibold mb-4 flex items-center gap-2">
-        <span class="w-8 h-8 bg-red-500 text-white rounded-full flex items-center justify-center text-sm font-bold">5</span>
+        <span
+          class="w-8 h-8 bg-red-500 text-white rounded-full flex items-center justify-center text-sm font-bold"
+          >5</span
+        >
         Save and Download Your Model
       </h2>
 
@@ -248,27 +275,36 @@ files.download("my-finetuned-model.zip")</code></pre>
     <!-- Limitations -->
     <div class="card mb-6 bg-yellow-50 dark:bg-yellow-900/20">
       <h2 class="text-xl font-semibold mb-4">⚠️ Free Tier Limits</h2>
-      
+
       <div class="space-y-3 text-sm">
         <div class="p-3 bg-white dark:bg-gray-800 rounded-lg">
           <p class="font-semibold">⏱️ Time Limits</p>
-          <p class="text-secondary">Free tier provides ~12 hours of GPU time per day. Idle sessions timeout after 90 minutes.</p>
+          <p class="text-secondary">
+            Free tier provides ~12 hours of GPU time per day. Idle sessions timeout after 90
+            minutes.
+          </p>
         </div>
         <div class="p-3 bg-white dark:bg-gray-800 rounded-lg">
           <p class="font-semibold">💾 Memory</p>
-          <p class="text-secondary">T4 GPU has 12GB VRAM. Use smaller models (1B-3B parameters) or 4-bit quantization.</p>
+          <p class="text-secondary">
+            T4 GPU has 12GB VRAM. Use smaller models (1B-3B parameters) or 4-bit quantization.
+          </p>
         </div>
         <div class="p-3 bg-white dark:bg-gray-800 rounded-lg">
           <p class="font-semibold">🔌 Session End</p>
-          <p class="text-secondary">When you close the browser, the runtime resets. Always save results to Google Drive!</p>
+          <p class="text-secondary">
+            When you close the browser, the runtime resets. Always save results to Google Drive!
+          </p>
         </div>
       </div>
     </div>
 
     <!-- Tips -->
-    <div class="card mb-6 bg-gradient-to-r from-red-50 to-pink-50 dark:from-red-900/20 dark:to-pink-900/20">
+    <div
+      class="card mb-6 bg-gradient-to-r from-red-50 to-pink-50 dark:from-red-900/20 dark:to-pink-900/20"
+    >
       <h2 class="text-xl font-semibold mb-4">💡 Colab Tips</h2>
-      
+
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
         <div class="space-y-2">
           <div class="p-3 bg-white dark:bg-gray-800 rounded-lg">
@@ -277,7 +313,9 @@ files.download("my-finetuned-model.zip")</code></pre>
           </div>
           <div class="p-3 bg-white dark:bg-gray-800 rounded-lg">
             <p class="font-semibold">🔋 Prevent Timeout</p>
-            <p class="text-secondary">Keep the browser tab active, or use a JavaScript snippet to prevent idle timeout.</p>
+            <p class="text-secondary">
+              Keep the browser tab active, or use a JavaScript snippet to prevent idle timeout.
+            </p>
           </div>
         </div>
         <div class="space-y-2">
@@ -287,7 +325,9 @@ files.download("my-finetuned-model.zip")</code></pre>
           </div>
           <div class="p-3 bg-white dark:bg-gray-800 rounded-lg">
             <p class="font-semibold">🤝 Share Notebooks</p>
-            <p class="text-secondary">Share your training notebook with others - they can run it too!</p>
+            <p class="text-secondary">
+              Share your training notebook with others - they can run it too!
+            </p>
           </div>
         </div>
       </div>
@@ -295,18 +335,14 @@ files.download("my-finetuned-model.zip")</code></pre>
 
     <!-- Next Steps -->
     <div class="flex justify-between">
-      <NuxtLink to="/fine-tuning" class="btn-secondary">
-        ← All Methods
-      </NuxtLink>
-      <NuxtLink to="/samples" class="btn-primary">
-        Create More Samples →
-      </NuxtLink>
+      <NuxtLink to="/fine-tuning" class="btn-secondary"> ← All Methods </NuxtLink>
+      <NuxtLink to="/samples" class="btn-primary"> Create More Samples → </NuxtLink>
     </div>
   </div>
 </template>
 
 <script setup>
-definePageMeta({
-  layout: 'default'
-})
+  definePageMeta({
+    layout: "default",
+  });
 </script>
