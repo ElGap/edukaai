@@ -3,7 +3,7 @@
     <!-- Welcome Section -->
     <div class="mb-8">
       <h1 class="text-3xl font-bold mb-2">Welcome to edukaAI 👋</h1>
-      <p class="text-gray-600">Learn LLM fine-tuning by building your own training dataset.</p>
+      <p class="text-secondary">Learn LLM fine-tuning by building your own training dataset.</p>
     </div>
     
     <!-- Progress Dashboard -->
@@ -11,17 +11,17 @@
       <div class="flex items-center justify-between mb-6">
         <div>
           <h2 class="text-2xl font-bold mb-1">🎯 Goal: First Fine-Tuning</h2>
-          <p class="text-gray-600">Build a dataset of 1000 high-quality training examples</p>
+          <p class="text-secondary">Build a dataset of 100 high-quality training samples</p>
         </div>
         <div class="text-right">
           <div class="text-4xl font-bold text-blue-600">{{ stats.progress?.current || 0 }}</div>
-          <div class="text-gray-500">/ 1000 examples</div>
+          <div class="text-tertiary">/ 100 samples</div>
         </div>
       </div>
       
       <!-- Progress Bar -->
       <div class="mb-6">
-        <div class="w-full bg-gray-200 rounded-full h-6">
+          <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-6">
           <div 
             class="bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 h-6 rounded-full transition-all duration-700 flex items-center justify-end pr-2"
             :style="{ width: `${Math.min(progressPercentage, 100)}%` }"
@@ -33,136 +33,133 @@
       
       <!-- Quick Stats -->
       <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <div class="bg-blue-50 rounded-lg p-4">
+        <div class="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-4">
           <div class="text-2xl font-bold text-blue-600">{{ stats.total }}</div>
-          <div class="text-sm text-gray-600">Total Examples</div>
+          <div class="text-sm text-secondary">Total Samples</div>
         </div>
-        <div class="bg-green-50 rounded-lg p-4">
+        <div class="bg-green-50 dark:bg-green-900/20 rounded-lg p-4">
           <div class="text-2xl font-bold text-green-600">{{ stats.approved }}</div>
-          <div class="text-sm text-gray-600">Approved</div>
+          <div class="text-sm text-secondary">Approved</div>
         </div>
-        <div class="bg-yellow-50 rounded-lg p-4">
+        <div class="bg-yellow-50 dark:bg-yellow-900/20 rounded-lg p-4">
           <div class="text-2xl font-bold text-yellow-600">{{ stats.draft }}</div>
-          <div class="text-sm text-gray-600">Drafts</div>
+          <div class="text-sm text-secondary">Drafts</div>
         </div>
-        <div class="bg-purple-50 rounded-lg p-4">
+        <div class="bg-purple-50 dark:bg-purple-900/20 rounded-lg p-4">
           <div class="text-2xl font-bold text-purple-600">{{ stats.rejected || 0 }}</div>
-          <div class="text-sm text-gray-600">Rejected</div>
+          <div class="text-sm text-secondary">Rejected</div>
         </div>
       </div>
     </div>
-    
-    <!-- Milestones -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-      <div class="card">
-        <h3 class="text-lg font-semibold mb-4">🏆 Milestones</h3>
-        <div class="space-y-3">
-          <MilestoneItem 
-            :achieved="stats.total >= 10" 
-            count="10" 
-            label="First Steps!" 
-            :current="Math.min(stats.total, 10)" 
-          />
-          <MilestoneItem 
-            :achieved="stats.total >= 50" 
-            count="50" 
-            label="Getting Started" 
-            :current="Math.max(0, Math.min(stats.total - 10, 40))" 
-          />
-          <MilestoneItem 
-            :achieved="stats.total >= 250" 
-            count="250" 
-            label="Quarter Way!" 
-            :current="Math.max(0, Math.min(stats.total - 50, 200))" 
-          />
-          <MilestoneItem 
-            :achieved="stats.total >= 500" 
-            count="500" 
-            label="Halfway There!" 
-            :current="Math.max(0, Math.min(stats.total - 250, 250))" 
-          />
-          <MilestoneItem 
-            :achieved="stats.total >= 750" 
-            count="750" 
-            label="Almost Ready!" 
-            :current="Math.max(0, Math.min(stats.total - 500, 250))" 
-          />
-          <MilestoneItem 
-            :achieved="stats.total >= 1000" 
-            count="1000" 
-            label="Ready to Train! 🎉" 
-            :current="Math.max(0, Math.min(stats.total - 750, 250))" 
-          />
+
+    <!-- Milestones and Quick Actions - Side by Side -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8 items-start">
+      <!-- Milestones -->
+      <div class="card w-full min-w-0">
+        <h3 class="text-lg font-semibold mb-4">🎯 Milestones</h3>
+        <div class="flex flex-col gap-3">
+          <div class="w-full">
+            <MilestoneItem 
+              :achieved="stats.total >= 10" 
+              count="10" 
+              label="Getting Started" 
+              :current="Math.max(0, Math.min(stats.total, 10))" 
+            />
+          </div>
+          <div class="w-full">
+            <MilestoneItem 
+              :achieved="stats.total >= 25" 
+              count="25" 
+              label="Building Momentum" 
+              :current="Math.max(0, Math.min(stats.total - 10, 15))" 
+            />
+          </div>
+          <div class="w-full">
+            <MilestoneItem 
+              :achieved="stats.total >= 50" 
+              count="50" 
+              label="Halfway There!" 
+              :current="Math.max(0, Math.min(stats.total - 25, 25))" 
+            />
+          </div>
+          <div class="w-full">
+            <MilestoneItem 
+              :achieved="stats.total >= 100" 
+              count="100" 
+              label="Ready to Train! 🎉" 
+              :current="Math.max(0, Math.min(stats.total - 50, 50))" 
+            />
+          </div>
         </div>
       </div>
-      
+
       <!-- Quick Actions -->
-      <div class="card">
+      <div class="card w-full min-w-0">
         <h3 class="text-lg font-semibold mb-4">⚡ Quick Actions</h3>
         <div class="space-y-3">
-          <NuxtLink to="/examples/new" class="flex items-center gap-3 p-3 bg-blue-50 hover:bg-blue-100 rounded-lg transition-colors">
+          <NuxtLink to="/samples/new" class="flex items-center gap-3 p-3 bg-blue-50 dark:bg-blue-900/20 hover:bg-blue-100 dark:hover:bg-blue-900/30 rounded-lg transition-colors">
             <span class="text-2xl">➕</span>
             <div>
-              <div class="font-medium">Create New Example</div>
-              <div class="text-sm text-gray-600">Add a training example manually</div>
+              <div class="font-medium">Create New Sample</div>
+              <div class="text-sm text-secondary">Add a training sample manually</div>
             </div>
           </NuxtLink>
-          
-          <NuxtLink to="/import" class="flex items-center gap-3 p-3 bg-purple-50 hover:bg-purple-100 rounded-lg transition-colors">
-            <span class="text-2xl">📥</span>
+
+          <div class="flex items-center gap-3 p-3 bg-gray-50 dark:bg-gray-800 rounded-lg opacity-60 cursor-not-allowed">
+            <span class="text-2xl">🌐</span>
             <div>
-              <div class="font-medium">Import from AI Assistants</div>
-              <div class="text-sm text-gray-600">Import from Claude, Cursor, or OpenCode</div>
+              <div class="font-medium">Live Capture</div>
+              <div class="text-sm text-secondary">Coming soon...</div>
             </div>
-          </NuxtLink>
-          
-          <NuxtLink to="/export" class="flex items-center gap-3 p-3 bg-green-50 hover:bg-green-100 rounded-lg transition-colors">
+          </div>
+
+          <NuxtLink to="/export" class="flex items-center gap-3 p-3 bg-green-50 dark:bg-green-900/20 hover:bg-green-100 dark:hover:bg-green-900/30 rounded-lg transition-colors">
             <span class="text-2xl">📤</span>
             <div>
-              <div class="font-medium">Export to HuggingFace</div>
-              <div class="text-sm text-gray-600">Upload your dataset for training</div>
+              <div class="font-medium">Export Dataset</div>
+              <div class="text-sm text-secondary">Compatible with all major training platforms</div>
             </div>
           </NuxtLink>
         </div>
       </div>
     </div>
-    
-    <!-- Breakdown Charts -->
+
+  <!-- Breakdown Charts -->
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
       <div class="card">
-        <h3 class="text-lg font-semibold mb-4">📊 By Source</h3>
+        <h3 class="text-lg font-semibold mb-4 text-secondary">📊 By Source</h3>
         <div class="space-y-2">
           <div v-for="(count, source) in stats.sources" :key="source" class="flex justify-between items-center">
             <span class="capitalize">{{ formatSource(source) }}</span>
             <span class="font-medium">{{ count }}</span>
           </div>
-          <div v-if="!stats.sources || Object.keys(stats.sources).length === 0" class="text-gray-500 text-center py-4">
+          <div v-if="!stats.sources || Object.keys(stats.sources).length === 0" class="text-tertiary text-center py-4">
             No data yet
           </div>
         </div>
       </div>
-      
+
       <div class="card">
-        <h3 class="text-lg font-semibold mb-4">📋 By Category</h3>
+        <h3 class="text-lg font-semibold mb-4 text-secondary">📋 By Category</h3>
         <div class="space-y-2">
           <div v-for="(count, category) in stats.categories" :key="category" class="flex justify-between items-center">
             <span class="capitalize">{{ category }}</span>
             <span class="font-medium">{{ count }}</span>
           </div>
-          <div v-if="!stats.categories || Object.keys(stats.categories).length === 0" class="text-gray-500 text-center py-4">
+          <div v-if="!stats.categories || Object.keys(stats.categories).length === 0" class="text-tertiary text-center py-4">
             No data yet
           </div>
         </div>
       </div>
-      
+
       <div class="card">
-        <h3 class="text-lg font-semibold mb-4">📈 By Difficulty</h3>
+        <h3 class="text-lg font-semibold mb-4 text-secondary">📈 By Difficulty</h3>
         <div class="space-y-2">
           <div v-for="(count, difficulty) in stats.difficulties" :key="difficulty" class="flex justify-between items-center">
             <span class="capitalize">{{ difficulty }}</span>
             <span class="font-medium">{{ count }}</span>
           </div>
-          <div v-if="!stats.difficulties || Object.keys(stats.difficulties).length === 0" class="text-gray-500 text-center py-4">
+          <div v-if="!stats.difficulties || Object.keys(stats.difficulties).length === 0" class="text-tertiary text-center py-4">
             No data yet
           </div>
         </div>
@@ -199,21 +196,19 @@ const stats = ref<Stats>({
   difficulties: {},
   progress: {
     current: 0,
-    target: 1000,
+    target: 100,
     percentage: 0
   }
 })
 
 const progressPercentage = computed(() => {
-  return Math.round((stats.value.total / 1000) * 100)
+  return Math.round((stats.value.total / 100) * 100)
 })
 
 const formatSource = (source: string) => {
   const sources: Record<string, string> = {
     'manual': 'Manual',
-    'claude': 'Claude Code',
-    'cursor': 'Cursor',
-    'opencode': 'OpenCode'
+    'json': 'JSON Import'
   }
   return sources[source] || source
 }

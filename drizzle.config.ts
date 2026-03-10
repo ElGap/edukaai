@@ -1,8 +1,8 @@
 import type { Config } from "drizzle-kit";
 
 export default {
-  schema: "./app/server/db/schema.ts",
-  out: "./app/server/db/migrations",
+  schema: "./server/db/schema.ts",
+  out: "./server/db/migrations",
   dialect: "sqlite",
   dbCredentials: {
     url: process.env.DATABASE_URL || "./data/edukaai.db",

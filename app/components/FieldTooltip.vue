@@ -2,18 +2,28 @@
   <div class="relative inline-block">
     <button
       type="button"
+      class="text-gray-400 hover:text-blue-500 transition-colors"
       @click="show = !show"
       @mouseenter="show = true"
       @mouseleave="show = false"
-      class="text-gray-400 hover:text-blue-500 transition-colors"
     >
-      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <circle cx="12" cy="12" r="10"/>
-        <path d="M12 16v-4"/>
-        <path d="M12 8h.01"/>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="16"
+        height="16"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <circle cx="12" cy="12" r="10" />
+        <path d="M12 16v-4" />
+        <path d="M12 8h.01" />
       </svg>
     </button>
-    
+
     <Transition
       enter-active-class="transition duration-200 ease-out"
       enter-from-class="opacity-0 translate-y-1"
@@ -34,7 +44,7 @@
             <div class="bg-gray-800 rounded p-2 text-xs text-gray-400 italic">
               {{ example }}
             </div>
-            <a 
+            <a
               v-if="learnMoreLink"
               :href="learnMoreLink"
               class="text-xs text-blue-400 hover:text-blue-300 mt-2 inline-block"
@@ -44,7 +54,7 @@
             </a>
           </div>
         </div>
-        
+
         <!-- Arrow -->
         <div class="absolute top-4 -left-1 w-2 h-2 bg-gray-900 transform rotate-45"></div>
       </div>
@@ -53,16 +63,16 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+  import { ref } from "vue";
 
-interface Props {
-  title: string
-  content: string
-  example: string
-  learnMoreLink?: string
-}
+  interface Props {
+    title: string;
+    content: string;
+    example: string;
+    learnMoreLink?: string;
+  }
 
-defineProps<Props>()
+  defineProps<Props>();
 
-const show = ref(false)
+  const show = ref(false);
 </script>

@@ -14,28 +14,28 @@
           Go to Home (NuxtLink)
         </NuxtLink>
         
-        <NuxtLink to="/help" class="block p-2 bg-blue-100 hover:bg-blue-200 rounded">
+        <NuxtLink to="/docs" class="block p-2 bg-blue-100 hover:bg-blue-200 rounded">
           Go to Help (NuxtLink)
         </NuxtLink>
         
-        <NuxtLink to="/help/llm-training" class="block p-2 bg-blue-100 hover:bg-blue-200 rounded">
-          Go to LLM Training (NuxtLink)
+        <NuxtLink to="/how-llms-work" class="block p-2 bg-blue-100 hover:bg-blue-200 rounded">
+          Go to How LLMs Work (NuxtLink)
         </NuxtLink>
         
-        <NuxtLink to="/help/glossary?term=base-model" class="block p-2 bg-blue-100 hover:bg-blue-200 rounded">
+        <NuxtLink to="/docs/glossary?term=base-model" class="block p-2 bg-blue-100 hover:bg-blue-200 rounded">
           Go to Glossary (NuxtLink)
         </NuxtLink>
       </div>
       
       <div class="space-y-2 mt-4">
         <h3 class="font-semibold">Manual Navigation:</h3>
-        <button @click="navigateTo('/')" class="block w-full text-left p-2 bg-green-100 hover:bg-green-200 rounded">
+        <button class="block w-full text-left p-2 bg-green-100 hover:bg-green-200 rounded" @click="navigateTo('/')">
           navigateTo('/')
         </button>
-        <button @click="navigateTo('/help')" class="block w-full text-left p-2 bg-green-100 hover:bg-green-200 rounded">
+        <button class="block w-full text-left p-2 bg-green-100 hover:bg-green-200 rounded" @click="navigateTo('/help')">
           navigateTo('/help')
         </button>
-        <button @click="navigateTo('/help/llm-training')" class="block w-full text-left p-2 bg-green-100 hover:bg-green-200 rounded">
+        <button class="block w-full text-left p-2 bg-green-100 hover:bg-green-200 rounded" @click="navigateTo('/help/llm-training')">
           navigateTo('/help/llm-training')
         </button>
       </div>
