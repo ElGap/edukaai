@@ -6,7 +6,10 @@
         <h1 class="text-3xl font-bold mb-2">Datasets</h1>
         <p class="text-secondary">Create, manage, and organize your training data collections</p>
       </div>
-      <button class="btn-primary flex items-center gap-2 border border-gray-500 dark:border-gray-500" @click="showCreateModal = true">
+      <button
+        class="btn-primary flex items-center gap-2 border border-gray-500 dark:border-gray-500"
+        @click="showCreateModal = true"
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="20"
@@ -595,9 +598,9 @@
   // Load data
   async function loadSettings() {
     try {
-      const response = await $fetch("/api/settings");
-      if (response.success && response.data) {
-        globalDefaultGoal.value = response.data.defaultGoalSamples || 100;
+      const response = (await $fetch("/api/settings")) as any;
+      if (response.success && response.settings) {
+        globalDefaultGoal.value = response.settings.defaultGoalSamples || 100;
       }
     } catch (error) {
       console.error("Error loading settings:", error);

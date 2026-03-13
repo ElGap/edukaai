@@ -54,7 +54,7 @@ export default defineEventHandler(async (event) => {
   } catch (error) {
     console.error("Error clearing samples:", error);
 
-    if (error.statusCode) {
+    if ((error as any).statusCode) {
       throw error;
     }
 

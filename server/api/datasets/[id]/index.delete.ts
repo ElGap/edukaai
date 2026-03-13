@@ -43,12 +43,12 @@ export default defineEventHandler(async (event) => {
     // If this was the active dataset, we need to activate another one
     if (dataset.isActive === 1) {
       // Find another dataset to activate
-      const otherDataset = allDatasets.find((d) => d.id !== id);
+      const otherDataset = allDatasets.find((d: any) => d.id !== id);
       if (otherDataset) {
         await db
           .update(datasets)
           .set({ isActive: 1, updatedAt: new Date() })
-          .where(eq(datasets.id, otherDataset.id));
+          .where(eq(datasets.id, otherDataset.id as number));
       }
     }
 

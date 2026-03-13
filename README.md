@@ -7,7 +7,6 @@
 [![npm downloads](https://img.shields.io/npm/dm/@elgap/edukaai.svg)](https://www.npmjs.com/package/@elgap/edukaai)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-
 EdukaAI is a local, self-hosted web application designed to help you **collect, organize, and manage training data** for fine-tuning Large Language Models (LLMs). Built for privacy-conscious developers and AI enthusiasts who want full control over their data.
 
 ![EdukaAI Screenshot](screenshot.png)
@@ -67,24 +66,15 @@ EdukaAI is a local, self-hosted web application designed to help you **collect, 
 
 The easiest way to use EdukaAI is via the npm package:
 
+#### Option 1: npx (No Installation)
 ```bash
-# Install globally (recommended)
+npx @elgap/edukaai
+````
+#### Option 2: Global Install
+
+```bash
 npm install -g edukaai
-
-# Or use with npx (no global install required)
-npx edukaai dev
-```
-
-### Start the Application
-
-Once installed globally, you can start EdukaAI from anywhere:
-
-```bash
-# Start the web interface (default)
-edukaai dev
-
-# Or explicitly start development mode
-edukaai start
+edukaai
 ```
 
 Then open [http://localhost:3000](http://localhost:3000) in your browser.
@@ -95,42 +85,22 @@ EdukaAI provides a powerful CLI for managing your training data workflow:
 
 ### Available Commands
 
-| Command                 | Description                              | Example                 |
-| ----------------------- | ---------------------------------------- | ----------------------- |
-| `edukaai dev`           | Start development server with hot reload | `edukaai dev`           |
-| `edukaai start`         | Start production server                  | `edukaai start`         |
-| `edukaai db:reset`      | Reset database with automatic migrations | `edukaai db:reset`      |
-| `edukaai import:sample` | Import sample datasets for testing       | `edukaai import:sample` |
-| `edukaai --version`     | Show current version                     | `edukaai --version`     |
-| `edukaai --help`        | Show help and available commands         | `edukaai --help`        |
+| Command               | Description                      |
+|-----------------------|----------------------------------|
+| `edukaai`             | Start server                     |
+| `edukaai reset`       | Reset database with confirmation |
+| `edukaai reset --force` | Force reset without confirmation 
+| `edukaai clean`       | Alias for reset                  |
+| `edukaai help`        | Show help and available commands |
 
-### CLI Options
+More to some soon. Stay tuned!
 
-```bash
-# Start on custom port
-edukaai dev --port 8080
+### Environment Variables Supported:
 
-# Start in production mode
-edukaai start --production
-
-# Reset database (WARNING: clears all data)
-edukaai db:reset
-```
-
-### Common Workflows
-
-```bash
-# Quick start for new users
-npm install -g edukaai
-edukaai dev
-
-# Reset and start fresh (useful for testing)
-edukaai db:reset
-edukaai dev
-
-# Import sample data for exploration
-edukaai import:sample
-```
+- EDUKAAI_HOST (default: localhost)
+- EDUKAAI_PORT (default: 3030)
+- EDUKAAI_DATA_DIR (default: ~/.edukaai)
+- DATABASE_URL (default: ./data/edukaai.db)
 
 ## 📖 Usage Guide
 
@@ -222,7 +192,7 @@ npm install
 # Run in development mode
 npm run dev
 
-# Build for production
+# Optionaly, Build for production
 npm run build
 npm run start
 ```

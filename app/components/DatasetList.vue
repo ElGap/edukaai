@@ -32,9 +32,7 @@
 
       <!-- Stats Counters -->
       <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
-        <div
-          class="card card border-blue-200 dark:border-blue-400 p-4"
-        >
+        <div class="card card border-blue-200 dark:border-blue-400 p-4">
           <div class="flex items-center justify-between">
             <div>
               <p class="text-sm text-gray-700 dark:dark:text-blue-400 font-medium">Total</p>
@@ -60,9 +58,7 @@
           </div>
         </div>
 
-        <div
-          class="card card border-green-200 dark:border-green-500 p-4"
-        >
+        <div class="card card border-green-200 dark:border-green-500 p-4">
           <div class="flex items-center justify-between">
             <div>
               <p class="text-sm text-gray-700 dark:text-green-500 font-medium">Approved</p>
@@ -89,9 +85,7 @@
           </div>
         </div>
 
-        <div
-          class="card card border-orange-700 dark:border-orange-400 p-4"
-        >
+        <div class="card card border-orange-700 dark:border-orange-400 p-4">
           <div class="flex items-center justify-between">
             <div>
               <p class="text-sm text-gray-700 dark:text-orange-400 font-medium">In Review</p>
@@ -119,9 +113,7 @@
           </div>
         </div>
 
-        <div
-          class="card card border-yellow-200 dark:border-yellow-100 p-4"
-        >
+        <div class="card card border-yellow-200 dark:border-yellow-100 p-4">
           <div class="flex items-center justify-between">
             <div>
               <p class="text-sm text-gray-700 dark:text-yellow-100 font-medium">Drafts</p>
@@ -148,9 +140,7 @@
           </div>
         </div>
 
-        <div
-          class="card card border-red-200 dark:border-red-400 p-4"
-        >
+        <div class="card card border-red-200 dark:border-red-400 p-4">
           <div class="flex items-center justify-between">
             <div>
               <p class="text-sm text-gray-700 dark:text-red-400 font-medium">Rejected</p>
@@ -189,7 +179,9 @@
           <span>🌐</span>
           <span>Set up Live Capture</span>
         </button>
-        <NuxtLink :to="newSampleUrl" class="btn-primary border dark:border-gray-400"> + New Sample </NuxtLink>
+        <NuxtLink :to="newSampleUrl" class="btn-primary border dark:border-gray-400">
+          + New Sample
+        </NuxtLink>
       </div>
     </div>
 
@@ -396,10 +388,22 @@
     draft: number;
     review?: number;
     rejected?: number;
+    datasetGoalName?: string;
+    datasetId?: number;
+    datasetName?: string;
+    globalDefaultGoal?: number;
+    activeDatasetGoal?: number;
+    activeDatasetName?: string;
+    sources?: Record<string, number>;
+    categories?: Record<string, number>;
+    difficulties?: Record<string, number>;
+    progress?: { current: number; target: number; percentage: number };
+    avgQuality?: number;
+    isActiveDataset?: boolean;
   }
 
   interface Pagination {
-    total: number;
+    total?: number;
     limit: number;
     offset: number;
     hasMore: boolean;
@@ -612,7 +616,7 @@
       if (filters.category) query.category = filters.category;
       if (filters.search) query.search = filters.search;
 
-      const response = await $fetch("/api/samples", { query });
+      const response = (await $fetch("/api/samples", { query })) as any;
       samples.value = response.samples;
       pagination.value = response.pagination;
 
@@ -638,7 +642,7 @@
     try {
       const datasetId = currentDatasetId.value;
       const query = datasetId ? { datasetId: String(datasetId) } : {};
-      const response = await $fetch("/api/stats/overview", { query });
+      const response = (await $fetch("/api/stats/overview", { query })) as any;
       stats.value = response;
     } catch (error) {
       console.error("Error loading stats:", error);

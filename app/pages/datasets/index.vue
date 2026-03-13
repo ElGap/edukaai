@@ -595,9 +595,9 @@
   // Load data
   async function loadSettings() {
     try {
-      const response = await $fetch("/api/settings");
-      if (response.success && response.data) {
-        globalDefaultGoal.value = response.data.defaultGoalSamples || 100;
+      const response = (await $fetch("/api/settings")) as any;
+      if (response.success && response.settings) {
+        globalDefaultGoal.value = response.settings.defaultGoalSamples || 100;
       }
     } catch (error) {
       console.error("Error loading settings:", error);

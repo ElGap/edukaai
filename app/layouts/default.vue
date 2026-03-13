@@ -245,9 +245,9 @@
       if (urlDatasetId) {
         // Load stats for specific dataset
         const datasetId = parseInt(urlDatasetId as string);
-        const stats = await $fetch("/api/stats/overview", {
+        const stats = (await $fetch("/api/stats/overview", {
           query: { datasetId: String(datasetId) },
-        });
+        })) as any;
 
         totalSamples.value = stats.total || 0;
         targetGoal.value =
@@ -264,9 +264,9 @@
 
         for (const dataset of datasets) {
           try {
-            const stats = await $fetch("/api/stats/overview", {
+            const stats = (await $fetch("/api/stats/overview", {
               query: { datasetId: String(dataset.id) },
-            });
+            })) as any;
             totalSamplesCount += stats.total || 0;
             totalGoal += dataset.goalSamples || 100;
             if (dataset.goalName && firstGoalName === "First Fine-Tuning") {

@@ -4,7 +4,11 @@ import * as schema from "./schema";
 import path from "path";
 import fs from "fs";
 
-let db: ReturnType<typeof drizzle> | null = null;
+// Export schema types for use in other modules
+export type Schema = typeof schema;
+export type DatabaseClient = ReturnType<typeof drizzle<Schema>>;
+
+let db: DatabaseClient | null = null;
 let initialized = false;
 
 function initDatabase(sqlite: Database.Database) {
@@ -170,7 +174,7 @@ function initDatabase(sqlite: Database.Database) {
   initialized = true;
 }
 
-export function getDb() {
+export function getDb(): DatabaseClient {
   if (!db) {
     const dataDir = process.env.EDUKAAI_DATA_DIR || "./data";
     if (!fs.existsSync(dataDir)) {

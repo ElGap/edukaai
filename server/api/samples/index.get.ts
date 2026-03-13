@@ -48,7 +48,7 @@ export default defineEventHandler(async (event) => {
     }
 
     // Build query
-    let dbQuery = db.select().from(samples);
+    let dbQuery: any = db.select().from(samples);
 
     if (conditions.length > 0) {
       dbQuery = dbQuery.where(and(...conditions));
@@ -99,7 +99,7 @@ export default defineEventHandler(async (event) => {
     });
 
     // Get total count for pagination
-    let countQuery = db.select({ count: samples.id }).from(samples);
+    let countQuery: any = db.select({ count: samples.id }).from(samples);
     if (conditions.length > 0) {
       countQuery = countQuery.where(and(...conditions));
     }

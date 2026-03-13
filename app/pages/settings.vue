@@ -218,9 +218,9 @@
 
   async function loadSettings() {
     try {
-      const response = await $fetch("/api/settings");
-      if (response.success && response.data) {
-        currentGoal.value = response.data.defaultGoalSamples || 100;
+      const response = (await $fetch("/api/settings")) as any;
+      if (response.success && response.settings) {
+        currentGoal.value = response.settings.defaultGoalSamples || 100;
         selectedGoal.value = currentGoal.value;
         customGoal.value = currentGoal.value;
       }

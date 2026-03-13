@@ -185,9 +185,7 @@
           <div
             class="bg-gray-50 dark:bg-gray-800 rounded-lg p-4 border border-gray-200 dark:border-gray-700"
           >
-            <div
-              class="flex items-center gap-2 text-sm text-gray-700 dark:text-gray-400 mb-2"
-            >
+            <div class="flex items-center gap-2 text-sm text-gray-700 dark:text-gray-400 mb-2">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="14"
@@ -475,7 +473,7 @@
   const loadSample = async () => {
     try {
       loading.value = true;
-      const response = await $fetch(`/api/samples/${route.params.id}`);
+      const response = (await $fetch(`/api/samples/${route.params.id}`)) as any;
       sample.value = response.sample;
       prevId.value = response.prevId;
       nextId.value = response.nextId;

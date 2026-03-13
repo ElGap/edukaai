@@ -11,7 +11,7 @@
           type="checkbox"
           :checked="isSelected"
           class="w-5 h-5 rounded border-gray-300 text-gray-700 focus:ring-blue-500"
-          @change="$emit('toggle-select')"
+          @change="$emit('toggleSelect')"
         />
         <span class="text-lg font-bold text-gray-400 dark:text-gray-500">#{{ sample.id }}</span>
         <span class="px-2 py-1 text-xs rounded-full font-medium" :class="sourceClass">
@@ -47,7 +47,11 @@
             <polyline points="20 6 9 17 4 12" />
           </svg>
         </button>
-        <NuxtLink :to="viewUrl" class="text-gray-700 hover:text-gray-800 p-1 dark:text-gray-400 dark:hover:text-gray-100" title="View/Edit">
+        <NuxtLink
+          :to="viewUrl"
+          class="text-gray-700 hover:text-gray-800 p-1 dark:text-gray-400 dark:hover:text-gray-100"
+          title="View/Edit"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="18"

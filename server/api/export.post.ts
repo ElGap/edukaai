@@ -144,7 +144,7 @@ export default defineEventHandler(async (event) => {
     const datasetName = activeDataset?.name || "dataset";
 
     // Build query
-    let query = db.select().from(samples);
+    let query: any = db.select().from(samples);
 
     // Filter by specific sample IDs if provided (for version exports)
     if (params.sampleIds && params.sampleIds.length > 0) {

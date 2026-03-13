@@ -323,7 +323,11 @@
   }
 
   const props = defineProps<{
-    initialData?: Partial<FormData> & { id?: string };
+    initialData?: Partial<FormData> & {
+      id?: string;
+      createdAt?: string | number | Date;
+      updatedAt?: string | number | Date;
+    };
     prevId?: number | null;
     nextId?: number | null;
     loading?: boolean;

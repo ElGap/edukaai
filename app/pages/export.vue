@@ -463,7 +463,7 @@
       console.error("Error loading stats:", error);
       // If dataset-specific stats endpoint doesn't exist, use overview
       try {
-        const overviewResponse = await $fetch("/api/stats/overview");
+        const overviewResponse = (await $fetch("/api/stats/overview")) as any;
         stats.value = {
           total: overviewResponse.total || 0,
           approved: overviewResponse.approved || 0,
