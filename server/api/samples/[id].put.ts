@@ -23,9 +23,10 @@ const updateSampleSchema = z.object({
 });
 
 export default defineEventHandler(async (event) => {
+  let body: any;
   try {
     const params = await getValidatedRouterParams(event, paramsSchema.parse);
-    const body = await readBody(event);
+    body = await readBody(event);
     const data = updateSampleSchema.parse(body);
 
     const db = getDb();
@@ -68,10 +69,20 @@ export default defineEventHandler(async (event) => {
     };
   } catch (error) {
     if (error instanceof z.ZodError) {
+      console.error("Zod validation error:", error);
+      console.error("Request body that failed:", JSON.stringify(body, null, 2));
+
+      // Get issues from the error
+      const issues = (error as any).issues || [];
+      const errorMessage =
+        issues.length > 0
+          ? issues.map((e: any) => `${e.path?.join?.(".") || "unknown"}: ${e.message}`).join(", ")
+          : "Validation failed";
+
       throw createError({
         statusCode: 400,
-        statusMessage: "Validation error",
-        data: error.errors,
+        statusMessage: "Validation error: " + errorMessage,
+        data: issues,
       });
     }
 

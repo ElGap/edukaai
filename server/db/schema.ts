@@ -15,6 +15,7 @@ export const datasets = sqliteTable("datasets", {
 
   // Goal settings
   goalSamples: integer("goal_samples").default(100), // Target sample count for this dataset
+  goalName: text("goal_name").default("First Fine-Tuning"), // Name of the project/goal
 
   // Statistics (denormalized for quick access)
   sampleCount: integer("sample_count").default(0),

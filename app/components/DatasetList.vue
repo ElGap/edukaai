@@ -1,39 +1,195 @@
 <template>
   <div class="space-y-6">
-    <!-- Header with Active Dataset Info -->
+    <!-- Header with Dataset Info - Dashboard Style -->
     <div class="card">
-      <div class="flex items-center justify-between mb-4">
+      <!-- Goal Header -->
+      <div class="flex items-center justify-between mb-6">
         <div>
-          <div class="flex items-center gap-3">
-            <h1 class="text-2xl font-bold text-gray-900 dark:text-gray-100">
-              {{ activeDataset?.name || "Dataset" }}
-            </h1>
-            <span
-              v-if="activeDataset?.isActive"
-              class="px-2 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 text-xs rounded-full font-medium"
-            >
-              Active
-            </span>
-          </div>
-          <p class="text-secondary mt-1">
-            {{ activeDataset?.description || "Manage your training samples" }}
+          <h1 class="text-2xl font-bold mb-1">🎯 Goal: {{ goalName }}</h1>
+          <p class="text-secondary">
+            Build a dataset of {{ targetGoal }} high-quality training samples
           </p>
         </div>
-        <NuxtLink to="/samples/new" class="btn-primary"> + New Sample </NuxtLink>
+        <div class="text-right">
+          <div class="text-4xl font-bold text-gray-700">{{ stats.total }}</div>
+          <div class="text-tertiary">/ {{ targetGoal }} samples</div>
+        </div>
       </div>
 
       <!-- Progress Bar -->
-      <div class="mb-4">
-        <div class="flex justify-between text-sm mb-1">
-          <span class="font-medium">🎯 Goal: First Fine-Tuning</span>
-          <span class="text-secondary">{{ stats.total }} / 100 ({{ progressPercentage }}%)</span>
-        </div>
-        <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-4">
+      <div class="mb-6">
+        <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-6">
           <div
-            class="bg-gradient-to-r from-blue-500 to-purple-500 h-4 rounded-full transition-all duration-500"
+            class="bg-gradient-to-r from-gray-400 via-gray-500 to-gray-600 h-6 rounded-full transition-all duration-700 flex items-center justify-end pr-2"
             :style="{ width: `${Math.min(progressPercentage, 100)}%` }"
-          ></div>
+          >
+            <span v-if="progressPercentage > 10" class="text-white text-sm font-medium"
+              >{{ progressPercentage }}%</span
+            >
+          </div>
         </div>
+      </div>
+
+      <!-- Stats Counters -->
+      <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
+        <div
+          class="card card border-blue-200 dark:border-blue-400 p-4"
+        >
+          <div class="flex items-center justify-between">
+            <div>
+              <p class="text-sm text-gray-700 dark:dark:text-blue-400 font-medium">Total</p>
+              <p class="text-2xl font-bold text-gray-900 dark:text-blue-400">{{ stats.total }}</p>
+            </div>
+            <div
+              class="w-10 h-10 bg-gray-200 dark:bg-gray-700 rounded-full flex items-center justify-center"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                class="text-gray-700 dark:text-blue-400"
+              >
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                <polyline points="14 2 14 8 20 8" />
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="card card border-green-200 dark:border-green-500 p-4"
+        >
+          <div class="flex items-center justify-between">
+            <div>
+              <p class="text-sm text-gray-700 dark:text-green-500 font-medium">Approved</p>
+              <p class="text-2xl font-bold text-gray-900 dark:text-green-500">
+                {{ stats.approved }}
+              </p>
+            </div>
+            <div
+              class="w-10 h-10 bg-gray-200 dark:bg-gray-700 rounded-full flex items-center justify-center"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                class="text-gray-700 dark:text-green-500"
+              >
+                <polyline points="20 6 9 17 4 12" />
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="card card border-orange-700 dark:border-orange-400 p-4"
+        >
+          <div class="flex items-center justify-between">
+            <div>
+              <p class="text-sm text-gray-700 dark:text-orange-400 font-medium">In Review</p>
+              <p class="text-2xl font-bold text-gray-900 dark:text-orange-400">
+                {{ stats.review || 0 }}
+              </p>
+            </div>
+            <div
+              class="w-10 h-10 bg-gray-200 dark:bg-gray-700 rounded-full flex items-center justify-center"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                class="text-gray-700 dark:text-orange-400"
+              >
+                <circle cx="12" cy="12" r="10" />
+                <polyline points="12 6 12 12 16 14" />
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="card card border-yellow-200 dark:border-yellow-100 p-4"
+        >
+          <div class="flex items-center justify-between">
+            <div>
+              <p class="text-sm text-gray-700 dark:text-yellow-100 font-medium">Drafts</p>
+              <p class="text-2xl font-bold text-gray-900 dark:text-yellow-100">
+                {{ stats.draft }}
+              </p>
+            </div>
+            <div
+              class="w-10 h-10 bg-gray-200 dark:bg-gray-700 rounded-full flex items-center justify-center"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                class="text-gray-700 dark:text-yellow-100"
+              >
+                <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z" />
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="card card border-red-200 dark:border-red-400 p-4"
+        >
+          <div class="flex items-center justify-between">
+            <div>
+              <p class="text-sm text-gray-700 dark:text-red-400 font-medium">Rejected</p>
+              <p class="text-2xl font-bold text-gray-900 dark:text-red-400">
+                {{ stats.rejected || 0 }}
+              </p>
+            </div>
+            <div
+              class="w-10 h-10 bg-gray-200 dark:bg-gray-700 rounded-full flex items-center justify-center"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                class="text-gray-700 dark:text-red-400"
+              >
+                <line x1="18" y1="6" x2="6" y2="18" />
+                <line x1="6" y1="6" x2="18" y2="18" />
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Add Sample Button -->
+      <div class="mt-6 flex justify-end gap-3">
+        <button
+          disabled
+          class="btn-secondary opacity-60 cursor-not-allowed flex items-center gap-2 dark:border-gray-300 border"
+          title="Coming soon..."
+        >
+          <span>🌐</span>
+          <span>Set up Live Capture</span>
+        </button>
+        <NuxtLink :to="newSampleUrl" class="btn-primary border dark:border-gray-400"> + New Sample </NuxtLink>
       </div>
     </div>
 
@@ -99,7 +255,7 @@
 
     <!-- Loading State -->
     <div v-if="loading" class="text-center py-12">
-      <div class="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+      <div class="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-gray-600"></div>
       <p class="mt-2 text-secondary">Loading samples...</p>
     </div>
 
@@ -110,7 +266,7 @@
       <p class="text-secondary mb-4">
         Start building your dataset by creating your first training sample.
       </p>
-      <NuxtLink to="/samples/new" class="btn-primary"> Create First Sample </NuxtLink>
+      <NuxtLink :to="newSampleUrl" class="btn-primary"> Create First Sample </NuxtLink>
     </div>
 
     <!-- Samples Grid with Bulk Selection -->
@@ -118,23 +274,23 @@
       <!-- Bulk Action Toolbar -->
       <div
         v-if="selectedIds.length > 0"
-        class="card bg-blue-50 dark:bg-blue-900/20 border-blue-300 dark:border-blue-800 sticky top-4 z-20"
+        class="card card border-gray-200 dark:border-gray-700 border-gray-300 dark:border-gray-700 sticky top-4 z-20"
       >
         <div class="flex flex-wrap items-center justify-between gap-4">
           <div class="flex items-center gap-3">
             <input
               type="checkbox"
               :checked="selectedIds.length === samples.length"
-              class="w-5 h-5 rounded border-gray-300 dark:border-gray-600 text-blue-600 focus:ring-blue-500"
+              class="w-5 h-5 rounded border-gray-300 dark:border-gray-600 text-gray-700 focus:ring-blue-500"
               @change="toggleSelectAll"
             />
-            <span class="font-medium text-blue-900 dark:text-blue-200">
+            <span class="font-medium text-gray-900 dark:text-gray-100">
               {{ selectedIds.length }} selected
             </span>
           </div>
 
           <div class="flex flex-wrap items-center gap-2">
-            <span class="text-sm text-blue-700 dark:text-blue-300">Bulk actions:</span>
+            <span class="text-sm text-gray-700 dark:text-gray-300">Bulk actions:</span>
 
             <select
               v-model="bulkAction.category"
@@ -216,7 +372,10 @@
 </template>
 
 <script setup lang="ts">
-  import { ref, reactive, computed, onMounted } from "vue";
+  import { ref, reactive, computed, onMounted, watch } from "vue";
+  import { useRoute } from "vue-router";
+
+  const route = useRoute();
 
   interface Sample {
     id: number;
@@ -235,6 +394,8 @@
     total: number;
     approved: number;
     draft: number;
+    review?: number;
+    rejected?: number;
   }
 
   interface Pagination {
@@ -247,14 +408,50 @@
   const loading = ref(true);
   const samples = ref<Sample[]>([]);
   const datasets = ref<any[]>([]);
-  const activeDatasetId = ref<number | null>(null);
-  const activeDataset = ref<any>(null);
-  const stats = ref<Stats>({ total: 0, approved: 0, draft: 0 });
+  const stats = ref<Stats>({ total: 0, approved: 0, draft: 0, review: 0, rejected: 0 });
   const pagination = ref<Pagination>({
     total: 0,
     limit: 20,
     offset: 0,
     hasMore: false,
+  });
+
+  // Get current dataset ID from URL only (no active dataset fallback)
+  const currentDatasetId = computed(() => {
+    const urlDatasetId = route.query.dataset;
+    if (urlDatasetId) {
+      const id = parseInt(urlDatasetId as string);
+      if (!isNaN(id)) return id;
+    }
+    return null;
+  });
+
+  // Get current dataset object from URL
+  const currentDataset = computed(() => {
+    const id = currentDatasetId.value;
+    if (id) {
+      return datasets.value.find((d) => d.id === id) || null;
+    }
+    return null;
+  });
+
+  // Generate New Sample URL with dataset parameter
+  const newSampleUrl = computed(() => {
+    const datasetId = currentDatasetId.value;
+    if (datasetId) {
+      return { path: "/samples/new", query: { dataset: datasetId.toString() } };
+    }
+    return "/samples/new";
+  });
+
+  // Get target goal from current dataset or default to 100
+  const targetGoal = computed(() => {
+    return currentDataset.value?.goalSamples || 100;
+  });
+
+  // Get goal name from current dataset or stats
+  const goalName = computed(() => {
+    return stats.value?.datasetGoalName || currentDataset.value?.goalName || "First Fine-Tuning";
   });
 
   const filters = reactive({
@@ -276,7 +473,8 @@
   let searchTimeout: ReturnType<typeof setTimeout> | null = null;
 
   const progressPercentage = computed(() => {
-    return Math.round((stats.value.total / 100) * 100);
+    if (targetGoal.value === 0) return 0;
+    return Math.round((stats.value.total / targetGoal.value) * 100);
   });
 
   // Bulk selection methods
@@ -403,9 +601,10 @@
         sort: filters.sort,
       };
 
-      // Always use active dataset - don't allow switching via filter
-      if (activeDatasetId.value) {
-        query.datasetId = String(activeDatasetId.value);
+      // Use URL dataset parameter or fall back to active dataset
+      const datasetId = currentDatasetId.value;
+      if (datasetId) {
+        query.datasetId = String(datasetId);
       }
 
       if (filters.status) query.status = filters.status;
@@ -417,7 +616,7 @@
       samples.value = response.samples;
       pagination.value = response.pagination;
 
-      // Load stats separately or from the response
+      // Load stats for the current dataset
       await loadStats();
     } catch (error) {
       console.error("Error loading samples:", error);
@@ -430,10 +629,6 @@
     try {
       const response = await $fetch("/api/datasets");
       datasets.value = response.datasets || [];
-      activeDatasetId.value = response.activeDatasetId;
-
-      // Find and set the active dataset
-      activeDataset.value = datasets.value.find((d) => d.id === response.activeDatasetId) || null;
     } catch (error) {
       console.error("Error loading datasets:", error);
     }
@@ -441,7 +636,9 @@
 
   const loadStats = async () => {
     try {
-      const response = await $fetch("/api/stats/overview");
+      const datasetId = currentDatasetId.value;
+      const query = datasetId ? { datasetId: String(datasetId) } : {};
+      const response = await $fetch("/api/stats/overview", { query });
       stats.value = response;
     } catch (error) {
       console.error("Error loading stats:", error);
@@ -474,4 +671,13 @@
     await loadDatasets();
     await loadSamples();
   });
+
+  // Watch for dataset changes via URL parameter and reload data
+  watch(
+    () => route.query.dataset,
+    async () => {
+      await loadDatasets();
+      await loadSamples();
+    }
+  );
 </script>

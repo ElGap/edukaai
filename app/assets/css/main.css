@@ -13,19 +13,17 @@ html {
   -moz-osx-font-smoothing: grayscale;
 }
 
-body {
-  background-color: #f9fafb;
-  color: #111827;
+html body {
+  @apply bg-gray-50 text-gray-900;
 }
 
-.dark body {
-  background-color: #111827;
-  color: #f9fafb;
+html.dark body {
+  @apply bg-gray-900 text-gray-100;
 }
 
 @layer components {
   .btn-primary {
-    @apply inline-flex items-center justify-center px-4 py-2 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors;
+    @apply inline-flex items-center justify-center px-4 py-2 bg-gray-800 text-white font-medium rounded-lg hover:bg-gray-900 transition-colors;
   }
 
   .btn-secondary {
@@ -109,7 +107,7 @@ body {
 
   /* Code Block Background */
   .code-block {
-    @apply bg-gray-800 text-gray-200;
+    @apply bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-200;
   }
 
   /* Gradient Cards */

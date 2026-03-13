@@ -19,6 +19,9 @@ const createSampleSchema = z.object({
   notes: z.string().optional().nullable(),
   tags: z.array(z.string()).default([]),
 
+  // Dataset Selection
+  datasetId: z.number().optional(),
+
   // Source Tracking
   source: z.enum(["manual", "json"]).default("manual"),
   model: z.string().optional().nullable(),
@@ -36,29 +39,48 @@ const createSampleSchema = z.object({
 });
 
 export default defineEventHandler(async (event) => {
+  let body: any;
   try {
-    const body = await readBody(event);
+    body = await readBody(event);
     const data = createSampleSchema.parse(body);
 
     const db = getDb();
 
-    // Get the active dataset
-    const activeDataset = await db.query.datasets.findFirst({
-      where: (datasets, { eq }) => eq(datasets.isActive, 1),
-    });
+    // Determine which dataset to use
+    let targetDataset;
 
-    if (!activeDataset) {
-      throw createError({
-        statusCode: 500,
-        statusMessage: "No active dataset found. Please create and activate a dataset first.",
+    if (data.datasetId) {
+      // Use the dataset specified by the user
+      targetDataset = await db.query.datasets.findFirst({
+        where: (datasets, { eq }) => eq(datasets.id, data.datasetId),
       });
+
+      if (!targetDataset) {
+        throw createError({
+          statusCode: 400,
+          statusMessage: `Dataset with ID ${data.datasetId} not found`,
+        });
+      }
+    } else {
+      // Fall back to active dataset for backward compatibility
+      targetDataset = await db.query.datasets.findFirst({
+        where: (datasets, { eq }) => eq(datasets.isActive, 1),
+      });
+
+      if (!targetDataset) {
+        throw createError({
+          statusCode: 500,
+          statusMessage:
+            "No dataset specified and no active dataset found. Please select a dataset.",
+        });
+      }
     }
 
     const result = await db
       .insert(samples)
       .values({
-        datasetId: activeDataset.id,
-        datasetName: activeDataset.name,
+        datasetId: targetDataset.id,
+        datasetName: targetDataset.name,
         instruction: data.instruction,
         input: data.input || null,
         output: data.output,
@@ -84,7 +106,7 @@ export default defineEventHandler(async (event) => {
 
     // Update dataset statistics
     const allSamples = await db.query.samples.findMany({
-      where: (samples, { eq }) => eq(samples.datasetId, activeDataset.id),
+      where: (samples, { eq }) => eq(samples.datasetId, targetDataset.id),
     });
 
     await db
@@ -95,22 +117,32 @@ export default defineEventHandler(async (event) => {
         lastImportAt: new Date(),
         updatedAt: new Date(),
       })
-      .where(eq(datasets.id, activeDataset.id));
+      .where(eq(datasets.id, targetDataset.id));
 
     return {
       success: true,
       sample: result[0],
       dataset: {
-        id: activeDataset.id,
-        name: activeDataset.name,
+        id: targetDataset.id,
+        name: targetDataset.name,
       },
     };
   } catch (error) {
     if (error instanceof z.ZodError) {
+      console.error("Zod validation error on POST:", error);
+      console.error("Request body that failed:", JSON.stringify(body, null, 2));
+
+      // Get issues from the error
+      const issues = (error as any).issues || [];
+      const errorMessage =
+        issues.length > 0
+          ? issues.map((e: any) => `${e.path?.join?.(".") || "unknown"}: ${e.message}`).join(", ")
+          : "Validation failed";
+
       throw createError({
         statusCode: 400,
-        statusMessage: "Validation error",
-        data: error.errors,
+        statusMessage: "Validation error: " + errorMessage,
+        data: issues,
       });
     }
 

@@ -2,10 +2,12 @@
   <div class="relative">
     <!-- Active Dataset Display -->
     <button
-      class="w-full flex items-center gap-3 px-3 py-2 rounded-lg bg-blue-50 dark:bg-blue-900/30 border border-blue-200 dark:border-blue-700 hover:bg-blue-100 dark:hover:bg-blue-900/50 transition-colors text-left"
+      class="w-full flex items-center gap-3 px-3 py-2 rounded-lg bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors text-left"
       @click="toggleDropdown"
     >
-      <div class="w-8 h-8 bg-blue-500 rounded-lg flex items-center justify-center text-white">
+      <div
+        class="w-8 h-8 bg-gray-600 dark:bg-gray-500 rounded-lg flex items-center justify-center text-white"
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="16"
@@ -22,8 +24,8 @@
         </svg>
       </div>
       <div class="flex-1 min-w-0">
-        <p class="text-xs text-blue-600 dark:text-blue-400 font-medium">Active Dataset</p>
-        <p class="text-sm font-semibold text-blue-900 dark:text-blue-200 truncate">
+        <p class="text-xs text-gray-600 dark:text-gray-400 font-medium">Active Dataset</p>
+        <p class="text-sm font-semibold text-gray-900 dark:text-gray-100 truncate">
           {{ activeDataset?.name || "Loading..." }}
         </p>
       </div>
@@ -37,7 +39,7 @@
         stroke-width="2"
         stroke-linecap="round"
         stroke-linejoin="round"
-        class="text-blue-600 dark:text-blue-400 transition-transform"
+        class="text-gray-600 dark:text-gray-400 transition-transform"
         :class="{ 'rotate-180': isOpen }"
       >
         <polyline points="6 9 12 15 18 9" />
@@ -56,7 +58,7 @@
           :key="dataset.id"
           class="w-full flex items-center gap-3 px-3 py-2 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors text-left"
           :class="{
-            'bg-blue-50 dark:bg-blue-900/30': dataset.id === activeDataset?.id,
+            'bg-gray-50 dark:bg-gray-800': dataset.id === activeDataset?.id,
           }"
           @click="activateDataset(dataset.id)"
         >
@@ -64,7 +66,7 @@
             class="w-6 h-6 rounded flex items-center justify-center text-xs"
             :class="
               dataset.id === activeDataset?.id
-                ? 'bg-blue-500 text-white'
+                ? 'bg-gray-700 text-white'
                 : 'bg-gray-200 dark:bg-gray-600 text-gray-600 dark:text-gray-300'
             "
           >
@@ -89,7 +91,7 @@
             stroke-width="2"
             stroke-linecap="round"
             stroke-linejoin="round"
-            class="text-blue-500 dark:text-blue-400"
+            class="text-gray-500 dark:text-gray-400"
           >
             <polyline points="20 6 9 17 4 12" />
           </svg>
@@ -130,7 +132,7 @@
   <!-- Toast Notification -->
   <div
     v-if="notification"
-    class="fixed bottom-4 right-4 bg-green-500 text-white px-4 py-2 rounded-lg shadow-lg z-50 flex items-center gap-2"
+    class="fixed bottom-4 right-4 bg-gray-700 text-white px-4 py-2 rounded-lg shadow-lg z-50 flex items-center gap-2"
   >
     <svg
       xmlns="http://www.w3.org/2000/svg"

@@ -69,6 +69,35 @@ export default defineEventHandler(async (event) => {
     // Execute query
     const results = await dbQuery;
 
+    // Convert timestamps from seconds to milliseconds for proper JavaScript Date handling
+    const convertedResults = results.map((sample: any) => {
+      if (
+        sample.createdAt &&
+        typeof sample.createdAt === "number" &&
+        sample.createdAt < 10000000000
+      ) {
+        sample.createdAt = sample.createdAt * 1000;
+      }
+      if (
+        sample.updatedAt &&
+        typeof sample.updatedAt === "number" &&
+        sample.updatedAt < 10000000000
+      ) {
+        sample.updatedAt = sample.updatedAt * 1000;
+      }
+      // Parse tags from JSON string to array
+      if (sample.tags && typeof sample.tags === "string") {
+        try {
+          sample.tags = JSON.parse(sample.tags);
+        } catch (e) {
+          sample.tags = [];
+        }
+      } else if (!sample.tags) {
+        sample.tags = [];
+      }
+      return sample;
+    });
+
     // Get total count for pagination
     let countQuery = db.select({ count: samples.id }).from(samples);
     if (conditions.length > 0) {
@@ -78,7 +107,7 @@ export default defineEventHandler(async (event) => {
     const total = totalResult.length;
 
     return {
-      samples: results,
+      samples: convertedResults,
       pagination: {
         total,
         limit: params.limit,

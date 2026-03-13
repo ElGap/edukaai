@@ -5,12 +5,32 @@
       <p class="text-secondary">Import training examples to build your dataset.</p>
     </div>
 
+    <!-- Dataset Selector -->
+    <div class="card mb-6">
+      <label class="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-3">
+        Select Dataset to Import To
+      </label>
+      <div v-if="loadingDatasets" class="text-sm text-secondary py-2">Loading datasets...</div>
+      <div v-else-if="datasets.length === 0" class="text-sm text-secondary py-2">
+        No datasets available. Create a dataset first.
+      </div>
+      <select
+        v-else
+        v-model="selectedDataset"
+        class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:text-white"
+      >
+        <option v-for="dataset in datasets" :key="dataset.id" :value="dataset.id">
+          {{ dataset.name }} - {{ dataset.sampleCount }} samples
+        </option>
+      </select>
+    </div>
+
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
       <!-- Upload JSON -->
       <div class="card">
         <div class="flex items-center gap-3 mb-4">
           <div
-            class="w-12 h-12 bg-blue-100 dark:bg-blue-900/30 rounded-lg flex items-center justify-center"
+            class="w-12 h-12 text-gray-100 dark:bg-gray-700 rounded-lg flex items-center justify-center"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -22,7 +42,7 @@
               stroke-width="2"
               stroke-linecap="round"
               stroke-linejoin="round"
-              class="text-blue-600 dark:text-blue-400"
+              class="text-gray-700 dark:text-gray-300"
             >
               <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
               <polyline points="17 8 12 3 7 8" />
@@ -40,7 +60,7 @@
         </p>
         <a
           href="/import/json"
-          class="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors no-underline"
+          class="inline-flex items-center gap-2 px-4 py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors no-underline"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -65,7 +85,7 @@
       <div class="card opacity-75">
         <div class="flex items-center gap-3 mb-4">
           <div
-            class="w-12 h-12 bg-orange-100 dark:bg-orange-900/30 rounded-lg flex items-center justify-center"
+            class="w-12 h-12 bg-gray-100 dark:bg-gray-700 rounded-lg flex items-center justify-center"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -77,7 +97,7 @@
               stroke-width="2"
               stroke-linecap="round"
               stroke-linejoin="round"
-              class="text-orange-600 dark:text-orange-400"
+              class="text-gray-600 dark:text-gray-400"
             >
               <circle cx="12" cy="12" r="10" />
               <line x1="2" x2="22" y1="12" y2="12" />
@@ -111,18 +131,16 @@
       </p>
 
       <div class="space-y-3">
-        <div
-          class="flex items-center justify-between p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg"
-        >
+        <div class="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
           <div>
-            <h3 class="font-medium text-blue-900 dark:text-blue-200">Coding Examples</h3>
-            <p class="text-xs text-blue-700 dark:text-blue-300">5 programming examples</p>
+            <h3 class="font-medium text-gray-900 dark:text-gray-200">Coding Examples</h3>
+            <p class="text-xs text-gray-700 dark:text-gray-300">5 programming examples</p>
           </div>
           <div class="flex gap-2">
             <a
               href="/sample-data/coding-examples.json"
               download
-              class="inline-flex items-center gap-1 px-3 py-1.5 bg-blue-100 text-blue-700 text-sm rounded hover:bg-blue-200 transition-colors"
+              class="inline-flex items-center gap-1 px-3 py-1.5 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200 text-sm rounded hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
             >
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path
@@ -135,7 +153,7 @@
               Download
             </a>
             <button
-              class="inline-flex items-center gap-1 px-3 py-1.5 bg-blue-600 text-white text-sm rounded hover:bg-blue-700 transition-colors"
+              class="inline-flex items-center gap-1 px-3 py-1.5 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200 text-sm rounded hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
               @click="importSampleData('coding', 'Coding Examples')"
             >
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -151,18 +169,16 @@
           </div>
         </div>
 
-        <div
-          class="flex items-center justify-between p-3 bg-green-50 dark:bg-green-900/20 rounded-lg"
-        >
+        <div class="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
           <div>
-            <h3 class="font-medium text-green-900 dark:text-green-200">General Knowledge</h3>
-            <p class="text-xs text-green-700 dark:text-green-300">4 diverse examples</p>
+            <h3 class="font-medium text-gray-900 dark:text-gray-200">General Knowledge</h3>
+            <p class="text-xs text-gray-700 dark:text-gray-300">4 diverse examples</p>
           </div>
           <div class="flex gap-2">
             <a
               href="/sample-data/general-knowledge-examples.json"
               download
-              class="inline-flex items-center gap-1 px-3 py-1.5 bg-green-100 text-green-700 text-sm rounded hover:bg-green-200 transition-colors"
+              class="inline-flex items-center gap-1 px-3 py-1.5 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200 text-sm rounded hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
             >
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path
@@ -175,48 +191,8 @@
               Download
             </a>
             <button
-              class="inline-flex items-center gap-1 px-3 py-1.5 bg-green-600 text-white text-sm rounded hover:bg-green-700 transition-colors"
+              class="inline-flex items-center gap-1 px-3 py-1.5 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200 text-sm rounded hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
               @click="importSampleData('general', 'General Knowledge')"
-            >
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M12 4v16m8-8H4"
-                ></path>
-              </svg>
-              Import
-            </button>
-          </div>
-        </div>
-
-        <div
-          class="flex items-center justify-between p-3 bg-purple-50 dark:bg-purple-900/20 rounded-lg border border-purple-200 dark:border-purple-800"
-        >
-          <div>
-            <h3 class="font-medium text-purple-900 dark:text-purple-200">Fictional Characters</h3>
-            <p class="text-xs text-purple-700 dark:text-purple-300">62 examples (3 characters)</p>
-          </div>
-          <div class="flex gap-2">
-            <a
-              href="/sample-data/fictional-characters.json"
-              download
-              class="inline-flex items-center gap-1 px-3 py-1.5 bg-purple-100 text-purple-700 text-sm rounded hover:bg-purple-200 transition-colors"
-            >
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
-                ></path>
-              </svg>
-              Download
-            </a>
-            <button
-              class="inline-flex items-center gap-1 px-3 py-1.5 bg-purple-600 text-white text-sm rounded hover:bg-purple-700 transition-colors"
-              @click="importSampleData('fictional-characters', 'Fictional Characters')"
             >
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path
@@ -233,7 +209,7 @@
       </div>
 
       <p class="text-xs text-tertiary mt-4">
-        💡 Tip: Click "Import" to automatically add all samples to your active dataset, or
+        💡 Tip: Click "Import" to automatically add all samples to the selected dataset, or
         "Download" to save the JSON file for manual import.
       </p>
     </div>
@@ -247,7 +223,7 @@
       <div class="bg-white dark:bg-gray-800 rounded-xl p-6 max-w-md mx-4 shadow-2xl">
         <div class="text-center">
           <div
-            class="w-16 h-16 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center mx-auto mb-4"
+            class="w-16 h-16 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center mx-auto mb-4"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -259,7 +235,7 @@
               stroke-width="2"
               stroke-linecap="round"
               stroke-linejoin="round"
-              class="text-green-600 dark:text-green-400"
+              class="text-gray-700 dark:text-gray-400"
             >
               <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
               <polyline points="22 4 12 14.01 9 11.01" />
@@ -276,7 +252,7 @@
             </button>
             <NuxtLink
               to="/samples"
-              class="flex-1 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 text-center no-underline"
+              class="flex-1 px-4 py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 text-center no-underline"
             >
               View Samples
             </NuxtLink>
@@ -328,6 +304,11 @@
 </template>
 
 <script setup>
+  import { ref, onMounted, watch } from "vue";
+  import { useRoute } from "vue-router";
+
+  const route = useRoute();
+
   // Modal states
   const showSuccessModal = ref(false);
   const showErrorModal = ref(false);
@@ -335,7 +316,71 @@
   const successMessage = ref("");
   const errorModalMessage = ref("");
 
+  // Dataset selection
+  const selectedDataset = ref(null);
+  const datasets = ref([]);
+  const loadingDatasets = ref(true);
+
+  const loadDatasets = async () => {
+    try {
+      loadingDatasets.value = true;
+      const response = await $fetch("/api/datasets");
+      datasets.value = response.datasets || [];
+
+      // Check if URL has a dataset parameter
+      const urlDatasetId = route.query.dataset;
+      if (urlDatasetId) {
+        const id = parseInt(urlDatasetId);
+        // Verify the dataset exists in our list
+        const found = datasets.value.find((d) => d.id === id);
+        if (found) {
+          selectedDataset.value = id;
+        } else {
+          // Fall back to active dataset
+          const activeDataset = datasets.value.find((d) => d.isActive === 1);
+          if (activeDataset) {
+            selectedDataset.value = activeDataset.id;
+          } else if (datasets.value.length > 0) {
+            selectedDataset.value = datasets.value[0].id;
+          }
+        }
+      } else {
+        // Preselect the active dataset or the first one
+        const activeDataset = datasets.value.find((d) => d.isActive === 1);
+        if (activeDataset) {
+          selectedDataset.value = activeDataset.id;
+        } else if (datasets.value.length > 0) {
+          selectedDataset.value = datasets.value[0].id;
+        }
+      }
+    } catch (error) {
+      console.error("Error loading datasets:", error);
+    } finally {
+      loadingDatasets.value = false;
+    }
+  };
+
+  // Watch for URL dataset changes
+  watch(
+    () => route.query.dataset,
+    (newDatasetId) => {
+      if (newDatasetId && datasets.value.length > 0) {
+        const id = parseInt(newDatasetId);
+        const found = datasets.value.find((d) => d.id === id);
+        if (found) {
+          selectedDataset.value = id;
+        }
+      }
+    }
+  );
+
   const importSampleData = async (type, name) => {
+    if (!selectedDataset.value) {
+      errorModalMessage.value = "Please select a dataset to import to.";
+      showErrorModal.value = true;
+      return;
+    }
+
     try {
       // Fetch the sample data - handle both naming conventions
       const filename =
@@ -367,6 +412,7 @@
         qualityRating: ex.qualityRating || 3,
         tags: ex.tags || [],
         notes: ex.notes || null,
+        datasetId: selectedDataset.value,
       }));
 
       // Import via the API
@@ -375,12 +421,13 @@
         body: {
           samples: samplesToImport,
           format: "alpaca",
+          datasetId: selectedDataset.value,
         },
       });
 
       if (importResponse.success) {
         successTitle.value = "Import Successful!";
-        successMessage.value = `Successfully imported ${importResponse.imported} samples from ${name} into your active dataset.`;
+        successMessage.value = `Successfully imported ${importResponse.imported} samples from ${name} into your selected dataset.`;
         showSuccessModal.value = true;
       } else {
         errorModalMessage.value = importResponse.message || "Import failed. Please try again.";
@@ -392,6 +439,18 @@
       showErrorModal.value = true;
     }
   };
+
+  onMounted(() => {
+    loadDatasets();
+
+    // Close modals on Escape key
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") {
+        showSuccessModal.value = false;
+        showErrorModal.value = false;
+      }
+    });
+  });
 
   definePageMeta({
     layout: "default",

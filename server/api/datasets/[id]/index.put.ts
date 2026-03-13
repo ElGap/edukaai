@@ -12,6 +12,7 @@ const updateSchema = z.object({
     .optional(),
   defaultAutoApprove: z.boolean().optional(),
   goalSamples: z.number().int().min(10).max(10000).optional(), // Allow updating goal
+  goalName: z.string().min(1).max(100).optional(), // Allow updating goal name
 });
 
 /**
@@ -74,6 +75,7 @@ export default defineEventHandler(async (event) => {
     if (data.defaultAutoApprove !== undefined)
       updateData.defaultAutoApprove = data.defaultAutoApprove ? 1 : 0;
     if (data.goalSamples !== undefined) updateData.goalSamples = data.goalSamples;
+    if (data.goalName !== undefined) updateData.goalName = data.goalName;
 
     const result = await db.update(datasets).set(updateData).where(eq(datasets.id, id)).returning();
 

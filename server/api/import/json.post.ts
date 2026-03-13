@@ -18,6 +18,7 @@ const jsonImportSchema = z.object({
     })
   ),
   format: z.enum(["alpaca", "sharegpt", "raw"]).default("raw"),
+  datasetId: z.number().optional(),
 });
 
 export default defineEventHandler(async (event) => {
@@ -27,16 +28,34 @@ export default defineEventHandler(async (event) => {
 
     const db = getDb();
 
-    // Get active dataset
-    const activeDataset = await db.query.datasets.findFirst({
-      where: eq(datasets.isActive, 1),
-    });
+    // Get the target dataset - use provided datasetId or fall back to active
+    let targetDataset;
 
-    if (!activeDataset) {
-      throw createError({
-        statusCode: 400,
-        statusMessage: "No active dataset. Please create and activate a dataset first.",
+    if (data.datasetId) {
+      // Use the dataset specified in the request
+      targetDataset = await db.query.datasets.findFirst({
+        where: eq(datasets.id, data.datasetId),
       });
+
+      if (!targetDataset) {
+        throw createError({
+          statusCode: 400,
+          statusMessage: `Dataset with ID ${data.datasetId} not found.`,
+        });
+      }
+    } else {
+      // Fall back to active dataset for backward compatibility
+      targetDataset = await db.query.datasets.findFirst({
+        where: eq(datasets.isActive, 1),
+      });
+
+      if (!targetDataset) {
+        throw createError({
+          statusCode: 400,
+          statusMessage:
+            "No dataset specified and no active dataset found. Please select a dataset or activate one.",
+        });
+      }
     }
 
     let imported = 0;
@@ -47,8 +66,8 @@ export default defineEventHandler(async (event) => {
     for (const ex of data.samples) {
       try {
         await db.insert(samples).values({
-          datasetId: activeDataset.id,
-          datasetName: activeDataset.name,
+          datasetId: targetDataset.id,
+          datasetName: targetDataset.name,
           instruction: ex.instruction,
           input: ex.input || null,
           output: ex.output,

@@ -4,7 +4,7 @@
       class="w-8 h-8 rounded-full flex items-center justify-center text-lg"
       :class="
         achieved
-          ? 'bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400'
+          ? 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:dark:text-gray-400'
           : 'bg-gray-100 dark:bg-gray-800 text-gray-400 dark:text-gray-500'
       "
     >
@@ -15,7 +15,7 @@
         <span
           class="font-medium"
           :class="
-            achieved ? 'text-green-700 dark:text-green-400' : 'text-gray-600 dark:text-gray-400'
+            achieved ? 'text-gray-700 dark:dark:text-gray-400' : 'text-gray-600 dark:text-gray-400'
           "
         >
           {{ label }}
@@ -23,7 +23,7 @@
         <span
           class="text-sm"
           :class="
-            achieved ? 'text-green-600 dark:text-green-400' : 'text-gray-500 dark:text-gray-400'
+            achieved ? 'text-gray-600 dark:dark:text-gray-400' : 'text-gray-500 dark:text-gray-400'
           "
         >
           {{ count }} examples
@@ -31,7 +31,7 @@
       </div>
       <div v-if="!achieved" class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-1.5">
         <div
-          class="bg-blue-400 h-1.5 rounded-full transition-all duration-500"
+          class="bg-gray-400 h-1.5 rounded-full transition-all duration-500"
           :style="{ width: `${(current / (parseInt(count) - getPrevCount(count))) * 100}%` }"
         ></div>
       </div>

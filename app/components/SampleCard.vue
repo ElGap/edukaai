@@ -10,7 +10,7 @@
           v-if="isSelected !== undefined"
           type="checkbox"
           :checked="isSelected"
-          class="w-5 h-5 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+          class="w-5 h-5 rounded border-gray-300 text-gray-700 focus:ring-blue-500"
           @change="$emit('toggle-select')"
         />
         <span class="text-lg font-bold text-gray-400 dark:text-gray-500">#{{ sample.id }}</span>
@@ -29,7 +29,7 @@
         <button
           v-if="sample.status !== 'approved'"
           :disabled="actionLoading"
-          class="text-green-600 hover:text-green-700 p-1"
+          class="text-gray-700 hover:text-gray-800 p-1 dark:text-gray-400 dark:hover:text-gray-100"
           title="Approve"
           @click="showApproveModal = true"
         >
@@ -47,11 +47,7 @@
             <polyline points="20 6 9 17 4 12" />
           </svg>
         </button>
-        <NuxtLink
-          :to="`/samples/${sample.id}`"
-          class="text-blue-600 hover:text-blue-700 p-1"
-          title="View/Edit"
-        >
+        <NuxtLink :to="viewUrl" class="text-gray-700 hover:text-gray-800 p-1 dark:text-gray-400 dark:hover:text-gray-100" title="View/Edit">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="18"
@@ -68,7 +64,7 @@
         </NuxtLink>
         <button
           :disabled="actionLoading"
-          class="text-red-600 hover:text-red-700 p-1"
+          class="text-gray-700 hover:text-gray-800 p-1 dark:text-gray-400 dark:hover:text-gray-100"
           title="Delete"
           @click="showDeleteModal = true"
         >
@@ -184,7 +180,7 @@
       <div class="bg-white dark:bg-gray-800 rounded-xl p-6 max-w-md mx-4" @click.stop>
         <div class="flex items-center gap-3 mb-4">
           <div
-            class="w-10 h-10 bg-red-100 dark:bg-red-900/30 rounded-full flex items-center justify-center"
+            class="w-10 h-10 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -196,7 +192,7 @@
               stroke-width="2"
               stroke-linecap="round"
               stroke-linejoin="round"
-              class="text-red-600"
+              class="text-gray-700"
             >
               <path d="M3 6h18" />
               <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
@@ -236,7 +232,7 @@
       <div class="bg-white dark:bg-gray-800 rounded-xl p-6 max-w-md mx-4" @click.stop>
         <div class="flex items-center gap-3 mb-4">
           <div
-            class="w-10 h-10 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center"
+            class="w-10 h-10 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -248,7 +244,7 @@
               stroke-width="2"
               stroke-linecap="round"
               stroke-linejoin="round"
-              class="text-green-600"
+              class="text-gray-700"
             >
               <polyline points="20 6 9 17 4 12" />
             </svg>
@@ -268,7 +264,7 @@
           </button>
           <button
             :disabled="actionLoading"
-            class="flex-1 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 disabled:opacity-50 transition-colors"
+            class="flex-1 px-4 py-2 bg-gray-800 text-white rounded-lg hover:bg-gray-900 disabled:opacity-50 transition-colors"
             @click="approveSample"
           >
             {{ actionLoading ? "Approving..." : "Approve" }}
@@ -281,6 +277,9 @@
 
 <script setup lang="ts">
   import { ref, computed } from "vue";
+  import { useRoute } from "vue-router";
+
+  const route = useRoute();
 
   interface Sample {
     id: number;
@@ -310,10 +309,19 @@
   const showDeleteModal = ref(false);
   const showApproveModal = ref(false);
 
+  // Generate view URL with dataset parameter preserved
+  const viewUrl = computed(() => {
+    const datasetId = route.query.dataset;
+    if (datasetId) {
+      return { path: `/samples/${props.sample.id}`, query: { dataset: datasetId as string } };
+    }
+    return `/samples/${props.sample.id}`;
+  });
+
   const sourceClass = computed(() => {
     const classes: Record<string, string> = {
       manual: "bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300",
-      json: "bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300",
+      json: "bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300",
     };
     return (
       classes[props.sample.source] ||
@@ -323,10 +331,10 @@
 
   const statusClass = computed(() => {
     const classes: Record<string, string> = {
-      draft: "bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-300",
-      review: "bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300",
-      approved: "bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300",
-      rejected: "bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300",
+      draft: "bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300",
+      review: "bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300",
+      approved: "bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300",
+      rejected: "bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300",
     };
     return (
       classes[props.sample.status] ||
@@ -418,6 +426,16 @@
       actionLoading.value = false;
     }
   };
+
+  // Close modals on Escape key
+  onMounted(() => {
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") {
+        showDeleteModal.value = false;
+        showApproveModal.value = false;
+      }
+    });
+  });
 </script>
 
 <style scoped>

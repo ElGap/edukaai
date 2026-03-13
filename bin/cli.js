@@ -1,10 +1,15 @@
 #!/usr/bin/env node
 
-const { spawn } = require("child_process");
-const path = require("path");
-const os = require("os");
-const fs = require("fs");
-const readline = require("readline");
+import { spawn } from "child_process";
+import path from "path";
+import os from "os";
+import fs from "fs";
+import readline from "readline";
+import { fileURLToPath } from "url";
+
+// Get __dirname equivalent in ES modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // Get the package root directory
 const packageRoot = path.join(__dirname, "..");
@@ -66,9 +71,9 @@ Usage: edukaai [command] [options]
 
 Commands:
   edukaai                    Start the edukaAI server (default)
-  edukaai reset               Reset database (keeps only General dataset)
-  edukaai reset --force       Reset without confirmation
-  edukaai clean               Alias for reset
+  edukaai reset              Reset database completely (creates fresh General dataset)
+  edukaai reset --force      Reset without confirmation
+  edukaai clean              Alias for reset
   edukaai help               Show this help message
 
 Environment Variables:
@@ -95,8 +100,13 @@ async function handleReset(args) {
 
   console.log("⚠️  Database Reset");
   console.log("==================\n");
-  console.log("This will delete ALL examples and datasets except 'General'.");
-  console.log("The 'General' dataset will be reset to empty and set as active.\n");
+  console.log("This will delete ALL data including:");
+  console.log("  - All training samples");
+  console.log("  - All datasets");
+  console.log("  - All import history");
+  console.log(
+    "\nA new default dataset will be created with name 'General' and default settings.\n"
+  );
 
   if (!force) {
     console.log("Are you sure you want to continue? (yes/no)");
@@ -119,73 +129,160 @@ async function handleReset(args) {
     }
   }
 
-  console.log("\n🧹 Cleaning database...\n");
+  console.log("\n🧹 Resetting database...\n");
 
   try {
-    const Database = require("better-sqlite3");
+    const { default: Database } = await import("better-sqlite3");
     const db = new Database(dbPath);
 
-    // Get counts before deletion
-    const exampleCount = db.prepare("SELECT COUNT(*) as count FROM examples").get().count;
-    const datasetCount = db.prepare("SELECT COUNT(*) as count FROM datasets").get().count;
+    // Check if tables exist
+    const tablesResult = db
+      .prepare(
+        "SELECT name FROM sqlite_master WHERE type='table' AND name IN ('samples', 'datasets', 'user_settings')"
+      )
+      .all();
+    const existingTables = tablesResult.map((t) => t.name);
 
-    console.log(`📊 Current state:`);
-    console.log(`   Examples: ${exampleCount}`);
-    console.log(`   Datasets: ${datasetCount}\n`);
+    // If no tables exist, create schema from migration
+    if (existingTables.length === 0) {
+      console.log("📭 Database is empty. Creating schema from migration...\n");
 
-    // Delete all examples
-    const deleteExamples = db.prepare("DELETE FROM examples");
-    const deletedExamples = deleteExamples.run().changes;
+      // Read and apply the migration SQL
+      const migrationPath = path.join(
+        packageRoot,
+        "server/db/migrations/0000_glorious_betty_brant.sql"
+      );
+      if (fs.existsSync(migrationPath)) {
+        const migrationSql = fs.readFileSync(migrationPath, "utf-8");
+        // Split by statement-breakpoint and execute each statement
+        const statements = migrationSql
+          .split("--> statement-breakpoint")
+          .map((s) => s.trim())
+          .filter((s) => s.length > 0);
 
-    // Delete all datasets except "General"
-    const deleteDatasets = db.prepare("DELETE FROM datasets WHERE name != 'General'");
-    const deletedDatasets = deleteDatasets.run().changes;
-
-    // Reset General dataset stats
-    db.prepare(
-      `
-      UPDATE datasets 
-      SET example_count = 0, 
-          approved_count = 0, 
-          is_active = 1,
-          last_import_at = NULL,
-          updated_at = (strftime('%s', 'now') * 1000)
-      WHERE name = 'General'
-    `
-    ).run();
-
-    // Ensure General dataset exists
-    const generalExists = db.prepare("SELECT id FROM datasets WHERE name = 'General'").get();
-    if (!generalExists) {
-      db.prepare(
-        `
-        INSERT INTO datasets (name, description, is_active, is_archived, default_quality, default_category, example_count, approved_count)
-        VALUES ('General', 'Default dataset for all examples', 1, 0, 'medium', 'general', 0, 0)
-      `
-      ).run();
+        for (const statement of statements) {
+          try {
+            db.prepare(statement).run();
+          } catch (e) {
+            // Ignore errors for existing tables or indexes
+            if (!e.message.includes("already exists")) {
+              console.log(`   ⚠️ Migration step skipped: ${e.message}`);
+            }
+          }
+        }
+        console.log("   ✓ Schema created\n");
+      } else {
+        console.log("⚠️  Migration file not found. Please ensure migrations are generated.");
+        console.log("   Run: npm run db:generate");
+        process.exit(1);
+      }
     }
 
-    // Reset other tables
-    db.prepare("DELETE FROM import_sessions").run();
-    db.prepare("DELETE FROM dataset_versions").run();
-    db.prepare("DELETE FROM milestones").run();
+    // Check if goal_name column exists (for older databases)
+    const columnsResult = db.prepare("PRAGMA table_info(datasets)").all();
+    const hasGoalName = columnsResult.some((col) => col.name === "goal_name");
+
+    // Add goal_name column if missing (schema migration for existing tables)
+    if (existingTables.includes("datasets") && !hasGoalName) {
+      console.log("📦 Updating database schema...");
+      try {
+        db.prepare(
+          "ALTER TABLE datasets ADD COLUMN goal_name text DEFAULT 'First Fine-Tuning'"
+        ).run();
+        console.log("   ✓ Added goal_name column\n");
+      } catch (_e) {
+        console.log("   ⚠️ Could not add goal_name column (may already exist)\n");
+      }
+    }
+
+    // Get counts before deletion
+    let sampleCount = 0;
+    let datasetCount = 0;
+
+    if (existingTables.includes("samples")) {
+      const sampleCountResult = db.prepare("SELECT COUNT(*) as count FROM samples").get();
+      sampleCount = sampleCountResult ? sampleCountResult.count : 0;
+    }
+
+    if (existingTables.includes("datasets")) {
+      const datasetCountResult = db.prepare("SELECT COUNT(*) as count FROM datasets").get();
+      datasetCount = datasetCountResult ? datasetCountResult.count : 0;
+    }
+
+    console.log(`📊 Current state:`);
+    console.log(`   Samples: ${sampleCount}`);
+    console.log(`   Datasets: ${datasetCount}\n`);
+
+    // Delete all samples
+    let deletedSamples = 0;
+    if (existingTables.includes("samples")) {
+      const deleteSamples = db.prepare("DELETE FROM samples");
+      deletedSamples = deleteSamples.run().changes;
+    }
+
+    // Delete all datasets
+    let deletedDatasets = 0;
+    if (existingTables.includes("datasets")) {
+      const deleteDatasets = db.prepare("DELETE FROM datasets");
+      deletedDatasets = deleteDatasets.run().changes;
+
+      // Reset auto-increment counter so IDs start from 1
+      try {
+        db.prepare("DELETE FROM sqlite_sequence WHERE name='datasets'").run();
+      } catch (_e) {
+        // sqlite_sequence might not exist or table wasn't using auto-increment
+      }
+    }
+
+    // Create default dataset with correct schema (now with goal_name for sure)
+    const insertSql = `
+      INSERT INTO datasets (
+        name, description, is_active, is_archived, default_quality, default_category, 
+        default_auto_approve, goal_samples, goal_name, sample_count, approved_count,
+        created_at, updated_at
+      )
+      VALUES (
+        'General', 'Default dataset for training samples', 1, 0, 'medium', 'general', 
+        0, 100, 'First Fine-Tuning', 0, 0,
+        (strftime('%s', 'now') * 1000),
+        (strftime('%s', 'now') * 1000)
+      )
+    `;
+
+    const defaultDatasetResult = db.prepare(insertSql).run();
+
+    // Reset user settings to defaults (if table exists)
+    if (existingTables.includes("user_settings")) {
+      try {
+        db.prepare(
+          `
+          INSERT OR REPLACE INTO user_settings (id, default_goal_samples, default_auto_approve, theme)
+          VALUES (1, 100, 0, 'system')
+        `
+        ).run();
+      } catch (_e) {
+        // Table might have different schema, that's ok
+      }
+    }
 
     db.close();
 
     console.log("✅ Database reset complete!");
-    console.log(`   Deleted ${deletedExamples} examples`);
-    console.log(`   Deleted ${deletedDatasets} custom datasets`);
-    console.log(`   'General' dataset reset to empty and set as active\n`);
+    console.log(`   Deleted ${deletedSamples} samples`);
+    console.log(`   Deleted ${deletedDatasets} datasets`);
+    console.log(`   Created new 'General' dataset (ID: ${defaultDatasetResult.lastInsertRowid})`);
+    console.log(`   Goal: First Fine-Tuning (100 samples)`);
+    console.log(`   Dataset set as active\n`);
 
     console.log("💡 Tip: Start the server with 'edukaai' to begin fresh.");
   } catch (error) {
     console.error(`\n❌ Error resetting database: ${error.message}`);
+    console.error(error.stack);
     process.exit(1);
   }
 }
 
 function getNetworkInterfaces() {
-  const os = require("os");
   const interfaces = os.networkInterfaces();
   const addresses = [];
 

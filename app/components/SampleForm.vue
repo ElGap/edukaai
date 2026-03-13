@@ -3,8 +3,8 @@
     <!-- Core Fields Section -->
     <div class="card">
       <h2 class="text-lg font-semibold mb-4 flex items-center gap-2">
-        <span class="text-blue-600">Core Fields</span>
-        <span class="text-sm font-normal text-gray-500">(Required)</span>
+        <span class="text-gray-900">Core Fields</span>
+        <span class="text-sm font-normal text-gray-500 dark:text-gray-400">(Required)</span>
       </h2>
 
       <!-- Instruction Field -->
@@ -30,7 +30,7 @@
       <div class="mb-4">
         <div class="flex items-center gap-2 mb-1">
           <label class="form-label">Input Context</label>
-          <span class="text-sm text-gray-400">(Optional)</span>
+          <span class="text-sm text-gray-400 dark:text-gray-500">(Optional)</span>
           <FieldTooltip
             title="Input Context"
             content="Additional context like code snippets, background info, or supporting data."
@@ -68,12 +68,12 @@
     <!-- Navigation Buttons (for edit mode) -->
     <div
       v-if="props.initialData?.id"
-      class="flex justify-between items-center py-6 my-4 bg-gray-50 rounded-lg px-4"
+      class="relative flex justify-between items-center py-6 my-4 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg px-4"
     >
       <button
         type="button"
         :disabled="props.loading || !props.prevId"
-        class="flex items-center gap-2 px-5 py-2.5 bg-white border border-gray-300 text-gray-700 hover:text-blue-600 hover:border-blue-300 hover:bg-blue-50 rounded-lg transition-all shadow-sm disabled:opacity-30 disabled:cursor-not-allowed"
+        class="flex items-center gap-2 px-5 py-2.5 bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 hover:border-gray-400 dark:hover:border-gray-500 rounded-lg transition-all shadow-sm disabled:opacity-30 disabled:cursor-not-allowed"
         @click="handleNavigate('prev')"
       >
         <svg
@@ -92,14 +92,14 @@
         <span class="font-medium">← Previous</span>
       </button>
 
-      <span class="text-sm text-gray-500 font-medium">{{
+      <span class="text-sm text-gray-700 dark:text-gray-300 font-medium">{{
         props.prevId || props.nextId ? "Navigate through dataset" : "No more samples"
       }}</span>
 
       <button
         type="button"
         :disabled="props.loading || !props.nextId"
-        class="flex items-center gap-2 px-5 py-2.5 bg-white border border-gray-300 text-gray-700 hover:text-blue-600 hover:border-blue-300 hover:bg-blue-50 rounded-lg transition-all shadow-sm disabled:opacity-30 disabled:cursor-not-allowed"
+        class="flex items-center gap-2 px-5 py-2.5 bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 hover:border-gray-400 dark:hover:border-gray-500 rounded-lg transition-all shadow-sm disabled:opacity-30 disabled:cursor-not-allowed"
         @click="handleNavigate('next')"
       >
         <span class="font-medium">Next →</span>
@@ -121,13 +121,13 @@
 
     <!-- Metadata Fields Section -->
     <div class="card">
-      <h2 class="text-lg font-semibold mb-4 text-purple-600">Metadata Fields</h2>
+      <h2 class="text-lg font-semibold mb-4 text-gray-900">Metadata Fields</h2>
 
       <!-- System Prompt -->
       <div class="mb-4">
         <div class="flex items-center gap-2 mb-1">
           <label class="form-label">System Prompt</label>
-          <span class="text-sm text-gray-400">(Optional)</span>
+          <span class="text-sm text-gray-400 dark:text-gray-500">(Optional)</span>
           <FieldTooltip
             title="System Prompt"
             content="Defines the AI's personality and behavior for this conversation."
@@ -195,6 +195,24 @@
         </div>
       </div>
 
+      <!-- Status Dropdown -->
+      <div class="mb-4">
+        <div class="flex items-center gap-2 mb-1">
+          <label class="form-label">Status</label>
+          <FieldTooltip
+            title="Status"
+            content="Review status of this sample. Change to move through the workflow."
+            example="Draft → In Review → Approved or Rejected"
+          />
+        </div>
+        <select v-model="form.status" class="form-input">
+          <option value="draft">📝 Draft</option>
+          <option value="review">👀 In Review</option>
+          <option value="approved">✅ Approved</option>
+          <option value="rejected">❌ Rejected</option>
+        </select>
+      </div>
+
       <!-- Tags -->
       <div class="mb-4">
         <div class="flex items-center gap-2 mb-1">
@@ -228,66 +246,61 @@
     </div>
 
     <!-- Source Tracking (Read-only for manual creation) -->
-    <div class="card bg-gray-50">
-      <h2 class="text-lg font-semibold mb-4 text-gray-600">Source Information</h2>
+    <div class="card bg-gray-100 dark:bg-gray-800">
+      <h2 class="text-lg font-semibold mb-4 text-gray-600 dark:text-gray-300">
+        Source Information
+      </h2>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
         <div>
-          <span class="text-gray-500">Source:</span>
-          <span class="ml-2 font-medium">Manual Entry</span>
+          <span class="text-gray-500 dark:text-gray-400">Source:</span>
+          <span class="ml-2 font-medium text-gray-900 dark:text-gray-100">Manual Entry</span>
         </div>
         <div>
-          <span class="text-gray-500">Created:</span>
-          <span class="ml-2 font-medium">{{ new Date().toLocaleString() }}</span>
+          <span class="text-gray-500 dark:text-gray-400">Created:</span>
+          <span class="ml-2 font-medium text-gray-900 dark:text-gray-100">
+            {{
+              props.initialData?.createdAt
+                ? formatDateTime(props.initialData.createdAt)
+                : new Date().toLocaleString()
+            }}
+          </span>
+        </div>
+        <div v-if="props.initialData?.id">
+          <span class="text-gray-500 dark:text-gray-400">Last Edited:</span>
+          <span class="ml-2 font-medium text-gray-900 dark:text-gray-100">
+            {{
+              props.initialData?.updatedAt
+                ? formatDateTime(props.initialData.updatedAt)
+                : "Never updated"
+            }}
+          </span>
         </div>
       </div>
     </div>
 
     <!-- Actions -->
     <div class="flex flex-wrap gap-3 justify-end">
-      <button type="button" :disabled="saving" class="btn-secondary" @click="saveAsDraft">
-        <span v-if="saving && action === 'draft'">Saving...</span>
-        <span v-else>💾 Save Draft</span>
-      </button>
-
       <button type="submit" :disabled="saving" class="btn-primary">
-        <span v-if="saving && action === 'approve'">Saving...</span>
-        <span v-else>✅ Save & Approve</span>
+        <span v-if="saving">Saving...</span>
+        <span v-else>💾 Save</span>
       </button>
 
       <button type="button" class="btn-secondary" @click="$emit('cancel')">❌ Cancel</button>
-
-      <button
-        v-if="props.initialData?.id"
-        type="button"
-        :disabled="saving"
-        class="btn-secondary border-purple-300 hover:bg-purple-50"
-        title="Create a copy of this sample"
-        @click="cloneSample"
-      >
-        <span>📋 Clone</span>
-      </button>
     </div>
 
     <!-- Keyboard Shortcuts Legend -->
     <div
-      class="mt-4 pt-4 border-t border-gray-200 text-xs text-gray-500 flex flex-wrap gap-4 justify-end"
+      class="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700 text-xs text-gray-500 dark:text-gray-400 flex flex-wrap gap-4 justify-end"
     >
       <span class="flex items-center gap-1">
-        <kbd class="bg-gray-200 px-1.5 py-0.5 rounded">Ctrl</kbd>+<kbd
-          class="bg-gray-200 px-1.5 py-0.5 rounded"
-          >S</kbd
-        >
-        Save Draft
-      </span>
-      <span class="flex items-center gap-1">
-        <kbd class="bg-gray-200 px-1.5 py-0.5 rounded">Ctrl</kbd>+<kbd
-          class="bg-gray-200 px-1.5 py-0.5 rounded"
+        <kbd class="bg-gray-200 dark:bg-gray-700 px-1.5 py-0.5 rounded">Ctrl</kbd>+<kbd
+          class="bg-gray-200 dark:bg-gray-700 px-1.5 py-0.5 rounded"
           >Enter</kbd
         >
-        Save & Approve
+        Save
       </span>
       <span class="flex items-center gap-1">
-        <kbd class="bg-gray-200 px-1.5 py-0.5 rounded">Esc</kbd> Cancel
+        <kbd class="bg-gray-200 dark:bg-gray-700 px-1.5 py-0.5 rounded">Esc</kbd> Cancel
       </span>
     </div>
   </form>
@@ -306,7 +319,7 @@
     qualityRating: number;
     notes: string;
     tags: string[];
-    status: "draft" | "approved";
+    status: "draft" | "review" | "approved" | "rejected";
   }
 
   const props = defineProps<{
@@ -318,19 +331,15 @@
 
   const emit = defineEmits<{
     submit: [data: FormData];
-    saveDraft: [data: FormData];
     cancel: [];
-    clone: [data: FormData];
     navigate: [id: number];
   }>();
 
   const saving = ref(false);
-  const action = ref<"draft" | "approve">("approve");
 
   // Navigation handler - emit the target ID
   const handleNavigate = (direction: "prev" | "next") => {
     const targetId = direction === "prev" ? props.prevId : props.nextId;
-    console.log("Navigate", direction, "to sample:", targetId);
     if (targetId) {
       emit("navigate", targetId);
     }
@@ -365,7 +374,35 @@
     }
   };
 
+  const formatDateTime = (date: string | number | Date | null | undefined) => {
+    if (!date) return "N/A";
+    const d = new Date(date);
+    if (isNaN(d.getTime())) return "Invalid date";
+    return d.toLocaleString("en-US", {
+      month: "short",
+      day: "numeric",
+      year: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+  };
+
   const stickyFields = getStickyFields();
+
+  // Helper to parse tags from string or array
+  const parseTags = (tags: any): string[] => {
+    if (!tags) return [];
+    if (Array.isArray(tags)) return tags;
+    if (typeof tags === "string") {
+      try {
+        const parsed = JSON.parse(tags);
+        return Array.isArray(parsed) ? parsed : [];
+      } catch {
+        return [];
+      }
+    }
+    return [];
+  };
 
   const form = reactive<FormData>({
     instruction: props.initialData?.instruction || "",
@@ -376,51 +413,29 @@
     difficulty: props.initialData?.difficulty || stickyFields.difficulty || "intermediate",
     qualityRating: props.initialData?.qualityRating || stickyFields.qualityRating || 3,
     notes: props.initialData?.notes || "",
-    tags: props.initialData?.tags?.length ? props.initialData.tags : stickyFields.tags || [],
+    tags:
+      parseTags(props.initialData?.tags).length > 0
+        ? parseTags(props.initialData?.tags)
+        : parseTags(stickyFields.tags).length > 0
+          ? parseTags(stickyFields.tags)
+          : [],
     status: props.initialData?.status || "approved",
   });
 
-  const saveAsDraft = async () => {
-    action.value = "draft";
-    form.status = "draft";
-    saveStickyFields(form);
-    emit("saveDraft", { ...form });
-  };
-
   const handleSubmit = async () => {
-    action.value = "approve";
-    form.status = "approved";
+    saving.value = true;
     saveStickyFields(form);
-    emit("submit", { ...form });
-  };
 
-  const cloneSample = async () => {
-    // Create a copy without the ID
-    const clonedData = {
-      instruction: form.instruction,
-      input: form.input,
-      output: form.output,
-      systemPrompt: form.systemPrompt,
-      category: form.category,
-      difficulty: form.difficulty,
-      qualityRating: form.qualityRating,
-      notes: `[Cloned from sample] ${form.notes || ""}`,
-      tags: [...form.tags],
-      status: "draft",
-    };
+    // Create a clean copy to avoid any reactivity issues
+    const formCopy = JSON.parse(JSON.stringify({ ...form }));
 
-    emit("clone", clonedData);
+    emit("submit", formCopy);
+    saving.value = false;
   };
 
   // Keyboard shortcuts
   const handleKeydown = (e: KeyboardEvent) => {
-    // Ctrl+S or Cmd+S - Save Draft
-    if ((e.ctrlKey || e.metaKey) && e.key === "s") {
-      e.preventDefault();
-      saveAsDraft();
-    }
-
-    // Ctrl+Enter - Save & Approve
+    // Ctrl+Enter - Save
     if ((e.ctrlKey || e.metaKey) && e.key === "Enter") {
       e.preventDefault();
       handleSubmit();

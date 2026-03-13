@@ -24,6 +24,19 @@ module.exports = {
           800: "#1e40af",
           900: "#1e3a8a",
         },
+        sidebar: {
+          DEFAULT: "#f8fafc", // slate-50 - main sidebar background
+          foreground: "#475569", // slate-600 - nav links text
+          border: "#e2e8f0", // slate-200 - sidebar borders
+          card: "#ffffff", // white - elevated cards on sidebar
+          hover: "#ffffff", // white - hover state
+          active: "#ffffff", // white - active nav background
+        },
+        content: {
+          foreground: "#4b5563", // gray-600 - main body text
+          heading: "#111827", // gray-900 - headings
+          muted: "#6b7280", // gray-500 - secondary text
+        },
       },
     },
   },

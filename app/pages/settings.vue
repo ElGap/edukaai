@@ -12,7 +12,7 @@
             a custom goal during dataset creation.
           </p>
         </div>
-        <div class="p-2 bg-blue-100 dark:bg-blue-900/30 rounded-lg">
+        <div class="p-2 bg-gray-100 dark:bg-gray-700 rounded-lg">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="24"
@@ -23,7 +23,7 @@
             stroke-width="2"
             stroke-linecap="round"
             stroke-linejoin="round"
-            class="text-blue-600 dark:text-blue-400"
+            class="text-gray-700 dark:text-gray-300"
           >
             <path d="M12 2v20" />
             <path d="M2 12h20" />
@@ -43,7 +43,7 @@
               class="px-4 py-2 rounded-lg border transition-colors text-sm"
               :class="
                 selectedGoal === preset.value
-                  ? 'bg-blue-600 text-white border-blue-600'
+                  ? 'bg-gray-800 text-white border-gray-600'
                   : 'border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800'
               "
               @click="selectedGoal = preset.value"
@@ -60,7 +60,7 @@
                 class="w-24 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:text-white text-sm"
               />
               <button
-                class="px-3 py-2 text-sm text-blue-600 hover:text-blue-700 font-medium"
+                class="px-3 py-2 text-sm text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 font-medium"
                 @click="selectedGoal = customGoal"
               >
                 Use
@@ -120,7 +120,7 @@
       <div class="bg-white dark:bg-gray-800 rounded-xl p-6 max-w-md mx-4 shadow-2xl">
         <div class="text-center">
           <div
-            class="w-16 h-16 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center mx-auto mb-4"
+            class="w-16 h-16 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center mx-auto mb-4"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -132,7 +132,7 @@
               stroke-width="2"
               stroke-linecap="round"
               stroke-linejoin="round"
-              class="text-green-600 dark:text-green-400"
+              class="text-gray-700 dark:text-gray-400"
             >
               <polyline points="20 6 9 17 4 12" />
             </svg>
@@ -144,7 +144,7 @@
             Your default goal has been updated to {{ selectedGoal }} samples.
           </p>
           <button
-            class="w-full px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+            class="w-full px-4 py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700"
             @click="showSuccessModal = false"
           >
             OK
@@ -184,7 +184,7 @@
           <h3 class="text-xl font-semibold mb-2 text-gray-900 dark:text-gray-100">Error</h3>
           <p class="text-secondary mb-6">{{ errorMessage }}</p>
           <button
-            class="w-full px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700"
+            class="w-full px-4 py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700"
             @click="showErrorModal = false"
           >
             OK

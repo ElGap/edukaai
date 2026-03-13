@@ -2,10 +2,7 @@
   <div class="max-w-6xl mx-auto">
     <div class="mb-6">
       <h1 class="text-2xl font-bold mb-2">Import from JSON</h1>
-      <p class="text-secondary">
-        Upload a JSON or JSONL file with training samples. We'll automatically detect the format and
-        map fields.
-      </p>
+      <p class="text-secondary">Upload a JSON or JSONL file with training samples.</p>
     </div>
 
     <div class="card">
@@ -25,32 +22,15 @@
             <p class="text-sm text-tertiary">Supports .json and .jsonl files</p>
             <button class="btn-secondary mt-2" @click="$refs.fileInput.click()">Select File</button>
           </div>
-          <div v-else class="text-green-600">
+          <div v-else class="text-gray-700">
             <div class="text-4xl mb-2">✓</div>
             <p class="font-medium">{{ fileName }}</p>
             <p class="text-sm">{{ fileSize }} • {{ parsedSamples.length }} samples found</p>
-            <p v-if="detectedFormat" class="text-xs text-blue-600 mt-1">
-              Format: {{ detectedFormat }}
-            </p>
             <button class="text-sm text-tertiary hover:text-secondary mt-2" @click="clearFile">
               Remove file
             </button>
           </div>
         </div>
-      </div>
-
-      <!-- Auto-detection Notice -->
-      <div
-        v-if="fileContent && parsedSamples.length > 0"
-        class="mb-6 p-4 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg"
-      >
-        <p class="text-sm text-blue-800">
-          <strong>🤖 Auto-Detection Active:</strong> We automatically detect your file format and
-          map common field names (e.g., userMessage → instruction, response → output).
-          <span v-if="fieldMappingInfo" class="block mt-1 text-blue-600">
-            Mapped: {{ fieldMappingInfo }}
-          </span>
-        </p>
       </div>
 
       <!-- Preview -->
@@ -85,10 +65,10 @@
       <!-- Success Message -->
       <div
         v-if="importComplete"
-        class="mt-4 p-4 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg"
+        class="mt-4 p-4 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg"
       >
-        <p class="text-green-800 font-medium">✅ Import Complete!</p>
-        <p class="text-green-700 text-sm">Successfully imported {{ importedCount }} samples.</p>
+        <p class="text-gray-800 font-medium">✅ Import Complete!</p>
+        <p class="text-gray-700 text-sm">Successfully imported {{ importedCount }} samples.</p>
         <div class="mt-3 flex gap-2">
           <NuxtLink to="/samples" class="btn-primary"> View Dataset → </NuxtLink>
           <button class="btn-secondary" @click="reset">Import More</button>
@@ -98,7 +78,7 @@
       <!-- Error Message -->
       <div
         v-if="error"
-        class="mt-4 p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg"
+        class="mt-4 p-4 bg-red-50 dark:bg-red-900/20 border border-gray-200 dark:border-gray-700 rounded-lg"
       >
         <p class="text-red-800 font-medium">❌ Error</p>
         <pre class="text-red-700 text-sm mt-1 whitespace-pre-wrap font-sans">{{ error }}</pre>
@@ -108,22 +88,24 @@
     <!-- Format Help -->
     <div class="mt-6 card">
       <h3 class="font-semibold mb-3">Supported Formats</h3>
-      <p class="text-secondary mb-4 text-sm">
-        Our import system automatically detects and handles multiple formats:
-      </p>
+      <p class="text-secondary mb-4 text-sm">Files must use standard field names:</p>
 
       <div class="space-y-4 text-sm">
         <div class="p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
           <p class="font-semibold mb-1">1. Standard JSON Array</p>
-          <pre class="bg-gray-800 text-gray-200 p-2 rounded text-xs overflow-x-auto"><code>[{
+          <pre
+            class="bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-200 p-2 rounded text-xs overflow-x-auto"
+          ><code>[{
   "instruction": "What is Python?",
   "output": "Python is a programming language..."
 }]</code></pre>
         </div>
 
         <div class="p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
-          <p class="font-semibold mb-1">2. Alpaca Format</p>
-          <pre class="bg-gray-800 text-gray-200 p-2 rounded text-xs overflow-x-auto"><code>[{
+          <p class="font-semibold mb-1">2. Alpaca Format (with input)</p>
+          <pre
+            class="bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-200 p-2 rounded text-xs overflow-x-auto"
+          ><code>[{
   "instruction": "Explain Python",
   "input": "",
   "output": "Python is a programming language..."
@@ -134,24 +116,9 @@
           <p class="font-semibold mb-1">3. JSON Lines (JSONL)</p>
           <p class="text-secondary mb-2">One JSON object per line:</p>
           <pre
-            class="bg-gray-800 text-gray-200 p-2 rounded text-xs overflow-x-auto"
-          ><code>{"userMessage": "Hello", "response": "Hi there!"}
-{"userMessage": "How are you?", "response": "I'm good!"}</code></pre>
-        </div>
-
-        <div
-          class="p-3 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg"
-        >
-          <p class="font-semibold text-blue-900 mb-1">🤖 Auto-Detection Features</p>
-          <ul class="text-blue-800 space-y-1 list-disc list-inside">
-            <li>Detects JSON vs JSONL automatically</li>
-            <li>Maps common field names (userMessage, content, text → instruction)</li>
-            <li>
-              Maps response fields (llmRawResponse, llmParsedResponse, output, response → output)
-            </li>
-            <li>Handles nested objects by converting to JSON strings</li>
-            <li>Auto-assigns categories based on content patterns</li>
-          </ul>
+            class="bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-200 p-2 rounded text-xs overflow-x-auto"
+          ><code>{"instruction": "Hello", "output": "Hi there!"}
+{"instruction": "How are you?", "output": "I'm good!"}</code></pre>
         </div>
       </div>
     </div>
@@ -168,38 +135,6 @@
   const importComplete = ref(false);
   const importedCount = ref(0);
   const error = ref("");
-  const detectedFormat = ref("");
-  const fieldMappingInfo = ref("");
-
-  // Field name mappings for auto-detection
-  const instructionFieldNames = [
-    "instruction",
-    "prompt",
-    "userMessage",
-    "user",
-    "human",
-    "content",
-    "text",
-    "question",
-    "query",
-    "input",
-  ];
-
-  const outputFieldNames = [
-    "output",
-    "response",
-    "assistant",
-    "gpt",
-    "answer",
-    "llmRawResponse",
-    "llmParsedResponse",
-    "completion",
-    "result",
-  ];
-
-  const inputFieldNames = ["input", "context", "prefix"];
-
-  const categoryFieldNames = ["category", "type", "topic", "domain", "tag"];
 
   const handleFileUpload = (event) => {
     const file = event.target.files[0];
@@ -224,15 +159,6 @@
     };
 
     reader.readAsText(file);
-  };
-
-  const findField = (obj, possibleNames) => {
-    for (const name of possibleNames) {
-      if (obj[name] !== undefined) {
-        return { field: name, value: obj[name] };
-      }
-    }
-    return null;
   };
 
   const formatValue = (value) => {
@@ -273,7 +199,6 @@
         if (allLinesValid && lines.length > 0) {
           // It's JSONL format
           isJSONL = true;
-          detectedFormat.value = "JSON Lines (JSONL)";
           try {
             rawData = lines.map((line, idx) => {
               try {
@@ -296,17 +221,13 @@
           const data = JSON.parse(content);
 
           if (Array.isArray(data)) {
-            detectedFormat.value = "JSON Array";
             rawData = data;
           } else if (data.examples && Array.isArray(data.examples)) {
-            detectedFormat.value = "JSON with examples field";
             rawData = data.examples;
           } else if (data.data && Array.isArray(data.data)) {
-            detectedFormat.value = "JSON with data field";
             rawData = data.data;
           } else {
             // Single object, wrap in array
-            detectedFormat.value = "Single JSON Object";
             rawData = [data];
           }
         } catch (e) {
@@ -320,8 +241,6 @@
           }
           error.value = `JSON parsing error: ${errorMsg}`;
           parsedSamples.value = [];
-          detectedFormat.value = "";
-          fieldMappingInfo.value = "";
           return;
         }
       }
@@ -333,42 +252,16 @@
         return;
       }
 
-      // Track which fields were mapped
-      let instructionField = "";
-      let outputField = "";
-      let inputField = "";
-
-      // Map fields intelligently
+      // Map fields - only accept standard field names
       parsedSamples.value = rawData
         .map((item, idx) => {
-          // Find instruction field
-          const instructionMatch = findField(item, instructionFieldNames);
-          if (instructionMatch && !instructionField) {
-            instructionField = instructionMatch.field;
-          }
-
-          // Find output field
-          const outputMatch = findField(item, outputFieldNames);
-          if (outputMatch && !outputField) {
-            outputField = outputMatch.field;
-          }
-
-          // Find input/context field (optional)
-          const inputMatch = findField(item, inputFieldNames);
-          if (inputMatch && !inputField) {
-            inputField = inputMatch.field;
-          }
-
-          // Find category
-          const categoryMatch = findField(item, categoryFieldNames);
-
           return {
             id: idx.toString(),
-            instruction: formatValue(instructionMatch?.value || ""),
-            input: formatValue(inputMatch?.value || ""),
-            output: formatValue(outputMatch?.value || ""),
+            instruction: formatValue(item.instruction || ""),
+            input: formatValue(item.input || ""),
+            output: formatValue(item.output || ""),
             systemPrompt: item.systemPrompt || item.system || null,
-            category: categoryMatch?.value || "general",
+            category: item.category || "general",
             difficulty: item.difficulty || "intermediate",
             qualityRating: item.qualityRating || 3,
             tags: item.tags || [],
@@ -377,22 +270,13 @@
         })
         .filter((sample) => sample.instruction && sample.output);
 
-      // Set field mapping info for display
-      const mappings = [];
-      if (instructionField) mappings.push(`${instructionField} → instruction`);
-      if (outputField) mappings.push(`${outputField} → output`);
-      if (inputField) mappings.push(`${inputField} → input`);
-
-      fieldMappingInfo.value = mappings.join(", ") || "Standard format detected";
-
       if (parsedSamples.value.length === 0) {
-        error.value = "No valid samples found. Please check your file format.";
+        error.value =
+          "No valid samples found. Please check your file format. Samples must have 'instruction' and 'output' fields.";
       }
     } catch (err) {
       error.value = "Invalid JSON: " + err.message;
       parsedSamples.value = [];
-      detectedFormat.value = "";
-      fieldMappingInfo.value = "";
     }
   };
 
@@ -403,8 +287,6 @@
     parsedSamples.value = [];
     error.value = "";
     importComplete.value = false;
-    detectedFormat.value = "";
-    fieldMappingInfo.value = "";
     if (fileInput.value) {
       fileInput.value.value = "";
     }

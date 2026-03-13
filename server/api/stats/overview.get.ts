@@ -1,22 +1,99 @@
 import { getDb } from "../../db";
 import { samples, datasets, userSettings } from "../../db/schema";
-import { eq } from "drizzle-orm";
+import { eq, and } from "drizzle-orm";
 
-export default defineEventHandler(async (_event) => {
+export default defineEventHandler(async (event) => {
   try {
     const db = getDb();
+    const query = getQuery(event);
+    const datasetId = query.datasetId ? parseInt(query.datasetId as string) : null;
 
-    // Get total count
-    const totalResult = await db.select().from(samples);
+    let targetDatasetId: number | null = null;
+    let targetDatasetGoal = 100;
+    let targetDatasetName: string | null = null;
+    let targetDatasetGoalName: string | null = null;
+
+    if (datasetId && !isNaN(datasetId)) {
+      // Use the specified dataset
+      const datasetResult = await db.select().from(datasets).where(eq(datasets.id, datasetId));
+
+      if (datasetResult.length > 0) {
+        targetDatasetId = datasetResult[0].id;
+        targetDatasetGoal = datasetResult[0].goalSamples || 100;
+        targetDatasetName = datasetResult[0].name;
+        targetDatasetGoalName = datasetResult[0].goalName;
+      }
+    }
+
+    // Get user settings (global default) early
+    const userSettingsResult = await db.select().from(userSettings).where(eq(userSettings.id, 1));
+    const globalDefaultGoal = userSettingsResult[0]?.defaultGoalSamples || 100;
+
+    // If no valid dataset specified, return empty stats
+    if (!targetDatasetId) {
+      return {
+        total: 0,
+        approved: 0,
+        draft: 0,
+        review: 0,
+        rejected: 0,
+        sources: {},
+        categories: {},
+        difficulties: {},
+        progress: {
+          current: 0,
+          target: 100,
+          percentage: 0,
+        },
+        globalDefaultGoal,
+        activeDatasetGoal: globalDefaultGoal,
+        activeDatasetName: null,
+        datasetId: null,
+        datasetName: null,
+        datasetGoal: 100,
+        datasetGoalName: null,
+        isActiveDataset: false,
+      };
+    }
+
+    // Get samples for the target dataset (or all samples if no dataset)
+    let totalResult;
+    let approvedResult;
+    let draftResult;
+    let reviewResult;
+    let rejectedResult;
+
+    if (targetDatasetId) {
+      totalResult = await db.select().from(samples).where(eq(samples.datasetId, targetDatasetId));
+      approvedResult = await db
+        .select()
+        .from(samples)
+        .where(and(eq(samples.datasetId, targetDatasetId), eq(samples.status, "approved")));
+      draftResult = await db
+        .select()
+        .from(samples)
+        .where(and(eq(samples.datasetId, targetDatasetId), eq(samples.status, "draft")));
+      reviewResult = await db
+        .select()
+        .from(samples)
+        .where(and(eq(samples.datasetId, targetDatasetId), eq(samples.status, "review")));
+      rejectedResult = await db
+        .select()
+        .from(samples)
+        .where(and(eq(samples.datasetId, targetDatasetId), eq(samples.status, "rejected")));
+    } else {
+      totalResult = await db.select().from(samples);
+      approvedResult = await db.select().from(samples).where(eq(samples.status, "approved"));
+      draftResult = await db.select().from(samples).where(eq(samples.status, "draft"));
+      reviewResult = await db.select().from(samples).where(eq(samples.status, "review"));
+      rejectedResult = await db.select().from(samples).where(eq(samples.status, "rejected"));
+    }
+
     const total = totalResult.length;
-
-    // Get approved count
-    const approvedResult = await db.select().from(samples).where(eq(samples.status, "approved"));
     const approved = approvedResult.length;
-
-    // Get draft count
-    const draftResult = await db.select().from(samples).where(eq(samples.status, "draft"));
     const draft = draftResult.length;
+    const review = reviewResult.length;
+    const rejected = rejectedResult.length;
 
     // Get by source breakdown
     const sources: Record<string, number> = {};
@@ -39,31 +116,32 @@ export default defineEventHandler(async (_event) => {
       difficulties[difficulty] = (difficulties[difficulty] || 0) + 1;
     }
 
-    // Get user settings (global default)
-    const userSettingsResult = await db.select().from(userSettings).where(eq(userSettings.id, 1));
-    const globalDefaultGoal = userSettingsResult[0]?.defaultGoalSamples || 100;
-
-    // Get active dataset and its goal
+    // Get active dataset info for reference
     const activeDatasetResult = await db.select().from(datasets).where(eq(datasets.isActive, 1));
     const activeDataset = activeDatasetResult[0];
-    const activeDatasetGoal = activeDataset?.goalSamples || globalDefaultGoal;
 
     return {
       total,
       approved,
       draft,
-      rejected: total - approved - draft,
+      review,
+      rejected,
       sources,
       categories,
       difficulties,
       progress: {
         current: total,
-        target: activeDatasetGoal,
-        percentage: Math.round((total / activeDatasetGoal) * 100),
+        target: targetDatasetGoal,
+        percentage: Math.round((total / targetDatasetGoal) * 100),
       },
       globalDefaultGoal,
-      activeDatasetGoal,
+      activeDatasetGoal: activeDataset?.goalSamples || globalDefaultGoal,
       activeDatasetName: activeDataset?.name || null,
+      datasetId: targetDatasetId,
+      datasetName: targetDatasetName,
+      datasetGoal: targetDatasetGoal,
+      datasetGoalName: targetDatasetGoalName,
+      isActiveDataset: targetDatasetId === activeDataset?.id,
     };
   } catch (error) {
     console.error("Error fetching stats:", error);

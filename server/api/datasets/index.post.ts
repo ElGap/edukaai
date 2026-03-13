@@ -12,6 +12,7 @@ const createSchema = z.object({
     .default("general"),
   defaultAutoApprove: z.boolean().default(false),
   goalSamples: z.number().int().min(10).max(10000).optional(), // Optional, uses global default if not provided
+  goalName: z.string().min(1).max(100).optional().default("First Fine-Tuning"), // Name of the project/goal
 });
 
 /**
@@ -54,6 +55,7 @@ export default defineEventHandler(async (event) => {
         defaultCategory: data.defaultCategory,
         defaultAutoApprove: data.defaultAutoApprove ? 1 : 0,
         goalSamples: goalSamples,
+        goalName: data.goalName,
         isActive: 0, // Not active by default
         isArchived: 0,
         sampleCount: 0,

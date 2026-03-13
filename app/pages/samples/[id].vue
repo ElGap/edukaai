@@ -5,17 +5,17 @@
         <h1 class="text-2xl font-bold mb-2">Edit Sample #{{ route.params.id }}</h1>
         <p class="text-secondary">Update your training sample details.</p>
       </div>
-      <NuxtLink to="/samples" class="btn-secondary"> ← Back to Dataset </NuxtLink>
+      <NuxtLink :to="backUrl" class="btn-secondary"> ← Back to Dataset </NuxtLink>
     </div>
 
     <div v-if="loading" class="text-center py-12">
-      <div class="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+      <div class="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-gray-600"></div>
       <p class="mt-2 text-secondary">Loading sample...</p>
     </div>
 
     <div v-else-if="error" class="card text-center py-12">
       <p class="text-red-600">{{ error }}</p>
-      <NuxtLink to="/samples" class="btn-primary mt-4 inline-block"> Back to Dataset </NuxtLink>
+      <NuxtLink :to="backUrl" class="btn-primary mt-4 inline-block"> Back to Dataset </NuxtLink>
     </div>
 
     <SampleForm v-else :initial-data="sample" @submit="handleUpdate" @cancel="handleCancel" />
@@ -29,7 +29,7 @@
       <div class="bg-white dark:bg-gray-800 rounded-xl p-6 max-w-md mx-4 shadow-2xl">
         <div class="text-center">
           <div
-            class="w-16 h-16 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center mx-auto mb-4"
+            class="w-16 h-16 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center mx-auto mb-4"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -41,7 +41,7 @@
               stroke-width="2"
               stroke-linecap="round"
               stroke-linejoin="round"
-              class="text-green-600 dark:text-green-400"
+              class="text-gray-700 dark:text-gray-400"
             >
               <polyline points="20 6 9 17 4 12" />
             </svg>
@@ -50,7 +50,7 @@
           <p class="text-secondary mb-6">Sample updated successfully!</p>
           <div class="flex gap-3">
             <button
-              class="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-center"
+              class="flex-1 px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-800 text-center"
               @click="closeSuccessModalAndRedirect"
             >
               Back to Dataset
@@ -106,6 +106,15 @@
   const route = useRoute();
   const router = useRouter();
 
+  // Helper to generate back URL with dataset parameter preserved
+  const backUrl = computed(() => {
+    const datasetId = route.query.dataset;
+    if (datasetId) {
+      return { path: "/samples", query: { dataset: datasetId } };
+    }
+    return "/samples";
+  });
+
   const loading = ref(true);
   const error = ref(null);
   const sample = ref(null);
@@ -151,7 +160,7 @@
 
   const closeSuccessModalAndRedirect = () => {
     showSuccessModal.value = false;
-    router.push("/samples");
+    router.push(backUrl.value);
   };
 
   const closeErrorModal = () => {
@@ -159,7 +168,7 @@
   };
 
   const handleCancel = () => {
-    router.push("/samples");
+    router.push(backUrl.value);
   };
 
   onMounted(() => {

@@ -5,6 +5,7 @@
       :key="star"
       type="button"
       class="transition-transform hover:scale-110 focus:outline-none"
+      :class="isFilled(star) ? 'text-yellow-400' : 'text-gray-300 dark:text-gray-600'"
       @click="setRating(star)"
       @mouseenter="hoverRating = star"
       @mouseleave="hoverRating = 0"
@@ -14,8 +15,8 @@
         width="24"
         height="24"
         viewBox="0 0 24 24"
-        :fill="isFilled(star) ? '#fbbf24' : 'none'"
-        stroke="#fbbf24"
+        fill="currentColor"
+        stroke="currentColor"
         stroke-width="2"
         stroke-linecap="round"
         stroke-linejoin="round"
@@ -25,7 +26,7 @@
         />
       </svg>
     </button>
-    <span class="ml-2 text-sm text-gray-500">{{ ratingLabel }}</span>
+    <span class="ml-2 text-sm text-gray-500 dark:text-gray-400">{{ ratingLabel }}</span>
   </div>
 </template>
 

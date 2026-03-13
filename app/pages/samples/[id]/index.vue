@@ -8,8 +8,8 @@
       <div class="flex gap-3">
         <NuxtLink
           v-if="prevId"
-          :to="`/samples/${prevId}`"
-          class="btn-secondary flex items-center gap-2"
+          :to="{ path: `/samples/${prevId}`, query: route.query }"
+          class="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-lg flex items-center gap-2 transition-colors"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -28,8 +28,8 @@
         </NuxtLink>
         <NuxtLink
           v-if="nextId"
-          :to="`/samples/${nextId}`"
-          class="btn-secondary flex items-center gap-2"
+          :to="{ path: `/samples/${nextId}`, query: route.query }"
+          class="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-lg flex items-center gap-2 transition-colors"
         >
           Next
           <svg
@@ -47,7 +47,7 @@
           </svg>
         </NuxtLink>
         <NuxtLink
-          :to="`/samples/${route.params.id}/edit`"
+          :to="{ path: `/samples/${route.params.id}/edit`, query: route.query }"
           class="btn-primary flex items-center gap-2"
         >
           <svg
@@ -65,18 +65,18 @@
           </svg>
           Edit
         </NuxtLink>
-        <NuxtLink to="/samples" class="btn-secondary"> ← Back to Dataset </NuxtLink>
+        <NuxtLink :to="backUrl" class="btn-secondary"> ← Back to Dataset </NuxtLink>
       </div>
     </div>
 
     <div v-if="loading" class="text-center py-12">
-      <div class="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+      <div class="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-gray-600"></div>
       <p class="mt-2 text-secondary">Loading sample...</p>
     </div>
 
     <div v-else-if="error" class="card text-center py-12">
       <p class="text-red-600 dark:text-red-400">{{ error }}</p>
-      <NuxtLink to="/samples" class="btn-primary mt-4 inline-block"> Back to Dataset </NuxtLink>
+      <NuxtLink :to="backUrl" class="btn-primary mt-4 inline-block"> Back to Dataset </NuxtLink>
     </div>
 
     <div v-else class="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -104,7 +104,7 @@
           <!-- Model Badge -->
           <div v-if="sample.model" class="mb-4">
             <span
-              class="inline-flex items-center gap-2 px-3 py-1.5 bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-200 rounded-lg text-sm font-medium"
+              class="inline-flex items-center gap-2 px-3 py-1.5 bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-lg text-sm font-medium"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -130,7 +130,10 @@
           <h2 class="text-lg font-bold">Conversation</h2>
 
           <!-- System Prompt -->
-          <div v-if="sample.systemPrompt" class="bg-gray-50 dark:bg-gray-800 rounded-lg p-4">
+          <div
+            v-if="sample.systemPrompt"
+            class="bg-gray-50 dark:bg-gray-800 rounded-lg p-4 border border-gray-200 dark:border-gray-700"
+          >
             <div class="flex items-center gap-2 text-sm text-tertiary mb-2">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -155,8 +158,10 @@
           </div>
 
           <!-- User Message -->
-          <div class="bg-blue-50 dark:bg-blue-900/10 rounded-lg p-4">
-            <div class="flex items-center gap-2 text-sm text-blue-600 dark:text-blue-400 mb-2">
+          <div
+            class="bg-gray-50 dark:bg-gray-800 rounded-lg p-4 border border-gray-200 dark:border-gray-700"
+          >
+            <div class="flex items-center gap-2 text-sm text-gray-700 dark:text-gray-400 mb-2">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="14"
@@ -177,8 +182,12 @@
           </div>
 
           <!-- Assistant Response -->
-          <div class="bg-gray-50 dark:bg-gray-800 rounded-lg p-4">
-            <div class="flex items-center gap-2 text-sm text-green-600 dark:text-green-400 mb-2">
+          <div
+            class="bg-gray-50 dark:bg-gray-800 rounded-lg p-4 border border-gray-200 dark:border-gray-700"
+          >
+            <div
+              class="flex items-center gap-2 text-sm text-gray-700 dark:text-gray-400 mb-2"
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="14"
@@ -253,7 +262,7 @@
               <span
                 v-for="tag in parsedTags"
                 :key="tag"
-                class="px-2 py-1 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-200 rounded text-sm"
+                class="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded text-sm border border-gray-200 dark:border-gray-700"
               >
                 {{ tag }}
               </span>
@@ -272,7 +281,7 @@
       <div class="space-y-6">
         <!-- Model Parameters Card -->
         <div
-          class="card bg-gradient-to-br from-blue-50 to-indigo-50 border-blue-200 dark:from-blue-900/20 dark:to-indigo-900/20 dark:border-blue-800"
+          class="card bg-gradient-to-br from-gray-50 to-gray-100 border-gray-200 dark:from-gray-800 dark:to-gray-700 dark:border-gray-700"
         >
           <h2 class="text-lg font-bold mb-4 flex items-center gap-2">
             <svg
@@ -304,7 +313,7 @@
               class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2"
             >
               <div
-                class="bg-orange-500 h-2 rounded-full"
+                class="bg-gray-600 h-2 rounded-full"
                 :style="{ width: (sample.temperature / 2) * 100 + '%' }"
               ></div>
             </div>
@@ -411,7 +420,7 @@
         <!-- Cost -->
         <div v-if="sample.cost" class="card">
           <h2 class="text-lg font-bold mb-2">Cost</h2>
-          <p class="text-2xl font-bold text-green-600 dark:text-green-400">
+          <p class="text-2xl font-bold text-gray-700 dark:text-gray-400">
             ${{ sample.cost.toFixed(4) }}
           </p>
         </div>
@@ -423,7 +432,7 @@
             <span
               v-for="tool in parsedTools"
               :key="tool"
-              class="px-2 py-1 bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 rounded text-sm"
+              class="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded text-sm"
             >
               {{ tool }}
             </span>
@@ -433,9 +442,10 @@
         <!-- Metadata JSON -->
         <div v-if="sample.metadata" class="card">
           <h2 class="text-lg font-bold mb-3">Additional Metadata</h2>
-          <pre class="text-xs bg-gray-100 dark:bg-gray-800 p-3 rounded overflow-x-auto">{{
-            parsedMetadata
-          }}</pre>
+          <pre
+            class="text-xs bg-gray-800 text-gray-200 dark:bg-gray-700 dark:text-gray-300 p-3 rounded overflow-x-auto"
+            >{{ parsedMetadata }}</pre
+          >
         </div>
       </div>
     </div>
@@ -443,12 +453,22 @@
 </template>
 
 <script setup lang="ts">
+  import { watch } from "vue";
+
   const route = useRoute();
+
+  // Helper to generate back URL with dataset parameter preserved
+  const backUrl = computed(() => {
+    const datasetId = route.query.dataset;
+    if (datasetId) {
+      return { path: "/samples", query: { dataset: datasetId } };
+    }
+    return "/samples";
+  });
 
   const loading = ref(true);
   const error = ref(null);
   const sample = ref<any>(null);
-  const allSamples = ref<any[]>([]);
   const prevId = ref<number | null>(null);
   const nextId = ref<number | null>(null);
 
@@ -457,23 +477,8 @@
       loading.value = true;
       const response = await $fetch(`/api/samples/${route.params.id}`);
       sample.value = response.sample;
-
-      // Load all samples to find prev/next
-      const samplesResponse = await $fetch("/api/samples");
-      allSamples.value = samplesResponse.samples || [];
-
-      // Find current index and set prev/next
-      const currentIndex = allSamples.value.findIndex((s) => s.id === sample.value.id);
-      if (currentIndex > 0) {
-        prevId.value = allSamples.value[currentIndex - 1].id;
-      } else {
-        prevId.value = null;
-      }
-      if (currentIndex < allSamples.value.length - 1) {
-        nextId.value = allSamples.value[currentIndex + 1].id;
-      } else {
-        nextId.value = null;
-      }
+      prevId.value = response.prevId;
+      nextId.value = response.nextId;
     } catch (err) {
       error.value = "Failed to load sample. It may have been deleted.";
       console.error("Error loading sample:", err);
@@ -534,10 +539,10 @@
 
   const statusClass = computed(() => {
     const classes: Record<string, string> = {
-      draft: "bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-300",
-      review: "bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300",
-      approved: "bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300",
-      rejected: "bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300",
+      draft: "bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300",
+      review: "bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300",
+      approved: "bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300",
+      rejected: "bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300",
     };
     return (
       classes[sample.value?.status] ||
@@ -547,12 +552,13 @@
 
   const sourceClass = computed(() => {
     const classes: Record<string, string> = {
-      manual: "bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300",
-      json: "bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300",
+      manual:
+        "bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-700",
+      json: "bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-700",
     };
     return (
       classes[sample.value?.source] ||
-      "bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300"
+      "bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-700"
     );
   });
 
@@ -596,16 +602,22 @@
     return difficulties[difficulty] || difficulty;
   };
 
-  const formatDate = (date: string) => {
-    return new Date(date).toLocaleDateString("en-US", {
+  const formatDate = (date: string | number | Date | null | undefined) => {
+    if (!date) return "N/A";
+    const d = new Date(date);
+    if (isNaN(d.getTime())) return "Invalid date";
+    return d.toLocaleDateString("en-US", {
       month: "short",
       day: "numeric",
       year: "numeric",
     });
   };
 
-  const formatDateTime = (date: string) => {
-    return new Date(date).toLocaleString("en-US", {
+  const formatDateTime = (date: string | number | Date | null | undefined) => {
+    if (!date) return "N/A";
+    const d = new Date(date);
+    if (isNaN(d.getTime())) return "Invalid date";
+    return d.toLocaleString("en-US", {
       month: "short",
       day: "numeric",
       year: "numeric",
@@ -617,6 +629,17 @@
   onMounted(() => {
     loadSample();
   });
+
+  // Watch for route changes and reload sample
+  watch(
+    () => route.params.id,
+    (newId, oldId) => {
+      if (newId && newId !== oldId) {
+        console.log("Route changed, loading sample:", newId);
+        loadSample();
+      }
+    }
+  );
 
   definePageMeta({
     layout: "default",
