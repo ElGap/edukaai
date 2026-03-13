@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import { spawn } from "child_process";
+import { spawn, exec } from "child_process";
 import path from "path";
 import os from "os";
 import fs from "fs";
@@ -77,13 +77,17 @@ Commands:
   edukaai help               Show this help message
 
 Environment Variables:
-  EDUKAAI_PORT=3030         Server port (default: 3030)
-  EDUKAAI_HOST=localhost    Server host (default: localhost)
-  EDUKAAI_DATA_DIR=~/.edukaai  Data directory
+  EDUKAAI_PORT=3030              Server port (default: 3030)
+  EDUKAAI_HOST=localhost         Server host (default: localhost)
+  EDUKAAI_OPEN_BROWSER=true      Auto-open browser (default: true, set to false to disable)
+  EDUKAAI_DATA_DIR=~/.edukaai    Data directory
 
 Examples:
-  # Start server with default settings
+  # Start server with default settings (opens browser automatically)
   edukaai
+
+  # Start without opening browser
+  EDUKAAI_OPEN_BROWSER=false edukaai
 
   # Reset database (confirmation required)
   edukaai reset
@@ -297,6 +301,23 @@ function getNetworkInterfaces() {
   return addresses;
 }
 
+function openBrowser(url) {
+  const platform = process.platform;
+  const cmd = platform === "darwin" ? "open" : platform === "win32" ? "start" : "xdg-open";
+
+  try {
+    exec(`${cmd} ${url}`, (error) => {
+      if (error) {
+        console.log(`⚠️  Could not open browser automatically. Please visit: ${url}`);
+      } else {
+        console.log(`✅ Opened browser at ${url}`);
+      }
+    });
+  } catch (error) {
+    console.log(`⚠️  Could not open browser automatically. Please visit: ${url}`);
+  }
+}
+
 function startServer() {
   // Check if we're in development or production
   const isDev =
@@ -304,6 +325,7 @@ function startServer() {
 
   const port = process.env.EDUKAAI_PORT || "3030";
   const host = process.env.EDUKAAI_HOST || "localhost";
+  const shouldOpenBrowser = process.env.EDUKAAI_OPEN_BROWSER !== "false"; // Default to true
   const networkIps = getNetworkInterfaces();
 
   console.log("🎓 edukaAI Starting...");
@@ -325,6 +347,14 @@ function startServer() {
   }
 
   console.log("⏳ Initializing server...\n");
+
+  // Open browser after a short delay to ensure server is starting
+  if (shouldOpenBrowser) {
+    const url = `http://${host === "0.0.0.0" || host === "::" ? "localhost" : host}:${port}`;
+    setTimeout(() => {
+      openBrowser(url);
+    }, 2000); // Wait 2 seconds for server to start
+  }
 
   if (isDev) {
     // Development mode - use nuxt dev with explicit port flag

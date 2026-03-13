@@ -67,9 +67,11 @@ EdukaAI is a local, self-hosted web application designed to help you **collect, 
 The easiest way to use EdukaAI is via the npm package:
 
 #### Option 1: npx (No Installation)
+
 ```bash
 npx @elgap/edukaai
-````
+```
+
 #### Option 2: Global Install
 
 ```bash
@@ -77,7 +79,7 @@ npm install -g edukaai
 edukaai
 ```
 
-Then open [http://localhost:3000](http://localhost:3000) in your browser.
+Then open [http://localhost:3000](http://localhost:3030) in your browser.
 
 ## 💻 CLI Reference
 
@@ -85,13 +87,13 @@ EdukaAI provides a powerful CLI for managing your training data workflow:
 
 ### Available Commands
 
-| Command               | Description                      |
-|-----------------------|----------------------------------|
-| `edukaai`             | Start server                     |
-| `edukaai reset`       | Reset database with confirmation |
-| `edukaai reset --force` | Force reset without confirmation 
-| `edukaai clean`       | Alias for reset                  |
-| `edukaai help`        | Show help and available commands |
+| Command                 | Description                      |
+| ----------------------- | -------------------------------- |
+| `edukaai`               | Start server                     |
+| `edukaai reset`         | Reset database with confirmation |
+| `edukaai reset --force` | Force reset without confirmation |
+| `edukaai clean`         | Alias for reset                  |
+| `edukaai help`          | Show help and available commands |
 
 More to some soon. Stay tuned!
 
