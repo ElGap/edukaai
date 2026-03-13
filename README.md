@@ -79,7 +79,7 @@ npm install -g edukaai
 edukaai
 ```
 
-Then open [http://localhost:3000](http://localhost:3030) in your browser.
+Then open [http://localhost:3030](http://localhost:3030) in your browser.
 
 ## 💻 CLI Reference
 
@@ -185,7 +185,7 @@ edukaai/
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/edukaai.git
+git clone https://github.com/elgap/edukaai.git
 cd edukaai
 
 # Install dependencies
