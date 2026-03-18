@@ -2,7 +2,7 @@
 
 > **Privacy-first, simple training data management for LLM fine-tuning**
 
-[![npm version](https://badge.fury.io/js/@elgap%2Fedukaai.svg)](https://badge.fury.io/js/@elgap%2Fedukaai)
+[![npm version](https://badge.fury.io/js/@elgap%2Fedukaai.svg)](https://badge.fury.io/js/@elgap/edukaai)
 [![CI](https://github.com/elgap/edukaai/actions/workflows/ci.yml/badge.svg)](https://github.com/elgap/edukaai/actions/workflows/ci.yml)
 [![npm downloads](https://img.shields.io/npm/dm/@elgap/edukaai.svg)](https://www.npmjs.com/package/@elgap/edukaai)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
@@ -17,7 +17,7 @@ EdukaAI is a local, self-hosted web application designed to help you **collect, 
 
 **Beginner Friendly**: Clean, intuitive interface. No complex setup. Start collecting training samples in minutes.
 
-**Powerful for Experts**: Bulk operations, import/export in multiple formats, fine-grained status tracking, and goal management.
+**Powerful for Experts**: Bulk operations, import/export in multiple formats, fine-grained status tracking, goal management, and Live Capture integration.
 
 **Zero Configuration**: Works out of the box. Just run and start building your dataset.
 
@@ -53,6 +53,24 @@ EdukaAI is a local, self-hosted web application designed to help you **collect, 
 - **Sample Navigation**: Previous/Next buttons to quickly review samples
 - **Filtering**: By status, category, source, quality rating
 
+### 🔴 **Live Capture** (New in 0.2.1-beta.0)
+
+Real-time data collection from coding agents and AI assistants. Perfect for capturing high-quality training examples as you work.
+
+- **Universal API**: Simple REST endpoint for any integration
+- **Source Management**: Register and manage multiple capture sources
+- **Default Configuration**: Set default dataset, status, and quality for captures
+- **Enable/Disable**: Toggle live capture on/off as needed
+- **Duplicate Detection**: Automatic deduplication with similarity matching
+- **Metadata Enrichment**: Auto-categorization and quality scoring
+
+**Example use cases:**
+
+- Capture conversations from coding assistants (OpenCode, Continue.dev, etc.)
+- Collect AI pair programming sessions
+- Build datasets from real-world problem-solving workflows
+- Stream training data from automated agents
+
 ### 🔒 **Privacy & Security**
 
 - **100% Local**: SQLite database stored on your machine
@@ -75,11 +93,80 @@ npx @elgap/edukaai
 #### Option 2: Global Install
 
 ```bash
-npm install -g edukaai
+npm install -g @elgap/edukaai
 edukaai
 ```
 
 Then open [http://localhost:3030](http://localhost:3030) in your browser.
+
+## 📡 Live Capture API
+
+Integrate EdukaAI with your coding agents and AI assistants for seamless data collection.
+
+### Quick Integration Example
+
+```bash
+# Capture a conversation curl -X POST http://localhost:3030/api/capture \ -H "Content-Type: application/json" \ -d '{
+  "source": "my-coding-agent",
+  "apiVersion": "1.0",
+  "records": [
+    {
+      "instruction": "Explain recursion in Python",
+      "output": "Recursion is when a function calls itself...",
+      "context": {
+        "model": { "name": "claude-3-sonnet" },
+        "files": [{ "path": "example.py", "content": "def factorial(n):..." }]
+      }
+    }
+  ]
+}'
+```
+
+### Configuration
+
+Configure Live Capture settings via the Import page:
+
+- **Default Dataset**: Where captured samples are stored
+- **Default Status**: Draft (for review) or Approved (ready for training)
+- **Default Quality**: 1-5 star rating for captured samples
+- **Enable/Disable**: Toggle live capture on/off
+
+### API Documentation
+
+Full API documentation is available at `http://localhost:3030/docs` when running EdukaAI.
+
+**Endpoint**: `POST /api/capture`
+
+**Request Format** (Universal EdukaAI Record):
+
+```json
+{
+  "source": "your-source-key",
+  "apiVersion": "1.0",
+  "records": [
+    {
+      "instruction": "The user's question or task",
+      "output": "The AI's response",
+      "input": "Optional additional context",
+      "systemPrompt": "Optional system instructions",
+      "category": "coding",
+      "difficulty": "intermediate",
+      "qualityRating": 4,
+      "tags": ["python", "algorithms"],
+      "context": {
+        "files": [...],
+        "model": { "name": "gpt-4" },
+        "tokens": { "input": 100, "output": 500 }
+      }
+    }
+  ],
+  "options": {
+    "datasetId": 1,
+    "autoApprove": false,
+    "skipDuplicates": true
+  }
+}
+```
 
 ## 💻 CLI Reference
 
@@ -95,7 +182,7 @@ EdukaAI provides a powerful CLI for managing your training data workflow:
 | `edukaai clean`         | Alias for reset                  |
 | `edukaai help`          | Show help and available commands |
 
-More to some soon. Stay tuned!
+More to come soon. Stay tuned!
 
 ### Environment Variables Supported:
 
@@ -127,6 +214,7 @@ Think of datasets as **projects**:
 - 🎯 **Creative Writing**: Story prompts and completions
 - 🎯 **Q&A Pairs**: Question-answer training data
 - 🎯 **Roleplay**: Character-based conversations
+- 🎯 **Agent Sessions**: Real-time captures from AI assistants
 
 ### Quality Workflow
 
@@ -155,6 +243,21 @@ Have training data in JSON format?
 
 Then use the Import page to upload and automatically categorize.
 
+### Live Capture from Coding Agents
+
+1. **Install** your preferred coding agent (e.g., OpenCode, Continue.dev)
+2. **Configure** the agent to point to your EdukaAI instance
+3. **Set defaults** in EdukaAI (Import → Configure Live Capture)
+4. **Work normally** - conversations are automatically captured
+5. **Review and approve** captured samples in EdukaAI
+
+The Live Capture endpoint supports:
+
+- Automatic categorization based on content
+- Code snippet context preservation
+- Model and token usage tracking
+- Duplicate detection to avoid storing similar conversations
+
 ## 💻 For Developers
 
 ### Tech Stack
@@ -171,8 +274,8 @@ edukaai/
 ├── app/                 # Nuxt 4 application
 │   ├── components/      # Vue components
 │   ├── layouts/         # Page layouts
-│   ├── pages/           # Routes (index, samples, import, export)
-│   └── components/       # Reusable UI components
+│   ├── pages/           # Routes (index, samples, import, export, docs)
+│   └── components/      # Reusable UI components
 ├── server/             # Backend API
 │   ├── api/            # REST endpoints
 │   ├── db/             # Database schema & migrations
@@ -194,7 +297,7 @@ npm install
 # Run in development mode
 npm run dev
 
-# Optionaly, Build for production
+# Optionally, build for production
 npm run build
 npm run start
 ```
@@ -205,8 +308,14 @@ npm run start
 # Reset database (with migrations)
 npm run db:reset
 
-# Generate sample data
-npm run sample:import
+# Run tests
+npm run test
+
+# Type checking
+npm run typecheck
+
+# Linting
+npm run lint
 ```
 
 ## 🤝 Contributing

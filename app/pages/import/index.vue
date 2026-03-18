@@ -127,8 +127,8 @@
               </p>
             </div>
             <button
-              @click="openCaptureModal"
               class="px-3 py-1.5 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200 text-sm rounded-lg hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors"
+              @click="openCaptureModal"
             >
               Configure
             </button>
@@ -390,13 +390,13 @@
             </label>
             <div class="flex items-center gap-3">
               <button
-                @click="selectedCaptureEnabled = true"
                 :class="[
                   'px-4 py-2 rounded-lg text-sm font-medium transition-colors',
                   selectedCaptureEnabled
                     ? 'bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300 border-2 border-green-500'
                     : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400 border-2 border-transparent hover:bg-gray-200 dark:hover:bg-gray-600',
                 ]"
+                @click="selectedCaptureEnabled = true"
               >
                 <span class="flex items-center gap-2">
                   <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
@@ -410,13 +410,13 @@
                 </span>
               </button>
               <button
-                @click="selectedCaptureEnabled = false"
                 :class="[
                   'px-4 py-2 rounded-lg text-sm font-medium transition-colors',
                   !selectedCaptureEnabled
                     ? 'bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300 border-2 border-red-500'
                     : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400 border-2 border-transparent hover:bg-gray-200 dark:hover:bg-gray-600',
                 ]"
+                @click="selectedCaptureEnabled = false"
               >
                 <span class="flex items-center gap-2">
                   <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
@@ -498,8 +498,8 @@
               <button
                 v-for="star in 5"
                 :key="star"
-                @click="selectedCaptureQuality = star"
                 class="p-1 hover:scale-110 transition-transform"
+                @click="selectedCaptureQuality = star"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
