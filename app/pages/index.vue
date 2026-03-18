@@ -68,7 +68,7 @@
                 :to="{ path: '/samples', query: { dataset: dataset.id } }"
                 class="text-lg font-semibold hover:text-gray-700 dark:hover:text-gray-500 transition-colors"
               >
-                {{ dataset.name }}
+                {{ dataset.name }} (ID: {{ dataset.id }})
               </NuxtLink>
               <p v-if="dataset.description" class="text-sm text-secondary mt-1">
                 {{ dataset.description }}

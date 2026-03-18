@@ -2,8 +2,10 @@
   <form class="space-y-6" @submit.prevent="handleSubmit">
     <!-- Core Fields Section -->
     <div class="card">
-      <h2 class="text-lg font-semibold mb-4 flex items-center gap-2">
-        <span class="text-gray-900">Core Fields</span>
+      <h2
+        class="text-lg font-semibold mb-4 flex items-center gap-2 text-gray-600 dark:text-gray-300"
+      >
+        <span>Core Fields</span>
         <span class="text-sm font-normal text-gray-500 dark:text-gray-400">(Required)</span>
       </h2>
 
@@ -121,7 +123,7 @@
 
     <!-- Metadata Fields Section -->
     <div class="card">
-      <h2 class="text-lg font-semibold mb-4 text-gray-900">Metadata Fields</h2>
+      <h2 class="text-lg font-semibold mb-4 text-gray-600 dark:text-gray-300">Metadata Fields</h2>
 
       <!-- System Prompt -->
       <div class="mb-4">
@@ -253,7 +255,11 @@
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
         <div>
           <span class="text-gray-500 dark:text-gray-400">Source:</span>
-          <span class="ml-2 font-medium text-gray-900 dark:text-gray-100">Manual Entry</span>
+          <span class="ml-2 font-medium text-gray-900 dark:text-gray-100">
+            {{
+              props.initialData?.source ? formatSource(props.initialData.source) : "Manual Entry"
+            }}
+          </span>
         </div>
         <div>
           <span class="text-gray-500 dark:text-gray-400">Created:</span>
@@ -327,6 +333,7 @@
       id?: string;
       createdAt?: string | number | Date;
       updatedAt?: string | number | Date;
+      source?: string;
     };
     prevId?: number | null;
     nextId?: number | null;
@@ -459,4 +466,12 @@
   onUnmounted(() => {
     document.removeEventListener("keydown", handleKeydown);
   });
+
+  const formatSource = (source: string) => {
+    const sources: Record<string, string> = {
+      manual: "Manual",
+      json: "JSON Import",
+    };
+    return sources[source] || source;
+  };
 </script>

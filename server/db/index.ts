@@ -99,6 +99,50 @@ function initDatabase(sqlite: Database.Database) {
     -- Insert default dataset if none exists
     INSERT OR IGNORE INTO datasets (id, name, description, is_active, default_quality, default_category)
     VALUES (1, 'General', 'Default dataset for all examples', 1, 'medium', 'general');
+
+    -- Create sources table for external integrations
+    CREATE TABLE IF NOT EXISTS sources (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      key TEXT UNIQUE NOT NULL,
+      name TEXT NOT NULL,
+      description TEXT,
+      icon TEXT,
+      color TEXT,
+      website TEXT,
+      documentation TEXT,
+      supports_sessions INTEGER DEFAULT 0,
+      supports_realtime INTEGER DEFAULT 0,
+      supports_batching INTEGER DEFAULT 1,
+      supports_context INTEGER DEFAULT 0,
+      is_enabled INTEGER DEFAULT 1,
+      is_official INTEGER DEFAULT 0,
+      total_captures INTEGER DEFAULT 0,
+      last_capture_at INTEGER,
+      created_at INTEGER DEFAULT (strftime('%s', 'now') * 1000),
+      updated_at INTEGER
+    );
+
+    -- Seed default sources
+    INSERT OR IGNORE INTO sources (key, name, description, icon, color, is_official, is_enabled, supports_batching, supports_context)
+    VALUES 
+      ('manual', 'Manual (Web UI)', 'Samples created manually through the web interface', 'mouse-pointer', '#6b7280', 1, 1, 0, 0),
+      ('json', 'JSON Import', 'Samples imported from JSON files', 'file-json', '#3b82f6', 1, 1, 1, 0),
+      ('csv', 'CSV Import', 'Samples imported from CSV files', 'table', '#22c55e', 1, 1, 1, 0),
+      ('opencode', 'OpenCode', 'Live capture from OpenCode CLI conversations', 'terminal', '#8b5cf6', 1, 1, 1, 1);
+
+    -- Create capture_settings table for default dataset configuration
+    CREATE TABLE IF NOT EXISTS capture_settings (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      default_dataset_id INTEGER DEFAULT 1 REFERENCES datasets(id),
+      default_dataset_name TEXT DEFAULT 'General',
+      default_status TEXT DEFAULT 'draft',
+      default_quality INTEGER DEFAULT 3,
+      updated_at INTEGER DEFAULT (strftime('%s', 'now') * 1000)
+    );
+
+    -- Seed default capture settings (General dataset as default)
+    INSERT OR IGNORE INTO capture_settings (id, default_dataset_id, default_dataset_name, default_status, default_quality)
+    VALUES (1, 1, 'General', 'draft', 3);
   `);
 
   // Migration: Add goal_samples to datasets table

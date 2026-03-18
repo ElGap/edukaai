@@ -1,5 +1,44 @@
 import { sqliteTable, integer, text, real } from "drizzle-orm/sqlite-core";
 
+// Sources Table (External integrations)
+export const sources = sqliteTable("sources", {
+  id: integer("id").primaryKey({ autoIncrement: true }),
+
+  // Identity
+  key: text("key").unique().notNull(), // "opencode", "json", "manual", etc.
+  name: text("name").notNull(), // Display name
+  description: text("description"),
+
+  // UI
+  icon: text("icon"), // Lucide icon name
+  color: text("color"), // Hex color code
+
+  // Links
+  website: text("website"),
+  documentation: text("documentation"),
+
+  // Capabilities
+  supportsSessions: integer("supports_sessions", { mode: "boolean" }).default(false),
+  supportsRealtime: integer("supports_realtime", { mode: "boolean" }).default(false),
+  supportsBatching: integer("supports_batching", { mode: "boolean" }).default(true),
+  supportsContext: integer("supports_context", { mode: "boolean" }).default(false),
+
+  // Status
+  isEnabled: integer("is_enabled", { mode: "boolean" }).default(true),
+  isOfficial: integer("is_official", { mode: "boolean" }).default(false),
+
+  // Statistics
+  totalCaptures: integer("total_captures").default(0),
+  lastCaptureAt: integer("last_capture_at", { mode: "timestamp" }),
+
+  // Timestamps
+  createdAt: integer("created_at", { mode: "timestamp" }).$defaultFn(() => new Date()),
+  updatedAt: integer("updated_at", { mode: "timestamp" }),
+});
+
+export type Source = typeof sources.$inferSelect;
+export type NewSource = typeof sources.$inferInsert;
+
 // Datasets Table (Collections of samples)
 export const datasets = sqliteTable("datasets", {
   id: integer("id").primaryKey({ autoIncrement: true }),
@@ -122,6 +161,28 @@ export const userSettings = sqliteTable("user_settings", {
   updatedAt: integer("updated_at", { mode: "timestamp" }).$defaultFn(() => new Date()),
 });
 
+// Capture Settings Table (for default dataset configuration)
+export const captureSettings = sqliteTable("capture_settings", {
+  id: integer("id").primaryKey({ autoIncrement: true }),
+
+  // The default dataset for live captures
+  defaultDatasetId: integer("default_dataset_id")
+    .references(() => datasets.id)
+    .default(1), // "General" dataset ID
+
+  // For quick lookup and display
+  defaultDatasetName: text("default_dataset_name").default("General"),
+
+  // Default capture settings
+  defaultStatus: text("default_status").default("draft"), // draft, approved
+  defaultQuality: integer("default_quality").default(3), // 1-5 stars
+
+  // Enable/disable live capture
+  isEnabled: integer("is_enabled", { mode: "boolean" }).default(true),
+
+  updatedAt: integer("updated_at", { mode: "timestamp" }).$defaultFn(() => new Date()),
+});
+
 export type Dataset = typeof datasets.$inferSelect;
 export type NewDataset = typeof datasets.$inferInsert;
 export type Sample = typeof samples.$inferSelect;
@@ -130,3 +191,5 @@ export type ImportSession = typeof importSessions.$inferSelect;
 export type Milestone = typeof milestones.$inferSelect;
 export type Setting = typeof settings.$inferSelect;
 export type UserSettings = typeof userSettings.$inferSelect;
+export type CaptureSettings = typeof captureSettings.$inferSelect;
+export type NewCaptureSettings = typeof captureSettings.$inferInsert;

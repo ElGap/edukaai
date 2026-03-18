@@ -89,3 +89,5 @@ cache/
 # Drizzle
 server/db/migrations/
 drizzle/
+
+AGENTS.md
