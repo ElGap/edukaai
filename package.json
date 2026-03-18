@@ -1,6 +1,6 @@
 {
   "name": "@elgap/edukaai",
-  "version": "0.2.0-beta.0",
+  "version": "0.2.1-beta.0",
   "description": "Dataset Management for LLM Fine-Tuning with zero setup",
   "author": "Ivan Pavkovic",
   "license": "MIT",
