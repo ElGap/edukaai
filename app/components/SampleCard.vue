@@ -325,7 +325,9 @@
   const sourceClass = computed(() => {
     const classes: Record<string, string> = {
       manual: "bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300",
-      json: "bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300",
+      json: "bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300",
+      opencode: "bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300",
+      openwebui: "bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300",
     };
     return (
       classes[props.sample.source] ||
@@ -350,6 +352,8 @@
     const sources: Record<string, string> = {
       manual: "Manual",
       json: "JSON Import",
+      opencode: "OpenCode",
+      openwebui: "OpenWebUI",
     };
     return sources[source] || source;
   };
