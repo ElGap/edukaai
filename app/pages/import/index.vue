@@ -112,8 +112,8 @@
           </div>
         </div>
         <p class="text-secondary text-sm mb-4">
-          Configure the default dataset for live capture from OpenCode and other tools. Plugins can
-          override this setting.
+          Configure the default dataset for live capture from OpenCode, OpenWebUI, and other tools.
+          Plugins can override this setting.
         </p>
         <div class="flex flex-col gap-2 p-3 bg-gray-50 dark:bg-gray-800 rounded-lg mb-4">
           <div class="flex items-center justify-between">

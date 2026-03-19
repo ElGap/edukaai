@@ -137,6 +137,19 @@ export async function seedDefaultSources() {
       supportsBatching: true,
       supportsContext: true,
     },
+    {
+      key: "openwebui",
+      name: "OpenWebUI",
+      description: "Export conversations from OpenWebUI for training datasets",
+      icon: "message-square",
+      color: "#10b981",
+      isOfficial: true,
+      isEnabled: true,
+      supportsSessions: false,
+      supportsRealtime: false,
+      supportsBatching: true,
+      supportsContext: true,
+    },
   ];
 
   for (const source of defaultSources) {
