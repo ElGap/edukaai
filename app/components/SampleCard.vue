@@ -93,8 +93,8 @@
 
     <!-- Instruction Preview -->
     <div class="mb-3">
-      <p class="text-gray-900 dark:text-gray-100 font-medium line-clamp-2">
-        "{{ truncate(sample.instruction, 100) }}"
+      <p class="text-gray-900 dark:text-gray-100 font-medium line-clamp-3">
+        "{{ truncate(sample.instruction, 300) }}"
       </p>
     </div>
 

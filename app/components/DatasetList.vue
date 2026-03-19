@@ -170,15 +170,7 @@
       </div>
 
       <!-- Add Sample Button -->
-      <div class="mt-6 flex justify-end gap-3">
-        <button
-          disabled
-          class="btn-secondary opacity-60 cursor-not-allowed flex items-center gap-2 dark:border-gray-300 border"
-          title="Coming soon..."
-        >
-          <span>🌐</span>
-          <span>Set up Live Capture</span>
-        </button>
+      <div class="mt-6 flex justify-end">
         <NuxtLink :to="newSampleUrl" class="btn-primary border dark:border-gray-400">
           + New Sample
         </NuxtLink>
