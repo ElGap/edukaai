@@ -188,7 +188,7 @@ edukaai/
 
 ## 📖 Documentation
 
-- **Full Documentation:** [eduka.elgap.ai](https://docs.edukaai.ai)
+- **Full Documentation:** [eduka.elgap.ai](https://eduka.elgap.ai)
 - **Opencode plugin:** [github.com/ElGap/edukaai-opencode](https://github.com/ElGap/edukaai-openwebui)
 - **OpenWebUI plugin:** [github.com/ElGap/edukaai-openwebui](https://github.com/ElGap/edukaai-openwebui)
 
